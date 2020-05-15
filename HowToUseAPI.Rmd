@@ -1,0 +1,13 @@
+---
+title: "HowToUseAPI"
+author: "Leonard Orozco"
+date: "2020/5/15"
+output: html_document
+---
+
+
+See which services the API offers. 
+```{r}
+services.table <- get.table.services()
+services <- get.services()
+```
