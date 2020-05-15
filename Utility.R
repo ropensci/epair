@@ -2,7 +2,7 @@
 # at https://aqs.epa.gov/aqsweb/documents/data_api.html#signup
 
 create_authentication <- function( email, password ){
-  authentication <- sprintf('email=%s&key=%s', email, password)
+  authentication <- sprintf('&email=%s&key=%s', email, password)
   return( authentication )
 }
 
@@ -13,6 +13,7 @@ create_base_query <- function( endpoint ){
   return(query)
 }
 
+# Consider modifying to iterate over variables someone might call
 query <- function( base_query, authentication  ){
   call <- paste( base_query, authentication, sep = '' )
   return( call )
@@ -72,4 +73,61 @@ get.services <- function(){
   services.table <- get.table.services()
   print( colnames(services.table) )
   return( services.table )
+}
+
+# Check if the service is up and running 
+is.service.running <- function(){
+  endpoint <-  'metaData/isAvailable'
+  url <- create_base_query( endpoint  )
+  result <- GET( url )
+  return(result)
+}
+
+# Append a state variable fips code to a query
+add.state <- function( query, state.code ){
+  result = paste( query, '&state=', state.code, sep = "")
+  return(result)
+}
+
+# Take a query, add the beginning date
+add.bdate <- function( query, bdate ){
+  result <- paste( query,'&bdate=', bdate, sep = "" )
+  return( result )
+}
+
+# Take a query add the ending date
+add.edate <- function( query, edate ){
+  result <- paste( query, '&edate=', edate, sep = "" )
+  return( result )
+}
+
+# Add a parameter to a query
+add.param <- function( query, param ){
+  result <- paste( query, '&param=', param, sep = "" )
+  return( result )
+}
+
+## Alternate function to create based on variable name 
+## General function to rule them all variable calls
+add.variable <- function( query, variable, name = deparse( substitute( variable ) ) ){
+  result <- paste( query, '&', name, '=', variable, sep = "" )
+  return( result )
+}
+
+## Add all variables to a base query (includes authentication already)
+add.variables <- function( query, variables ){
+  var.names <- names( variables )
+  for( i in 1:length( variables ) ){
+    var.name <- var.names[i]
+    query <- paste( query, '&', var.name, '=', variables[[ var.name ]], sep = "" )
+  }
+  return( query )
+}
+
+# Perform the call using rvest
+perform.call <- function( call ){
+  raw <- GET( call )
+  data <- content( raw, "text" )
+  converted <- fromJSON( data, flatten = TRUE)
+  return( converted )
 }

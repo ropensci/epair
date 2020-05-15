@@ -6,8 +6,15 @@ output: html_document
 ---
 
 
+Check if the API is available to run. Need not run before a query, but useful in case you want to do a lot of things. 
+
+```{r}
+is.service.running()
+```
+
 See which services the API offers. 
 ```{r}
 services.table <- get.table.services()
 services <- get.services()
 ```
+

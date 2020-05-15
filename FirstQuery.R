@@ -5,22 +5,29 @@ library(httr)
 
 source("Utility.R")
 
+
+## Place the state name and get the state code would be nice nyeh?
+## Overarching -> what codes should I use for a particular state?
+## Overarching global variables for API keys
+
+## Base requirements
 authentication <- create_authentication( 'glo003@bucknell.edu', 'goldram72'  )  
-authentication
+endpoint <- 'dailyData/byState'
+base_query <- create_base_query( endpoint )
+base_query_auth <- paste( base_query, authentication, sep = "" )
 
-base_query <- create_base_query( 'list/states' )
-base_query
+## Declare variables
+## Set up variables in a list
 
-call <- query( base_query, authentication  )
-call
+variable.list <- list( "state" = '37', 
+                       "bdate" = '20200101', 
+                       "edate" = '20200102', 
+                       "param" = '44201')
 
-raw.result <- GET( call )
-raw.result
 
-result.data <- content( raw.result, "text"  )
-result.data
 
-final.data <- fromJSON( result.data, flatten = TRUE )
-final.data
+
+call <- add.variables( base_query_auth, variable.list )
+call.result <- perform.call( call )
 
 
