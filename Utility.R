@@ -39,3 +39,37 @@ remove.escapes <- function( df ){
   }
   return( df )
 }
+
+# Get the transpose of a df, and turn the first column into the names of the 
+# df
+get.transpose <- function( df  ){
+  t.df <-  t(df)
+  t.names <- c()
+  for( i in 1:nrow(df)){
+    t.names <- c(t.names, df[i, 1])
+  }
+  colnames(t.df) <- t.names
+  return( as.data.frame(t.df) )
+}
+
+# Get table showing list of services
+get.table.services <- function(){
+  
+  url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
+  table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
+  df <- get.table( url, table.path )
+  
+  # TODO extra spaces, some words got squished
+  df <- remove.escapes( df )
+  
+  new.df <- get.transpose(df)
+  
+  return( new.df )
+}
+# Print services provided by the API and get df containing services and descriptions.
+## TODO speed up response by setting a constant value
+get.services <- function(){
+  services.table <- get.table.services()
+  print( colnames(services.table) )
+  return( services.table )
+}
