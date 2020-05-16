@@ -1,10 +1,42 @@
 ## Utility package for creating queries in EPA API 
 # at https://aqs.epa.gov/aqsweb/documents/data_api.html#signup
 
-create_authentication <- function( email, password ){
-  authentication <- sprintf('&email=%s&key=%s', email, password)
-  return( authentication )
+# Globals
+EMAIL <- ''
+KEY <-  ''
+AUTHENTICATION <- ''
+SERVICES <- ''
+VARIABLES <- ''
+VARIABLE.TYPES <- list("state" = 'list/states',
+                       "county" = 'list/countiesByState',
+                       "site" = 'list/sitesByCounty',
+                       "cbsa" = 'list/cbsa',
+                       "classes" = 'list/parametersByClass',
+                       "pqao" = 'list/pqaos',
+                       "ma" = 'list/mas')
+
+# Reset the global email
+set.email <- function( email ){
+  EMAIL <<- email
 }
+
+# Reset the global api key
+set.key <- function( key ){
+  KEY <<- key
+}
+
+create.authentication <- function(){
+  authentication.string <- sprintf('&email=%s&key=%s', EMAIL, KEY)
+  AUTHENTICATION <<- authentication.string
+}
+
+create.base.call <- function( endpoint ){
+  base = 'https://aqs.epa.gov/data/api/'
+  result <- paste( base, endpoint, "?", AUTHENTICATION, sep = "")
+  return( result )
+}
+
+
 
 create_base_query <- function( endpoint ){
   # Assuming base doesn't change for a near future. 
@@ -28,14 +60,14 @@ get.table <- function( url, table.xpath ){
   return( found.table[[1]] )
 }
 
-# Remove \r \n \t from entries
+# Remove \r \n \t and excess space from entries
 # TODO, simplify code with multiple pattern regex matching
-remove.escapes <- function( df ){
+remove.escapes.spaces <- function( df ){
   for(i in 1:nrow(df) ){
     for(j in 1:ncol(df) ){
-      df[i, j] <- gsub( "\n", "", df[i, j] )
-      df[i, j] <- gsub( "\r", "", df[i, j] )
+      df[i, j] <- gsub( "\r\n", "", df[i, j] )
       df[i, j] <- gsub( "\t", "", df[i, j] )
+      df[i, j] <- gsub( "   ", "", df[i, j] )
     }
   }
   return( df )
@@ -50,11 +82,11 @@ get.transpose <- function( df  ){
     t.names <- c(t.names, df[i, 1])
   }
   colnames(t.df) <- t.names
-  return( as.data.frame(t.df) )
+  return( as.data.frame(t.df, stringsAsFactors = FALSE) )
 }
 
 # Get table showing list of services
-get.table.services <- function(){
+get.services <- function(){
   
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
   table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
@@ -63,16 +95,38 @@ get.table.services <- function(){
   # TODO extra spaces, some words got squished
   df <- remove.escapes( df )
   
-  new.df <- get.transpose(df)
+  t.df <- get.transpose(df)
   
+  SERVICES <<- t.df
   return( new.df )
 }
 # Print services provided by the API and get df containing services and descriptions.
 ## TODO speed up response by setting a constant value
-get.services <- function(){
-  services.table <- get.table.services()
-  print( colnames(services.table) )
-  return( services.table )
+## TODO setup assert to ensure services are present
+show.services <- function(){
+  print( colnames( SERVICES ) )
+}
+
+# Get table showing list of services
+get.variables <- function(){
+  
+  url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
+  table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[2]'
+  df <- get.table( url, table.path )
+  
+  # TODO extra spaces, some words got squished
+  df <- remove.escapes( df )
+  
+  t.df <- get.transpose(df)
+  
+  VARIABLES <<- t.df
+  return( t.df )
+}
+
+# Print the available variables. 
+# TODO assert those variables
+show.variables <- function(){
+  print( colnames( VARIABLES ) )
 }
 
 # Check if the service is up and running 
@@ -124,10 +178,23 @@ add.variables <- function( query, variables ){
   return( query )
 }
 
-# Perform the call using rvest
+# Perform the call and convert data into data frame
 perform.call <- function( call ){
   raw <- GET( call )
   data <- content( raw, "text" )
   converted <- fromJSON( data, flatten = TRUE)
   return( converted )
 }
+
+# Perform the call and maintain jsonlite structure
+perform.call.raw <- function( call ){
+  raw <- GET( call )
+  return( raw )
+}
+
+get.list.variable.endpoint <- function( variable.type ){
+  name <- substitute( variable.type ) 
+  return( VARIABLE.TYPES[[name]])
+}
+
+
