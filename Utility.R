@@ -93,12 +93,12 @@ get.services <- function(){
   df <- get.table( url, table.path )
   
   # TODO extra spaces, some words got squished
-  df <- remove.escapes( df )
+  df <- remove.escapes.spaces( df )
   
   t.df <- get.transpose(df)
   
   SERVICES <<- t.df
-  return( new.df )
+  return( t.df )
 }
 # Print services provided by the API and get df containing services and descriptions.
 ## TODO speed up response by setting a constant value
@@ -115,7 +115,7 @@ get.variables <- function(){
   df <- get.table( url, table.path )
   
   # TODO extra spaces, some words got squished
-  df <- remove.escapes( df )
+  df <- remove.escapes.spaces( df )
   
   t.df <- get.transpose(df)
   

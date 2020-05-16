@@ -5,16 +5,166 @@ date: "2020/5/15"
 output: html_document
 ---
 
+```{r setup, include=FALSE, R.options = list(max.print=10)}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-Check if the API is available to run. Need not run before a query, but useful in case you want to do a lot of things. 
+## Using EPA API with R
+
+In this document, we look at how to build API requests from EPA pollutant data. The API website can be found at [this link](https://aqs.epa.gov/aqsweb/documents/data_api). 
+
+```{r}
+library(rvest)
+library(magrittr)
+library(jsonlite)
+library(httr)
+# Collection of functions to aid in query production
+source("Utility.R")
+```
+
+We can start by checking if the API is up and running. 
 
 ```{r}
 is.service.running()
 ```
 
-See which services the API offers. 
+Queries automatically check if the API is running so we may only want to check if the API is running when we're going to be working a long while with the API. 
+
+### Authentication setup
+
+To use the API, we need to have a valid email and API key with the website. Getting an API key is easy, and can be done following the instructions [here](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup). 
+Once we have the email and key, we can easily set these up to be in our requests. 
+
 ```{r}
-services.table <- get.table.services()
-services <- get.services()
+set.email( 'glo003@bucknell.edu' )
+set.key( 'goldram72' )
+create.authentication()
+```
+
+All future requests will now use these credentials. 
+
+### See what services the API offers
+
+At the outset, we may not know exactly what we want from the API. We can start by seeing what services are offered. 
+
+If we want detail, we can get a data frame containing the services and short description of each. 
+```{r}
+services.df <- get.services()
+services.df
+```
+Using R's smart variable selection, simply typing services.table$ will open up a service to select, and its description. 
+
+Here's an example for monitors. 
+```{r}
+services.table$Monitors
+```
+
+If we just want to see a quick list of services, we can try.
+```{r}
+show.services()
+```
+
+### Making basic calls 
+
+The API requires building url's to access files in JSON format. The package automatically includes the base of the call (the base API site, and authentication). To query, we need only provide an endpoint. A sample is provided here:
+
+```{r}
+# Show what the codes are for states in the API
+
+## Setup the call
+endpoint <- 'list/states'
+call <- create.base.call( endpoint )
+call
+```
+
+Now that we have the call, we can request data from the API. The perform.call() function will provide a data frame with info about the request and data desired.
+
+```{r}
+# Perform the call, get dataframe of data in resulting call
+call.data <- perform.call( call )
+call.data
+```
+
+The next function will make a request, but provide the request results raw in JSON format. 
+
+```{r}
+# Get raw results
+raw.call <- perform.call.raw( call )
+raw.call
+```
+
+### Making calls with variables
+
+Some calls require additional variables like the state, or county of interest. If we just want to add one variable to our call, we can simply use add.variable().
+
+```{r}
+endpoint <- 'dailyData/byState'
+state <- '37'
+call <- create.base.call( endpoint )
+call <- add.variable( call, state )
+call
+```
+
+Our implementation requires we be careful when specifying the variable. The name of the variable must match up with the kind of variable it is calling. For example, above we declared the variable 'state' and gave it a value of '37'. We shouldn't name the variable 'State' or 'STATE', only 'state' since this is the variable name the API recognizes. 
+
+In the case of multiple variables, we can make a list of variables, and pass them into our call with 
+add.variables().
+
+```{r}
+## Call with variables
+# Setup the call
+endpoint <- 'dailyData/byState'
+variable.list <- list( "state" = '37', 
+                       "bdate" = '20200101', 
+                       "edate" = '20200102', 
+                       "param" = '44201')    # Make sure variables declared follow parameter names. 
+                                             # Example: state must be 'state' not 'State' or 'STATE'
+call <- create.base.call( endpoint )
+call <- add.variables( call, variable.list )
+call
+```
+We see the url contains all of our variables and their parameters. 
+Below we can see the result of the call. 
+
+```{r}
+# Perform the call, get dataframe of data in resulting call
+call.result <- perform.call( call )
+call.result
+```
+
+### See variables and their codes
+
+We can easily see which variables might be required to make a request below. 
+
+```{r}
+variables.for.requests <- get.variables()
+variables.for.requests
+```
+We can opt to just see the variable names as follows:
+```{r}
+show.variables()
+```
+
+Each variable may require a particular code. For example, instead of asking for 'Arizona' we would use the code '04'. 
+
+If a variable, like 'state', needs no additional parameters, we can query by passing in the variable 
+name.
+
+```{r}
+endpoint <- get.list.variable.endpoint( "state")
+base.call <- create.base.call( endpoint )
+call.results <- perform.call(base.call)
+call.results
+```
+
+Some variables, like county, require an additional variable (say state) to determine encoding. For this, 
+simply find the encoding of the additional variable before hand and include it in the call. 
+```{r}
+state <- "01"    # Alabama
+endpoint <- get.list.variable.endpoint( "county" )
+base.call <- create.base.call( endpoint )
+call <- add.variable( base.call, state)
+call.results <- perform.call( call )
+call.results
 ```
 
