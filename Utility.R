@@ -134,9 +134,9 @@ show.variables <- function(){
 # Check if the API is up and running 
 is.API.running <- function(){
   endpoint <-  'metaData/isAvailable'
-  url <- create_base_query( endpoint  )
+  url <- create.base.call( endpoint  )
   result <- GET( url )
-  return(result)
+  return( result )
 }
 
 ## Add a vriable to a call, make sure the variable name matches API specs

@@ -18,6 +18,7 @@ library(rvest)
 library(magrittr)
 library(jsonlite)
 library(httr)
+
 # Collection of functions to aid in query production
 source("Utility.R")
 ```
@@ -25,7 +26,7 @@ source("Utility.R")
 We can start by checking if the API is up and running. 
 
 ```{r}
-is.service.running()
+is.API.running()
 ```
 
 Queries automatically check if the API is running so we may only want to check if the API is running when we're going to be working a long while with the API. 
@@ -41,7 +42,7 @@ set.key( 'goldram72' )
 create.authentication()
 ```
 
-All future requests will now use these credentials. 
+All future requests will now use these credentials.
 
 ### See what services the API offers
 
@@ -50,13 +51,13 @@ At the outset, we may not know exactly what we want from the API. We can start b
 If we want detail, we can get a data frame containing the services and short description of each. 
 ```{r}
 services.df <- get.services()
-services.df
+services.df[, c(1:5)]
 ```
 Using R's smart variable selection, simply typing services.table$ will open up a service to select, and its description. 
 
 Here's an example for monitors. 
 ```{r}
-services.table$Monitors
+services.df$Monitors
 ```
 
 If we just want to see a quick list of services, we can try.
@@ -129,7 +130,7 @@ Below we can see the result of the call.
 ```{r}
 # Perform the call, get dataframe of data in resulting call
 call.result <- perform.call( call )
-call.result
+head( call.result$Data )
 ```
 
 ### See variables and their codes
@@ -138,7 +139,7 @@ We can easily see which variables might be required to make a request below.
 
 ```{r}
 variables.for.requests <- get.variables()
-variables.for.requests
+variables.for.requests[ , c(1:5)]
 ```
 We can opt to just see the variable names as follows:
 ```{r}
@@ -154,7 +155,7 @@ name.
 endpoint <- get.list.variable.endpoint( "state")
 base.call <- create.base.call( endpoint )
 call.results <- perform.call(base.call)
-call.results
+head( call.results$Data )
 ```
 
 Some variables, like county, require an additional variable (say state) to determine encoding. For this, 
@@ -165,6 +166,6 @@ endpoint <- get.list.variable.endpoint( "county" )
 base.call <- create.base.call( endpoint )
 call <- add.variable( base.call, state)
 call.results <- perform.call( call )
-call.results
+head( call.results$Data )
 ```
 

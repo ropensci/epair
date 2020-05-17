@@ -133,12 +133,13 @@ $(document).ready(function () {
 <pre class="r"><code>library(magrittr)
 library(jsonlite)
 library(httr)
+
 # Collection of functions to aid in query production
 source(&quot;Utility.R&quot;)</code></pre>
 <p>We can start by checking if the API is up and running.</p>
-<pre class="r"><code>is.service.running()</code></pre>
+<pre class="r"><code>is.API.running()</code></pre>
 <pre><code>## Response [https://aqs.epa.gov/data/api/metaData/isAvailable?]
-##   Date: 2020-05-16 22:01
+##   Date: 2020-05-17 20:30
 ##   Status: 200
 ##   Content-Type: application/json; charset=utf-8
 ##   Size: 300 B
@@ -146,7 +147,7 @@ source(&quot;Utility.R&quot;)</code></pre>
 ##   &quot;Header&quot;: [
 ##     {
 ##       &quot;status&quot;: &quot;API service is up and running healthy. Status: connecti...
-##       &quot;request_time&quot;: &quot;2020-05-16T18:01:08-04:00&quot;,
+##       &quot;request_time&quot;: &quot;2020-05-17T16:30:30-04:00&quot;,
 ##       &quot;url&quot;: &quot;http://aqs.epa.gov/api/metaData/isAvailable&quot;
 ##     }
 ##   ],
@@ -166,10 +167,26 @@ create.authentication()</code></pre>
 <h3>See what services the API offers</h3>
 <p>At the outset, we may not know exactly what we want from the API. We can start by seeing what services are offered.</p>
 <p>If we want detail, we can get a data frame containing the services and short description of each.</p>
-<pre class="r"><code>services.table &lt;- get.services()</code></pre>
+<pre class="r"><code>services.df &lt;- get.services()
+services.df[, c(1:5)]</code></pre>
+<pre><code>##                                                                                                                                                                                                                          Sign up
+## Service                                                                                                                                                                                                                  Sign up
+## Description Creates an account or resets a password.  Requires validation of registered email address.  Email will be sent to the registered address from aqsdatamart@epa.gov.  This service can also beused to reset passwords.
+##                                                                                                                                                     Meta Data
+## Service                                                                                                                                             Meta Data
+## Description Returns information about the API.  Is it available/up?  What are the meanings of the fields in my returned data?Recent and planned changes, etc.
+##                                                                                                                                                           List
+## Service                                                                                                                                                   List
+## Description Provides information you need to construct other queries.  Valid values for the required variables: parameter code, state code, etc.  (See below.)
+##                                                                                                                                                                               Monitors
+## Service                                                                                                                                                                       Monitors
+## Description Returns operational information about the samplers (monitors) used to collect the data.  Includes identifying information,operational dates, operating organizations, etc.
+##                                                                                                                                                                                                                                                                                                                     Sample Data
+## Service                                                                                                                                                                                                                                                                                                             Sample Data
+## Description Returns sample data - the finest grain data reported to EPA.  Usually hourly, sometimes 5-minute, 12-hour, etc. This service is available in several geographic selections based on geography: site, county, state, CBSA (core based statistical area, a grouping of counties), or latitude/longitude bounding box.</code></pre>
 <p>Using R’s smart variable selection, simply typing services.table$ will open up a service to select, and its description.</p>
 <p>Here’s an example for monitors.</p>
-<pre class="r"><code>services.table$Monitors</code></pre>
+<pre class="r"><code>services.df$Monitors</code></pre>
 <pre><code>## [1] &quot;Monitors&quot;                                                                                                                                                                  
 ## [2] &quot;Returns operational information about the samplers (monitors) used to collect the data.  Includes identifying information,operational dates, operating organizations, etc.&quot;</code></pre>
 <p>If we just want to see a quick list of services, we can try.</p>
@@ -198,7 +215,7 @@ call.data &lt;- perform.call( call )
 call.data</code></pre>
 <pre><code>## $Header
 ##    status              request_time
-## 1 Success 2020-05-16T18:01:09-04:00
+## 1 Success 2020-05-17T16:30:31-04:00
 ##                                                                                 url
 ## 1 https://aqs.epa.gov/data/api/list/states?&amp;email=glo003@bucknell.edu&amp;key=goldram72
 ##   rows
@@ -267,7 +284,7 @@ call.data</code></pre>
 raw.call &lt;- perform.call.raw( call )
 raw.call</code></pre>
 <pre><code>## Response [https://aqs.epa.gov/data/api/list/states?&amp;email=glo003@bucknell.edu&amp;key=goldram72]
-##   Date: 2020-05-16 22:01
+##   Date: 2020-05-17 20:30
 ##   Status: 200
 ##   Content-Type: application/json; charset=utf-8
 ##   Size: 4.26 kB
@@ -275,7 +292,7 @@ raw.call</code></pre>
 ##   &quot;Header&quot;: [
 ##     {
 ##       &quot;status&quot;: &quot;Success&quot;,
-##       &quot;request_time&quot;: &quot;2020-05-16T18:01:09-04:00&quot;,
+##       &quot;request_time&quot;: &quot;2020-05-17T16:30:32-04:00&quot;,
 ##       &quot;url&quot;: &quot;https://aqs.epa.gov/data/api/list/states?&amp;email=glo003@buc...
 ##       &quot;rows&quot;: 56
 ##     }
@@ -309,535 +326,62 @@ call</code></pre>
 <p>We see the url contains all of our variables and their parameters. Below we can see the result of the call.</p>
 <pre class="r"><code># Perform the call, get dataframe of data in resulting call
 call.result &lt;- perform.call( call )
-call.result</code></pre>
-<pre><code>## $Header
-##    status              request_time
-## 1 Success 2020-05-16T18:01:09-04:00
-##                                                                                                                                          url
-## 1 https://aqs.epa.gov/data/api/dailyData/byState?&amp;email=glo003@bucknell.edu&amp;key=goldram72&amp;state=37&amp;bdate=20200101&amp;edate=20200102&amp;param=44201
-##   rows
-## 1   56
-## 
-## $Data
-##    state_code county_code site_number parameter_code poc latitude
-## 1          37         119        0041          44201   1 35.24010
-## 2          37         119        0041          44201   1 35.24010
-## 3          37         119        0041          44201   1 35.24010
-## 4          37         119        0041          44201   1 35.24010
-## 5          37         119        0041          44201   1 35.24010
-## 6          37         119        0041          44201   1 35.24010
-## 7          37         119        0041          44201   1 35.24010
-## 8          37         119        0041          44201   1 35.24010
-## 9          37         183        0014          44201   1 35.85611
-## 10         37         183        0014          44201   1 35.85611
-## 11         37         183        0014          44201   1 35.85611
-## 12         37         183        0014          44201   1 35.85611
-## 13         37         183        0014          44201   1 35.85611
-## 14         37         183        0014          44201   1 35.85611
-## 15         37         183        0014          44201   1 35.85611
-## 16         37         183        0014          44201   1 35.85611
-## 17         37         159        0021          44201   1 35.55187
-## 18         37         159        0021          44201   1 35.55187
-## 19         37         159        0021          44201   1 35.55187
-## 20         37         159        0021          44201   1 35.55187
-## 21         37         159        0021          44201   1 35.55187
-## 22         37         159        0021          44201   1 35.55187
-## 23         37         159        0021          44201   1 35.55187
-## 24         37         159        0021          44201   1 35.55187
-## 25         37         113        9991          44201   1 35.06080
-## 26         37         113        9991          44201   1 35.06080
-## 27         37         113        9991          44201   1 35.06080
-## 28         37         113        9991          44201   1 35.06080
-## 29         37         113        9991          44201   1 35.06080
-## 30         37         113        9991          44201   1 35.06080
-## 31         37         113        9991          44201   1 35.06080
-## 32         37         113        9991          44201   1 35.06080
-## 33         37         031        9991          44201   1 34.88480
-## 34         37         031        9991          44201   1 34.88480
-## 35         37         031        9991          44201   1 34.88480
-## 36         37         031        9991          44201   1 34.88480
-## 37         37         031        9991          44201   1 34.88480
-## 38         37         031        9991          44201   1 34.88480
-## 39         37         031        9991          44201   1 34.88480
-## 40         37         031        9991          44201   1 34.88480
-## 41         37         011        9991          44201   1 36.10580
-## 42         37         011        9991          44201   1 36.10580
-## 43         37         011        9991          44201   1 36.10580
-## 44         37         011        9991          44201   1 36.10580
-## 45         37         011        9991          44201   1 36.10580
-## 46         37         011        9991          44201   1 36.10580
-## 47         37         011        9991          44201   1 36.10580
-## 48         37         011        9991          44201   1 36.10580
-## 49         37         123        9991          44201   1 35.26320
-## 50         37         123        9991          44201   1 35.26320
-## 51         37         123        9991          44201   1 35.26320
-## 52         37         123        9991          44201   1 35.26320
-## 53         37         123        9991          44201   1 35.26320
-## 54         37         123        9991          44201   1 35.26320
-## 55         37         123        9991          44201   1 35.26320
-## 56         37         123        9991          44201   1 35.26320
-##    longitude datum parameter         sample_duration pollutant_standard
-## 1  -80.78568 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 2  -80.78568 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 3  -80.78568 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 4  -80.78568 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 5  -80.78568 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 6  -80.78568 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 7  -80.78568 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 8  -80.78568 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 9  -78.57417 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 10 -78.57417 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 11 -78.57417 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 12 -78.57417 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 13 -78.57417 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 14 -78.57417 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 15 -78.57417 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 16 -78.57417 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 17 -80.39504 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 18 -80.39504 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 19 -80.39504 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 20 -80.39504 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 21 -80.39504 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 22 -80.39504 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 23 -80.39504 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 24 -80.39504 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 25 -83.43060 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 26 -83.43060 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 27 -83.43060 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 28 -83.43060 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 29 -83.43060 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 30 -83.43060 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 31 -83.43060 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 32 -83.43060 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 33 -76.62030 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 34 -76.62030 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 35 -76.62030 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 36 -76.62030 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 37 -76.62030 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 38 -76.62030 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 39 -76.62030 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 40 -76.62030 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 41 -82.04540 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 42 -82.04540 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 43 -82.04540 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 44 -82.04540 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 45 -82.04540 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 46 -82.04540 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 47 -82.04540 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 48 -82.04540 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 49 -79.83650 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 50 -79.83650 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 51 -79.83650 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 52 -79.83650 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-## 53 -79.83650 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015
-## 54 -79.83650 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008
-## 55 -79.83650 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997
-## 56 -79.83650 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979
-##    date_local  units_of_measure event_type observation_count
-## 1  2020-01-02 Parts per million       None                17
-## 2  2020-01-02 Parts per million       None                24
-## 3  2020-01-02 Parts per million       None                24
-## 4  2020-01-02 Parts per million       None                23
-## 5  2020-01-01 Parts per million       None                17
-## 6  2020-01-01 Parts per million       None                24
-## 7  2020-01-01 Parts per million       None                24
-## 8  2020-01-01 Parts per million       None                23
-## 9  2020-01-02 Parts per million       None                17
-## 10 2020-01-02 Parts per million       None                24
-## 11 2020-01-02 Parts per million       None                24
-## 12 2020-01-02 Parts per million       None                22
-## 13 2020-01-01 Parts per million       None                17
-## 14 2020-01-01 Parts per million       None                24
-## 15 2020-01-01 Parts per million       None                24
-## 16 2020-01-01 Parts per million       None                23
-## 17 2020-01-02 Parts per million       None                17
-## 18 2020-01-02 Parts per million       None                24
-## 19 2020-01-02 Parts per million       None                24
-## 20 2020-01-02 Parts per million       None                23
-## 21 2020-01-01 Parts per million       None                17
-## 22 2020-01-01 Parts per million       None                24
-## 23 2020-01-01 Parts per million       None                24
-## 24 2020-01-01 Parts per million       None                23
-## 25 2020-01-02 Parts per million       None                12
-## 26 2020-01-02 Parts per million       None                19
-## 27 2020-01-02 Parts per million       None                19
-## 28 2020-01-02 Parts per million       None                23
-## 29 2020-01-01 Parts per million       None                17
-## 30 2020-01-01 Parts per million       None                24
-## 31 2020-01-01 Parts per million       None                24
-## 32 2020-01-01 Parts per million       None                23
-## 33 2020-01-02 Parts per million       None                17
-## 34 2020-01-02 Parts per million       None                24
-## 35 2020-01-02 Parts per million       None                24
-## 36 2020-01-02 Parts per million       None                23
-## 37 2020-01-01 Parts per million       None                17
-## 38 2020-01-01 Parts per million       None                24
-## 39 2020-01-01 Parts per million       None                24
-## 40 2020-01-01 Parts per million       None                23
-## 41 2020-01-02 Parts per million       None                17
-## 42 2020-01-02 Parts per million       None                24
-## 43 2020-01-02 Parts per million       None                24
-## 44 2020-01-02 Parts per million       None                23
-## 45 2020-01-01 Parts per million       None                17
-## 46 2020-01-01 Parts per million       None                24
-## 47 2020-01-01 Parts per million       None                24
-## 48 2020-01-01 Parts per million       None                23
-## 49 2020-01-02 Parts per million       None                17
-## 50 2020-01-02 Parts per million       None                24
-## 51 2020-01-02 Parts per million       None                24
-## 52 2020-01-02 Parts per million       None                23
-## 53 2020-01-01 Parts per million       None                17
-## 54 2020-01-01 Parts per million       None                24
-## 55 2020-01-01 Parts per million       None                24
-## 56 2020-01-01 Parts per million       None                23
-##    observation_percent validity_indicator arithmetic_mean first_max_value
-## 1                  100                  Y        0.020647           0.027
-## 2                  100                  Y        0.020250           0.027
-## 3                  100                  Y        0.020250           0.027
-## 4                   96                  Y        0.021913           0.035
-## 5                  100                  Y        0.022471           0.037
-## 6                  100                  Y        0.020583           0.037
-## 7                  100                  Y        0.020583           0.037
-## 8                   96                  Y        0.021000           0.040
-## 9                  100                  Y        0.022412           0.030
-## 10                 100                  Y        0.017917           0.030
-## 11                 100                  Y        0.017917           0.030
-## 12                  92                  Y        0.015500           0.035
-## 13                 100                  Y        0.017941           0.036
-## 14                 100                  Y        0.021292           0.036
-## 15                 100                  Y        0.021292           0.036
-## 16                  96                  Y        0.025522           0.038
-## 17                 100                  Y        0.024294           0.026
-## 18                 100                  Y        0.023250           0.026
-## 19                 100                  Y        0.023250           0.026
-## 20                  96                  Y        0.023609           0.028
-## 21                 100                  Y        0.026000           0.039
-## 22                 100                  Y        0.025875           0.039
-## 23                 100                  Y        0.025875           0.039
-## 24                  96                  Y        0.027000           0.042
-## 25                  71                  N        0.028333           0.036
-## 26                  79                  Y        0.023789           0.036
-## 27                  79                  Y        0.023789           0.036
-## 28                  96                  Y        0.024043           0.042
-## 29                 100                  Y        0.024059           0.037
-## 30                 100                  Y        0.025375           0.037
-## 31                 100                  Y        0.025375           0.037
-## 32                  96                  Y        0.029043           0.042
-## 33                 100                  Y        0.030706           0.037
-## 34                 100                  Y        0.025417           0.037
-## 35                 100                  Y        0.025417           0.037
-## 36                  96                  Y        0.024304           0.040
-## 37                 100                  Y        0.026765           0.035
-## 38                 100                  Y        0.026708           0.035
-## 39                 100                  Y        0.026708           0.035
-## 40                  96                  Y        0.030000           0.038
-## 41                 100                  Y        0.038294           0.043
-## 42                 100                  Y        0.039958           0.045
-## 43                 100                  Y        0.039958           0.045
-## 44                  96                  Y        0.041609           0.047
-## 45                 100                  Y        0.040000           0.042
-## 46                 100                  Y        0.039833           0.042
-## 47                 100                  Y        0.039833           0.042
-## 48                  96                  Y        0.039957           0.044
-## 49                 100                  Y        0.021176           0.025
-## 50                 100                  Y        0.022167           0.025
-## 51                 100                  Y        0.022167           0.025
-## 52                  96                  Y        0.023652           0.031
-## 53                 100                  Y        0.032706           0.037
-## 54                 100                  Y        0.029625           0.037
-## 55                 100                  Y        0.029625           0.037
-## 56                  96                  Y        0.030043           0.040
-##    first_max_hour aqi method_code                      method
-## 1              10  25         047 INSTRUMENTAL - ULTRA VIOLET
-## 2              10  25         047 INSTRUMENTAL - ULTRA VIOLET
-## 3              10  25         047 INSTRUMENTAL - ULTRA VIOLET
-## 4              15  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 5              10  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 6              10  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 7              10  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 8              14  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 9              10  28         047 INSTRUMENTAL - ULTRA VIOLET
-## 10             10  28         047 INSTRUMENTAL - ULTRA VIOLET
-## 11             10  28         047 INSTRUMENTAL - ULTRA VIOLET
-## 12             15  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 13              9  33         047 INSTRUMENTAL - ULTRA VIOLET
-## 14              9  33         047 INSTRUMENTAL - ULTRA VIOLET
-## 15              9  33         047 INSTRUMENTAL - ULTRA VIOLET
-## 16             13  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 17             11  24         047 INSTRUMENTAL - ULTRA VIOLET
-## 18             11  24         047 INSTRUMENTAL - ULTRA VIOLET
-## 19             11  24         047 INSTRUMENTAL - ULTRA VIOLET
-## 20             16  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 21              9  36         047 INSTRUMENTAL - ULTRA VIOLET
-## 22              9  36         047 INSTRUMENTAL - ULTRA VIOLET
-## 23              9  36         047 INSTRUMENTAL - ULTRA VIOLET
-## 24             15  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 25             18  33         047 INSTRUMENTAL - ULTRA VIOLET
-## 26             18  33         047 INSTRUMENTAL - ULTRA VIOLET
-## 27             18  33         047 INSTRUMENTAL - ULTRA VIOLET
-## 28             20  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 29              9  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 30              9  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 31              9  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 32             12  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 33             10  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 34             10  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 35             10  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 36             11  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 37             10  32         047 INSTRUMENTAL - ULTRA VIOLET
-## 38             10  32         047 INSTRUMENTAL - ULTRA VIOLET
-## 39             10  32         047 INSTRUMENTAL - ULTRA VIOLET
-## 40             14  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 41              7  40         047 INSTRUMENTAL - ULTRA VIOLET
-## 42              4  42         047 INSTRUMENTAL - ULTRA VIOLET
-## 43              4  42         047 INSTRUMENTAL - ULTRA VIOLET
-## 44              6  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 45             10  39         047 INSTRUMENTAL - ULTRA VIOLET
-## 46             10  39         047 INSTRUMENTAL - ULTRA VIOLET
-## 47             10  39         047 INSTRUMENTAL - ULTRA VIOLET
-## 48             16  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 49              7  23         047 INSTRUMENTAL - ULTRA VIOLET
-## 50              0  23         047 INSTRUMENTAL - ULTRA VIOLET
-## 51              0  23         047 INSTRUMENTAL - ULTRA VIOLET
-## 52              0  NA         047 INSTRUMENTAL - ULTRA VIOLET
-## 53             11  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 54             11  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 55             11  34         047 INSTRUMENTAL - ULTRA VIOLET
-## 56             15  NA         047 INSTRUMENTAL - ULTRA VIOLET
-##         local_site_name
-## 1  Garinger High School
-## 2  Garinger High School
-## 3  Garinger High School
-## 4  Garinger High School
-## 5  Garinger High School
-## 6  Garinger High School
-## 7  Garinger High School
-## 8  Garinger High School
-## 9      Millbrook School
-## 10     Millbrook School
-## 11     Millbrook School
-## 12     Millbrook School
-## 13     Millbrook School
-## 14     Millbrook School
-## 15     Millbrook School
-## 16     Millbrook School
-## 17             Rockwell
-## 18             Rockwell
-## 19             Rockwell
-## 20             Rockwell
-## 21             Rockwell
-## 22             Rockwell
-## 23             Rockwell
-## 24             Rockwell
-## 25              Coweeta
-## 26              Coweeta
-## 27              Coweeta
-## 28              Coweeta
-## 29              Coweeta
-## 30              Coweeta
-## 31              Coweeta
-## 32              Coweeta
-## 33             Beaufort
-## 34             Beaufort
-## 35             Beaufort
-## 36             Beaufort
-## 37             Beaufort
-## 38             Beaufort
-## 39             Beaufort
-## 40             Beaufort
-## 41            Cranberry
-## 42            Cranberry
-## 43            Cranberry
-## 44            Cranberry
-## 45            Cranberry
-## 46            Cranberry
-## 47            Cranberry
-## 48            Cranberry
-## 49               Candor
-## 50               Candor
-## 51               Candor
-## 52               Candor
-## 53               Candor
-## 54               Candor
-## 55               Candor
-## 56               Candor
-##                                                                     site_address
-## 1                                                             1130 EASTWAY DRIVE
-## 2                                                             1130 EASTWAY DRIVE
-## 3                                                             1130 EASTWAY DRIVE
-## 4                                                             1130 EASTWAY DRIVE
-## 5                                                             1130 EASTWAY DRIVE
-## 6                                                             1130 EASTWAY DRIVE
-## 7                                                             1130 EASTWAY DRIVE
-## 8                                                             1130 EASTWAY DRIVE
-## 9                                                         3801 SPRING FOREST RD.
-## 10                                                        3801 SPRING FOREST RD.
-## 11                                                        3801 SPRING FOREST RD.
-## 12                                                        3801 SPRING FOREST RD.
-## 13                                                        3801 SPRING FOREST RD.
-## 14                                                        3801 SPRING FOREST RD.
-## 15                                                        3801 SPRING FOREST RD.
-## 16                                                        3801 SPRING FOREST RD.
-## 17                                                301 WEST ST &amp; GOLD HILL AVENUE
-## 18                                                301 WEST ST &amp; GOLD HILL AVENUE
-## 19                                                301 WEST ST &amp; GOLD HILL AVENUE
-## 20                                                301 WEST ST &amp; GOLD HILL AVENUE
-## 21                                                301 WEST ST &amp; GOLD HILL AVENUE
-## 22                                                301 WEST ST &amp; GOLD HILL AVENUE
-## 23                                                301 WEST ST &amp; GOLD HILL AVENUE
-## 24                                                301 WEST ST &amp; GOLD HILL AVENUE
-## 25 USDA Southern Research Station, Coweeta Hydrologic Laboratory, Otto, NC 28763
-## 26 USDA Southern Research Station, Coweeta Hydrologic Laboratory, Otto, NC 28763
-## 27 USDA Southern Research Station, Coweeta Hydrologic Laboratory, Otto, NC 28763
-## 28 USDA Southern Research Station, Coweeta Hydrologic Laboratory, Otto, NC 28763
-## 29 USDA Southern Research Station, Coweeta Hydrologic Laboratory, Otto, NC 28763
-## 30 USDA Southern Research Station, Coweeta Hydrologic Laboratory, Otto, NC 28763
-## 31 USDA Southern Research Station, Coweeta Hydrologic Laboratory, Otto, NC 28763
-## 32 USDA Southern Research Station, Coweeta Hydrologic Laboratory, Otto, NC 28763
-## 33                                         Open Grounds Farm, Beaufort, NC 28516
-## 34                                         Open Grounds Farm, Beaufort, NC 28516
-## 35                                         Open Grounds Farm, Beaufort, NC 28516
-## 36                                         Open Grounds Farm, Beaufort, NC 28516
-## 37                                         Open Grounds Farm, Beaufort, NC 28516
-## 38                                         Open Grounds Farm, Beaufort, NC 28516
-## 39                                         Open Grounds Farm, Beaufort, NC 28516
-## 40                                         Open Grounds Farm, Beaufort, NC 28516
-## 41                                     Pisgah National Forest, Newland, NC 28657
-## 42                                     Pisgah National Forest, Newland, NC 28657
-## 43                                     Pisgah National Forest, Newland, NC 28657
-## 44                                     Pisgah National Forest, Newland, NC 28657
-## 45                                     Pisgah National Forest, Newland, NC 28657
-## 46                                     Pisgah National Forest, Newland, NC 28657
-## 47                                     Pisgah National Forest, Newland, NC 28657
-## 48                                     Pisgah National Forest, Newland, NC 28657
-## 49                                                136 Perry Dr, Candor, NC 27229
-## 50                                                136 Perry Dr, Candor, NC 27229
-## 51                                                136 Perry Dr, Candor, NC 27229
-## 52                                                136 Perry Dr, Candor, NC 27229
-## 53                                                136 Perry Dr, Candor, NC 27229
-## 54                                                136 Perry Dr, Candor, NC 27229
-## 55                                                136 Perry Dr, Candor, NC 27229
-## 56                                                136 Perry Dr, Candor, NC 27229
-##             state      county          city cbsa_code
-## 1  North Carolina Mecklenburg     Charlotte     16740
-## 2  North Carolina Mecklenburg     Charlotte     16740
-## 3  North Carolina Mecklenburg     Charlotte     16740
-## 4  North Carolina Mecklenburg     Charlotte     16740
-## 5  North Carolina Mecklenburg     Charlotte     16740
-## 6  North Carolina Mecklenburg     Charlotte     16740
-## 7  North Carolina Mecklenburg     Charlotte     16740
-## 8  North Carolina Mecklenburg     Charlotte     16740
-## 9  North Carolina        Wake       Raleigh     39580
-## 10 North Carolina        Wake       Raleigh     39580
-## 11 North Carolina        Wake       Raleigh     39580
-## 12 North Carolina        Wake       Raleigh     39580
-## 13 North Carolina        Wake       Raleigh     39580
-## 14 North Carolina        Wake       Raleigh     39580
-## 15 North Carolina        Wake       Raleigh     39580
-## 16 North Carolina        Wake       Raleigh     39580
-## 17 North Carolina       Rowan      Rockwell     16740
-## 18 North Carolina       Rowan      Rockwell     16740
-## 19 North Carolina       Rowan      Rockwell     16740
-## 20 North Carolina       Rowan      Rockwell     16740
-## 21 North Carolina       Rowan      Rockwell     16740
-## 22 North Carolina       Rowan      Rockwell     16740
-## 23 North Carolina       Rowan      Rockwell     16740
-## 24 North Carolina       Rowan      Rockwell     16740
-## 25 North Carolina       Macon Not in a city      &lt;NA&gt;
-## 26 North Carolina       Macon Not in a city      &lt;NA&gt;
-## 27 North Carolina       Macon Not in a city      &lt;NA&gt;
-## 28 North Carolina       Macon Not in a city      &lt;NA&gt;
-## 29 North Carolina       Macon Not in a city      &lt;NA&gt;
-## 30 North Carolina       Macon Not in a city      &lt;NA&gt;
-## 31 North Carolina       Macon Not in a city      &lt;NA&gt;
-## 32 North Carolina       Macon Not in a city      &lt;NA&gt;
-## 33 North Carolina    Carteret Not in a city     33980
-## 34 North Carolina    Carteret Not in a city     33980
-## 35 North Carolina    Carteret Not in a city     33980
-## 36 North Carolina    Carteret Not in a city     33980
-## 37 North Carolina    Carteret Not in a city     33980
-## 38 North Carolina    Carteret Not in a city     33980
-## 39 North Carolina    Carteret Not in a city     33980
-## 40 North Carolina    Carteret Not in a city     33980
-## 41 North Carolina       Avery Not in a city      &lt;NA&gt;
-## 42 North Carolina       Avery Not in a city      &lt;NA&gt;
-## 43 North Carolina       Avery Not in a city      &lt;NA&gt;
-## 44 North Carolina       Avery Not in a city      &lt;NA&gt;
-## 45 North Carolina       Avery Not in a city      &lt;NA&gt;
-## 46 North Carolina       Avery Not in a city      &lt;NA&gt;
-## 47 North Carolina       Avery Not in a city      &lt;NA&gt;
-## 48 North Carolina       Avery Not in a city      &lt;NA&gt;
-## 49 North Carolina  Montgomery Not in a city      &lt;NA&gt;
-## 50 North Carolina  Montgomery Not in a city      &lt;NA&gt;
-## 51 North Carolina  Montgomery Not in a city      &lt;NA&gt;
-## 52 North Carolina  Montgomery Not in a city      &lt;NA&gt;
-## 53 North Carolina  Montgomery Not in a city      &lt;NA&gt;
-## 54 North Carolina  Montgomery Not in a city      &lt;NA&gt;
-## 55 North Carolina  Montgomery Not in a city      &lt;NA&gt;
-## 56 North Carolina  Montgomery Not in a city      &lt;NA&gt;
-##                                 cbsa date_of_last_change
-## 1  Charlotte-Concord-Gastonia, NC-SC          2020-05-05
-## 2  Charlotte-Concord-Gastonia, NC-SC          2020-05-05
-## 3  Charlotte-Concord-Gastonia, NC-SC          2020-05-05
-## 4  Charlotte-Concord-Gastonia, NC-SC          2020-05-05
-## 5  Charlotte-Concord-Gastonia, NC-SC          2020-05-05
-## 6  Charlotte-Concord-Gastonia, NC-SC          2020-05-05
-## 7  Charlotte-Concord-Gastonia, NC-SC          2020-05-05
-## 8  Charlotte-Concord-Gastonia, NC-SC          2020-05-05
-## 9                        Raleigh, NC          2020-03-06
-## 10                       Raleigh, NC          2020-03-06
-## 11                       Raleigh, NC          2020-03-06
-## 12                       Raleigh, NC          2020-03-06
-## 13                       Raleigh, NC          2020-03-06
-## 14                       Raleigh, NC          2020-03-06
-## 15                       Raleigh, NC          2020-03-06
-## 16                       Raleigh, NC          2020-03-06
-## 17 Charlotte-Concord-Gastonia, NC-SC          2020-03-06
-## 18 Charlotte-Concord-Gastonia, NC-SC          2020-03-06
-## 19 Charlotte-Concord-Gastonia, NC-SC          2020-03-06
-## 20 Charlotte-Concord-Gastonia, NC-SC          2020-03-06
-## 21 Charlotte-Concord-Gastonia, NC-SC          2020-03-06
-## 22 Charlotte-Concord-Gastonia, NC-SC          2020-03-06
-## 23 Charlotte-Concord-Gastonia, NC-SC          2020-03-06
-## 24 Charlotte-Concord-Gastonia, NC-SC          2020-03-06
-## 25                              &lt;NA&gt;          2020-05-01
-## 26                              &lt;NA&gt;          2020-05-01
-## 27                              &lt;NA&gt;          2020-05-01
-## 28                              &lt;NA&gt;          2020-05-01
-## 29                              &lt;NA&gt;          2020-05-01
-## 30                              &lt;NA&gt;          2020-05-01
-## 31                              &lt;NA&gt;          2020-05-01
-## 32                              &lt;NA&gt;          2020-05-01
-## 33                 Morehead City, NC          2020-05-01
-## 34                 Morehead City, NC          2020-05-01
-## 35                 Morehead City, NC          2020-05-01
-## 36                 Morehead City, NC          2020-05-01
-## 37                 Morehead City, NC          2020-05-01
-## 38                 Morehead City, NC          2020-05-01
-## 39                 Morehead City, NC          2020-05-01
-## 40                 Morehead City, NC          2020-05-01
-## 41                              &lt;NA&gt;          2020-05-01
-## 42                              &lt;NA&gt;          2020-05-01
-## 43                              &lt;NA&gt;          2020-05-01
-## 44                              &lt;NA&gt;          2020-05-01
-## 45                              &lt;NA&gt;          2020-05-01
-## 46                              &lt;NA&gt;          2020-05-01
-## 47                              &lt;NA&gt;          2020-05-01
-## 48                              &lt;NA&gt;          2020-05-01
-## 49                              &lt;NA&gt;          2020-05-01
-## 50                              &lt;NA&gt;          2020-05-01
-## 51                              &lt;NA&gt;          2020-05-01
-## 52                              &lt;NA&gt;          2020-05-01
-## 53                              &lt;NA&gt;          2020-05-01
-## 54                              &lt;NA&gt;          2020-05-01
-## 55                              &lt;NA&gt;          2020-05-01
-## 56                              &lt;NA&gt;          2020-05-01</code></pre>
+head( call.result$Data )</code></pre>
+<pre><code>##   state_code county_code site_number parameter_code poc latitude longitude
+## 1         37         011        9991          44201   1  36.1058  -82.0454
+## 2         37         011        9991          44201   1  36.1058  -82.0454
+## 3         37         011        9991          44201   1  36.1058  -82.0454
+## 4         37         011        9991          44201   1  36.1058  -82.0454
+## 5         37         011        9991          44201   1  36.1058  -82.0454
+## 6         37         011        9991          44201   1  36.1058  -82.0454
+##   datum parameter         sample_duration pollutant_standard date_local
+## 1 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979 2020-01-01
+## 2 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997 2020-01-01
+## 3 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008 2020-01-01
+## 4 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015 2020-01-01
+## 5 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979 2020-01-02
+## 6 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997 2020-01-02
+##    units_of_measure event_type observation_count observation_percent
+## 1 Parts per million       None                23                  96
+## 2 Parts per million       None                24                 100
+## 3 Parts per million       None                24                 100
+## 4 Parts per million       None                17                 100
+## 5 Parts per million       None                23                  96
+## 6 Parts per million       None                24                 100
+##   validity_indicator arithmetic_mean first_max_value first_max_hour aqi
+## 1                  Y        0.039957           0.044             16  NA
+## 2                  Y        0.039833           0.042             10  39
+## 3                  Y        0.039833           0.042             10  39
+## 4                  Y        0.040000           0.042             10  39
+## 5                  Y        0.041609           0.047              6  NA
+## 6                  Y        0.039958           0.045              4  42
+##   method_code                      method local_site_name
+## 1         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
+## 2         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
+## 3         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
+## 4         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
+## 5         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
+## 6         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
+##                                site_address          state county
+## 1 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
+## 2 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
+## 3 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
+## 4 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
+## 5 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
+## 6 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
+##            city cbsa_code cbsa date_of_last_change
+## 1 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
+## 2 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
+## 3 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
+## 4 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
+## 5 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
+## 6 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01</code></pre>
 </div>
 <div id="see-variables-and-their-codes" class="section level3">
 <h3>See variables and their codes</h3>
 <p>We can easily see which variables might be required to make a request below.</p>
 <pre class="r"><code>variables.for.requests &lt;- get.variables()
-variables.for.requests</code></pre>
+variables.for.requests[ , c(1:5)]</code></pre>
 <pre><code>##                                           email
 ## Variable                                  email
 ## Description The email address of the requester.
@@ -857,59 +401,7 @@ variables.for.requests</code></pre>
 ##                                                                                                                                                                                                                                                                param
 ## Variable                                                                                                                                                                                                                                                       param
 ## Description The AQS parameter code for the data selection.  AQS uses proprietary 5 digit codes.  They may be obtained via the  list parameters service.  Up to 5 parameters may be requested, separated by commas.  Only data for these parameters will be returned.
-## Example                                                                                                                                                                                                                                                  81101,44201
-##                                                                                                                                                                             state
-## Variable                                                                                                                                                                    state
-## Description The 2 digit state FIPS code for the state (with leading zero).  They may be obtained via the  list states service. Only data from within this state will be returned.
-## Example                                                                                                                                                                        01
-##                                                                                                                                                                                                   county
-## Variable                                                                                                                                                                                          county
-## Description The 3 digit state FIPS code for the county within the state (with leading zeroes).  They may be obtained via the  list counties service. Only data from within this county will be returned.
-## Example                                                                                                                                                                                              089
-##                                                                                                                                                                           site
-## Variable                                                                                                                                                                  site
-## Description The 4 digit AQS site number within the county (with leading zeroes).  They may be obtained via the  list sites service. Only data from this site will be returned.
-## Example                                                                                                                                                                   0014
-##                                                                                                                                                                                                             cbsa
-## Variable                                                                                                                                                                                                    cbsa
-## Description The 5 digit AQS Core Based Statistical Area code (as defined by the census bureau, with leading zeroes). They may be obtained via the list cbsas service. Only data from this area will be returned.
-## Example                                                                                                                                                                                                    16740
-##                                                                                                                                                minlat
-## Variable                                                                                                                                       minlat
-## Description The minimum latitude of a geographic box.  Decimal latitude with north being positive. Only data north of this latitude will be returned.
-## Example                                                                                                                                      36.42348
-##                                                                                                                                                maxlat
-## Variable                                                                                                                                       maxlat
-## Description The maximum latitude of a geographic box.  Decimal latitude with north being positive. Only data south of this latitude will be returned.
-## Example                                                                                                                                          36.8
-##                                                                                                                                                 minlon
-## Variable                                                                                                                                        minlon
-## Description The minimum longitude of a geographic box.  Decimal longitude with east being positive. Only data east of this longitude will be returned.
-## Example                                                                                                                                          -85.4
-##                                                                                                                                                                                  maxlon
-## Variable                                                                                                                                                                         maxlon
-## Description The maximum longitude of a geographic box.  Decimal longitude with east being positive. Only data west of this longitude will be returned.  Note that -80 is less than -70.
-## Example                                                                                                                                                                           -85.1
-##                                                                                                                                                                                                                                                                                   cbdate
-## Variable                                                                                                                                                                                                                                                                          cbdate
-## Description Each value in our database has a &quot;date of last change&quot; that indicates when it was last updated.  The cbdate is used to  filter data based on the change date, cbdate = change begin date in YYYYMMDD format.  Only data that changed on or after this date will be returned.
-## Example                                                                                                                                                                                                                                                                         20180101
-##                                                                                                                                                                                                                                                                                  cedate
-## Variable                                                                                                                                                                                                                                                                         cedate
-## Description Each value in our database has a &quot;date of last change&quot; that indicates when it was last updated.  The cedate is used to  filter data based on the change date, cedate = change end date in YYYYMMDD format.  Only data that changed on or before this date will be returned.
-## Example                                                                                                                                                                                                                                                                        20180101
-##                                                                                                                                                                                                                        pqao
-## Variable                                                                                                                                                                                                               pqao
-## Description The 4 digit AQS Primary Quality Assurance Organization code (with leading zeroes).  They may be obtained via the  list pqaos service. Only data for this PQAO will be returned.  Only used in QA Data services.
-## Example                                                                                                                                                                                                                0001
-##                                                                                                                                                                                                                ma
-## Variable                                                                                                                                                                                                       ma
-## Description The 4 digit AQS Monitoring Agency code (with leading zeroes).  They may be obtained via the  list mas service. Only data for this Monitoring Agency will be returned.  Only used in QA Data services.
-## Example                                                                                                                                                                                                      1189
-##                                                                                                                                                                                 class
-## Variable                                                                                                                                                                        class
-## Description The AQS parameter class name.  Classes are a way to group like parameters.  They may be obtained via the  list classes service. Only used in the list parameters service.
-## Example                                                                                                                                                                      criteria</code></pre>
+## Example                                                                                                                                                                                                                                                  81101,44201</code></pre>
 <p>We can opt to just see the variable names as follows:</p>
 <pre class="r"><code>show.variables()</code></pre>
 <pre><code>##  [1] &quot;email&quot;  &quot;key&quot;    &quot;bdate&quot;  &quot;edate&quot;  &quot;param&quot;  &quot;state&quot;  &quot;county&quot;
@@ -920,157 +412,28 @@ variables.for.requests</code></pre>
 <pre class="r"><code>endpoint &lt;- get.list.variable.endpoint( &quot;state&quot;)
 base.call &lt;- create.base.call( endpoint )
 call.results &lt;- perform.call(base.call)
-call.results</code></pre>
-<pre><code>## $Header
-##    status              request_time
-## 1 Success 2020-05-16T18:01:10-04:00
-##                                                                                 url
-## 1 https://aqs.epa.gov/data/api/list/states?&amp;email=glo003@bucknell.edu&amp;key=goldram72
-##   rows
-## 1   56
-## 
-## $Data
-##    code    value_represented
-## 1    01              Alabama
-## 2    02               Alaska
-## 3    04              Arizona
-## 4    05             Arkansas
-## 5    06           California
-## 6    08             Colorado
-## 7    09          Connecticut
-## 8    10             Delaware
-## 9    11 District Of Columbia
-## 10   12              Florida
-## 11   13              Georgia
-## 12   15               Hawaii
-## 13   16                Idaho
-## 14   17             Illinois
-## 15   18              Indiana
-## 16   19                 Iowa
-## 17   20               Kansas
-## 18   21             Kentucky
-## 19   22            Louisiana
-## 20   23                Maine
-## 21   24             Maryland
-## 22   25        Massachusetts
-## 23   26             Michigan
-## 24   27            Minnesota
-## 25   28          Mississippi
-## 26   29             Missouri
-## 27   30              Montana
-## 28   31             Nebraska
-## 29   32               Nevada
-## 30   33        New Hampshire
-## 31   34           New Jersey
-## 32   35           New Mexico
-## 33   36             New York
-## 34   37       North Carolina
-## 35   38         North Dakota
-## 36   39                 Ohio
-## 37   40             Oklahoma
-## 38   41               Oregon
-## 39   42         Pennsylvania
-## 40   44         Rhode Island
-## 41   45       South Carolina
-## 42   46         South Dakota
-## 43   47            Tennessee
-## 44   48                Texas
-## 45   49                 Utah
-## 46   50              Vermont
-## 47   51             Virginia
-## 48   53           Washington
-## 49   54        West Virginia
-## 50   55            Wisconsin
-## 51   56              Wyoming
-## 52   66                 Guam
-## 53   72          Puerto Rico
-## 54   78       Virgin Islands
-## 55   80    Country Of Mexico
-## 56   CC               Canada</code></pre>
+head( call.results$Data )</code></pre>
+<pre><code>##   code value_represented
+## 1   01           Alabama
+## 2   02            Alaska
+## 3   04           Arizona
+## 4   05          Arkansas
+## 5   06        California
+## 6   08          Colorado</code></pre>
 <p>Some variables, like county, require an additional variable (say state) to determine encoding. For this, simply find the encoding of the additional variable before hand and include it in the call.</p>
 <pre class="r"><code>state &lt;- &quot;01&quot;    # Alabama
 endpoint &lt;- get.list.variable.endpoint( &quot;county&quot; )
 base.call &lt;- create.base.call( endpoint )
 call &lt;- add.variable( base.call, state)
 call.results &lt;- perform.call( call )
-call.results</code></pre>
-<pre><code>## $Header
-##    status              request_time
-## 1 Success 2020-05-16T18:01:10-04:00
-##                                                                                                   url
-## 1 https://aqs.epa.gov/data/api/list/countiesByState?&amp;email=glo003@bucknell.edu&amp;key=goldram72&amp;state=01
-##   rows
-## 1   67
-## 
-## $Data
-##    code value_represented
-## 1   001           Autauga
-## 2   003           Baldwin
-## 3   005           Barbour
-## 4   007              Bibb
-## 5   009            Blount
-## 6   011           Bullock
-## 7   013            Butler
-## 8   015           Calhoun
-## 9   017          Chambers
-## 10  019          Cherokee
-## 11  021           Chilton
-## 12  023           Choctaw
-## 13  025            Clarke
-## 14  027              Clay
-## 15  029          Cleburne
-## 16  031            Coffee
-## 17  033           Colbert
-## 18  035           Conecuh
-## 19  037             Coosa
-## 20  039         Covington
-## 21  041          Crenshaw
-## 22  043           Cullman
-## 23  045              Dale
-## 24  047            Dallas
-## 25  049            DeKalb
-## 26  051            Elmore
-## 27  053          Escambia
-## 28  055            Etowah
-## 29  057           Fayette
-## 30  059          Franklin
-## 31  061            Geneva
-## 32  063            Greene
-## 33  065              Hale
-## 34  067             Henry
-## 35  069           Houston
-## 36  071           Jackson
-## 37  073         Jefferson
-## 38  075             Lamar
-## 39  077        Lauderdale
-## 40  079          Lawrence
-## 41  081               Lee
-## 42  083         Limestone
-## 43  085           Lowndes
-## 44  087             Macon
-## 45  089           Madison
-## 46  091           Marengo
-## 47  093            Marion
-## 48  095          Marshall
-## 49  097            Mobile
-## 50  099            Monroe
-## 51  101        Montgomery
-## 52  103            Morgan
-## 53  105             Perry
-## 54  107           Pickens
-## 55  109              Pike
-## 56  111          Randolph
-## 57  113           Russell
-## 58  115         St. Clair
-## 59  117            Shelby
-## 60  119            Sumter
-## 61  121         Talladega
-## 62  123        Tallapoosa
-## 63  125        Tuscaloosa
-## 64  127            Walker
-## 65  129        Washington
-## 66  131            Wilcox
-## 67  133           Winston</code></pre>
+head( call.results$Data )</code></pre>
+<pre><code>##   code value_represented
+## 1  001           Autauga
+## 2  003           Baldwin
+## 3  005           Barbour
+## 4  007              Bibb
+## 5  009            Blount
+## 6  011           Bullock</code></pre>
 </div>
 </div>
 
