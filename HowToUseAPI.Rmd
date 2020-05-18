@@ -36,9 +36,16 @@ Queries automatically check if the API is running so we may only want to check i
 To use the API, we need to have a valid email and API key with the website. Getting an API key is easy, and can be done following the instructions [here](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup). 
 Once we have the email and key, we can easily set these up to be in our requests. 
 
-```{r}
+```{r, echo = FALSE}
+# Set up your own credentials
 set.email( 'glo003@bucknell.edu' )
 set.key( 'goldram72' )
+create.authentication()
+```
+
+```{r eval = FALSE}
+set.email( 'youremail@domain.com' )
+set.key( 'yourkey' )
 create.authentication()
 ```
 
@@ -48,7 +55,12 @@ All future requests will now use these credentials.
 
 At the outset, we may not know exactly what we want from the API. We can start by seeing what services are offered. 
 
-If we want detail, we can get a data frame containing the services and short description of each. 
+If we just want to see a quick list of services, we can try.
+```{r}
+show.services()
+```
+
+If we want detail, we can get a list containing the services and short description of each. 
 ```{r}
 services.df <- get.services()
 services.df[, c(1:5)]
@@ -60,10 +72,6 @@ Here's an example for monitors.
 services.df$Monitors
 ```
 
-If we just want to see a quick list of services, we can try.
-```{r}
-show.services()
-```
 
 ### Making basic calls 
 
@@ -78,7 +86,7 @@ call <- create.base.call( endpoint )
 call
 ```
 
-Now that we have the call, we can request data from the API. The perform.call() function will provide a data frame with info about the request and data desired.
+Now that we have the call, we can request data from the API. The perform.call() function will provide a list with info about the request and data desired.
 
 ```{r}
 # Perform the call, get dataframe of data in resulting call
@@ -136,14 +144,15 @@ head( call.result$Data )
 ### See variables and their codes
 
 We can easily see which variables might be required to make a request below. 
+```{r}
+show.variables()
+```
+
+If we need more detail, we can use get.variables(). 
 
 ```{r}
 variables.for.requests <- get.variables()
 variables.for.requests[ , c(1:5)]
-```
-We can opt to just see the variable names as follows:
-```{r}
-show.variables()
 ```
 
 Each variable may require a particular code. For example, instead of asking for 'Arizona' we would use the code '04'. 

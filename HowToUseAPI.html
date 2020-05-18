@@ -139,7 +139,7 @@ source(&quot;Utility.R&quot;)</code></pre>
 <p>We can start by checking if the API is up and running.</p>
 <pre class="r"><code>is.API.running()</code></pre>
 <pre><code>## Response [https://aqs.epa.gov/data/api/metaData/isAvailable?]
-##   Date: 2020-05-17 20:30
+##   Date: 2020-05-18 21:21
 ##   Status: 200
 ##   Content-Type: application/json; charset=utf-8
 ##   Size: 300 B
@@ -147,7 +147,7 @@ source(&quot;Utility.R&quot;)</code></pre>
 ##   &quot;Header&quot;: [
 ##     {
 ##       &quot;status&quot;: &quot;API service is up and running healthy. Status: connecti...
-##       &quot;request_time&quot;: &quot;2020-05-17T16:30:30-04:00&quot;,
+##       &quot;request_time&quot;: &quot;2020-05-18T17:21:13-04:00&quot;,
 ##       &quot;url&quot;: &quot;http://aqs.epa.gov/api/metaData/isAvailable&quot;
 ##     }
 ##   ],
@@ -158,15 +158,18 @@ source(&quot;Utility.R&quot;)</code></pre>
 <div id="authentication-setup" class="section level3">
 <h3>Authentication setup</h3>
 <p>To use the API, we need to have a valid email and API key with the website. Getting an API key is easy, and can be done following the instructions <a href="https://aqs.epa.gov/aqsweb/documents/data_api.html#signup">here</a>. Once we have the email and key, we can easily set these up to be in our requests.</p>
-<pre class="r"><code>set.email( 'glo003@bucknell.edu' )
-set.key( 'goldram72' )
+<pre class="r"><code>set.email( 'youremail@domain.com' )
+set.key( 'yourkey' )
 create.authentication()</code></pre>
 <p>All future requests will now use these credentials.</p>
 </div>
 <div id="see-what-services-the-api-offers" class="section level3">
 <h3>See what services the API offers</h3>
 <p>At the outset, we may not know exactly what we want from the API. We can start by seeing what services are offered.</p>
-<p>If we want detail, we can get a data frame containing the services and short description of each.</p>
+<p>If we just want to see a quick list of services, we can try.</p>
+<pre class="r"><code>show.services()</code></pre>
+<pre><code>## NULL</code></pre>
+<p>If we want detail, we can get a list containing the services and short description of each.</p>
 <pre class="r"><code>services.df &lt;- get.services()
 services.df[, c(1:5)]</code></pre>
 <pre><code>##                                                                                                                                                                                                                          Sign up
@@ -189,15 +192,6 @@ services.df[, c(1:5)]</code></pre>
 <pre class="r"><code>services.df$Monitors</code></pre>
 <pre><code>## [1] &quot;Monitors&quot;                                                                                                                                                                  
 ## [2] &quot;Returns operational information about the samplers (monitors) used to collect the data.  Includes identifying information,operational dates, operating organizations, etc.&quot;</code></pre>
-<p>If we just want to see a quick list of services, we can try.</p>
-<pre class="r"><code>show.services()</code></pre>
-<pre><code>##  [1] &quot;Sign up&quot;                    &quot;Meta Data&quot;                 
-##  [3] &quot;List&quot;                       &quot;Monitors&quot;                  
-##  [5] &quot;Sample Data&quot;                &quot;Daily Summary&quot;             
-##  [7] &quot;Annual Summary&quot;             &quot;QA Blanks&quot;                 
-##  [9] &quot;QA Collocated Assessments&quot;  &quot;QA Flow Rate Verifications&quot;
-## [11] &quot;QA Flow Rate Audits&quot;        &quot;QA One Point QC Raw Data&quot;  
-## [13] &quot;QA PEP Audits&quot;</code></pre>
 </div>
 <div id="making-basic-calls" class="section level3">
 <h3>Making basic calls</h3>
@@ -209,13 +203,13 @@ endpoint &lt;- 'list/states'
 call &lt;- create.base.call( endpoint )
 call</code></pre>
 <pre><code>## [1] &quot;https://aqs.epa.gov/data/api/list/states?&amp;email=glo003@bucknell.edu&amp;key=goldram72&quot;</code></pre>
-<p>Now that we have the call, we can request data from the API. The perform.call() function will provide a data frame with info about the request and data desired.</p>
+<p>Now that we have the call, we can request data from the API. The perform.call() function will provide a list with info about the request and data desired.</p>
 <pre class="r"><code># Perform the call, get dataframe of data in resulting call
 call.data &lt;- perform.call( call )
 call.data</code></pre>
 <pre><code>## $Header
 ##    status              request_time
-## 1 Success 2020-05-17T16:30:31-04:00
+## 1 Success 2020-05-18T17:21:14-04:00
 ##                                                                                 url
 ## 1 https://aqs.epa.gov/data/api/list/states?&amp;email=glo003@bucknell.edu&amp;key=goldram72
 ##   rows
@@ -284,7 +278,7 @@ call.data</code></pre>
 raw.call &lt;- perform.call.raw( call )
 raw.call</code></pre>
 <pre><code>## Response [https://aqs.epa.gov/data/api/list/states?&amp;email=glo003@bucknell.edu&amp;key=goldram72]
-##   Date: 2020-05-17 20:30
+##   Date: 2020-05-18 21:21
 ##   Status: 200
 ##   Content-Type: application/json; charset=utf-8
 ##   Size: 4.26 kB
@@ -292,7 +286,7 @@ raw.call</code></pre>
 ##   &quot;Header&quot;: [
 ##     {
 ##       &quot;status&quot;: &quot;Success&quot;,
-##       &quot;request_time&quot;: &quot;2020-05-17T16:30:32-04:00&quot;,
+##       &quot;request_time&quot;: &quot;2020-05-18T17:21:14-04:00&quot;,
 ##       &quot;url&quot;: &quot;https://aqs.epa.gov/data/api/list/states?&amp;email=glo003@buc...
 ##       &quot;rows&quot;: 56
 ##     }
@@ -328,12 +322,12 @@ call</code></pre>
 call.result &lt;- perform.call( call )
 head( call.result$Data )</code></pre>
 <pre><code>##   state_code county_code site_number parameter_code poc latitude longitude
-## 1         37         011        9991          44201   1  36.1058  -82.0454
-## 2         37         011        9991          44201   1  36.1058  -82.0454
-## 3         37         011        9991          44201   1  36.1058  -82.0454
-## 4         37         011        9991          44201   1  36.1058  -82.0454
-## 5         37         011        9991          44201   1  36.1058  -82.0454
-## 6         37         011        9991          44201   1  36.1058  -82.0454
+## 1         37         119        0041          44201   1  35.2401 -80.78568
+## 2         37         119        0041          44201   1  35.2401 -80.78568
+## 3         37         119        0041          44201   1  35.2401 -80.78568
+## 4         37         119        0041          44201   1  35.2401 -80.78568
+## 5         37         119        0041          44201   1  35.2401 -80.78568
+## 6         37         119        0041          44201   1  35.2401 -80.78568
 ##   datum parameter         sample_duration pollutant_standard date_local
 ## 1 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979 2020-01-01
 ## 2 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997 2020-01-01
@@ -349,37 +343,40 @@ head( call.result$Data )</code></pre>
 ## 5 Parts per million       None                23                  96
 ## 6 Parts per million       None                24                 100
 ##   validity_indicator arithmetic_mean first_max_value first_max_hour aqi
-## 1                  Y        0.039957           0.044             16  NA
-## 2                  Y        0.039833           0.042             10  39
-## 3                  Y        0.039833           0.042             10  39
-## 4                  Y        0.040000           0.042             10  39
-## 5                  Y        0.041609           0.047              6  NA
-## 6                  Y        0.039958           0.045              4  42
-##   method_code                      method local_site_name
-## 1         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
-## 2         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
-## 3         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
-## 4         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
-## 5         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
-## 6         047 INSTRUMENTAL - ULTRA VIOLET       Cranberry
-##                                site_address          state county
-## 1 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
-## 2 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
-## 3 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
-## 4 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
-## 5 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
-## 6 Pisgah National Forest, Newland, NC 28657 North Carolina  Avery
-##            city cbsa_code cbsa date_of_last_change
-## 1 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
-## 2 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
-## 3 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
-## 4 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
-## 5 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01
-## 6 Not in a city      &lt;NA&gt; &lt;NA&gt;          2020-05-01</code></pre>
+## 1                  Y        0.021000           0.040             14  NA
+## 2                  Y        0.020583           0.037             10  34
+## 3                  Y        0.020583           0.037             10  34
+## 4                  Y        0.022471           0.037             10  34
+## 5                  Y        0.021913           0.035             15  NA
+## 6                  Y        0.020250           0.027             10  25
+##   method_code                      method      local_site_name
+## 1         047 INSTRUMENTAL - ULTRA VIOLET Garinger High School
+## 2         047 INSTRUMENTAL - ULTRA VIOLET Garinger High School
+## 3         047 INSTRUMENTAL - ULTRA VIOLET Garinger High School
+## 4         047 INSTRUMENTAL - ULTRA VIOLET Garinger High School
+## 5         047 INSTRUMENTAL - ULTRA VIOLET Garinger High School
+## 6         047 INSTRUMENTAL - ULTRA VIOLET Garinger High School
+##         site_address          state      county      city cbsa_code
+## 1 1130 EASTWAY DRIVE North Carolina Mecklenburg Charlotte     16740
+## 2 1130 EASTWAY DRIVE North Carolina Mecklenburg Charlotte     16740
+## 3 1130 EASTWAY DRIVE North Carolina Mecklenburg Charlotte     16740
+## 4 1130 EASTWAY DRIVE North Carolina Mecklenburg Charlotte     16740
+## 5 1130 EASTWAY DRIVE North Carolina Mecklenburg Charlotte     16740
+## 6 1130 EASTWAY DRIVE North Carolina Mecklenburg Charlotte     16740
+##                                cbsa date_of_last_change
+## 1 Charlotte-Concord-Gastonia, NC-SC          2020-05-05
+## 2 Charlotte-Concord-Gastonia, NC-SC          2020-05-05
+## 3 Charlotte-Concord-Gastonia, NC-SC          2020-05-05
+## 4 Charlotte-Concord-Gastonia, NC-SC          2020-05-05
+## 5 Charlotte-Concord-Gastonia, NC-SC          2020-05-05
+## 6 Charlotte-Concord-Gastonia, NC-SC          2020-05-05</code></pre>
 </div>
 <div id="see-variables-and-their-codes" class="section level3">
 <h3>See variables and their codes</h3>
 <p>We can easily see which variables might be required to make a request below.</p>
+<pre class="r"><code>show.variables()</code></pre>
+<pre><code>## NULL</code></pre>
+<p>If we need more detail, we can use get.variables().</p>
 <pre class="r"><code>variables.for.requests &lt;- get.variables()
 variables.for.requests[ , c(1:5)]</code></pre>
 <pre><code>##                                           email
@@ -402,11 +399,6 @@ variables.for.requests[ , c(1:5)]</code></pre>
 ## Variable                                                                                                                                                                                                                                                       param
 ## Description The AQS parameter code for the data selection.  AQS uses proprietary 5 digit codes.  They may be obtained via the  list parameters service.  Up to 5 parameters may be requested, separated by commas.  Only data for these parameters will be returned.
 ## Example                                                                                                                                                                                                                                                  81101,44201</code></pre>
-<p>We can opt to just see the variable names as follows:</p>
-<pre class="r"><code>show.variables()</code></pre>
-<pre><code>##  [1] &quot;email&quot;  &quot;key&quot;    &quot;bdate&quot;  &quot;edate&quot;  &quot;param&quot;  &quot;state&quot;  &quot;county&quot;
-##  [8] &quot;site&quot;   &quot;cbsa&quot;   &quot;minlat&quot; &quot;maxlat&quot; &quot;minlon&quot; &quot;maxlon&quot; &quot;cbdate&quot;
-## [15] &quot;cedate&quot; &quot;pqao&quot;   &quot;ma&quot;     &quot;class&quot;</code></pre>
 <p>Each variable may require a particular code. For example, instead of asking for ‘Arizona’ we would use the code ‘04’.</p>
 <p>If a variable, like ‘state’, needs no additional parameters, we can query by passing in the variable name.</p>
 <pre class="r"><code>endpoint &lt;- get.list.variable.endpoint( &quot;state&quot;)
