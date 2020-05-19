@@ -175,7 +175,17 @@ perform.call.raw <- function( call ){
   return( raw )
 }
 
+# Check if a string contains characters not seen in endpoints
+endpoint.checker <- function( string ){
+  example.check <- grepl( "Example", string, fixed = TRUE)
+  returns.check <- grepl( "Returns", string, fixed = TRUE)
+  https.check <- grepl( "https:", string, fixed = TRUE)
+  return( example.check | returns.check | https.check)
+}
+
 ####
 ####
 ####
+
+
 
