@@ -1,0 +1,23 @@
+---
+title: "Endpoints"
+author: "Leonard Orozco"
+date: "2020/5/19"
+output: html_document
+---
+
+## The anatomy of an EPA API request
+
+Although we do not need to write out an entire API URL request, knowing how API requests are built helps when using this package.
+
+Each request comes in the form of a URL. A user writes out a URL and then places it in a browser or in an API service (much like this package) to retrieve data. In the case of the EPA API, all requests follow a similar structure. They all have the base url, the endpoint, authentication, and (sometimes) variables. 
+
+The base url consists of the website API address at https://aqs.epa.gov/data/api/. An endpoint refers
+to the string coming right after this base url, and refers to the service the API gives. For example, the API can show a list of states and their respective codes to use when querying. The endpoint for this is the string 'list/states?'. At this point, our URL looks like this: https://aqs.epa.gov/data/api/list/states?. 
+To request data, a user needs to have regeistered a valid email and received an API key (to do so [see here](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup). This email and key go into an authentication string that gets appended to the url. Now, our URL looks like this: https://aqs.epa.gov/data/api/list/states?&email=youremail@domain.com@key=yourapikey. 
+
+At this point, we can place the URL in the browser and receive data about states. But this type of call is on the simple side of things. Most data will probably involve a particular pollutant in a desired state for example. In that case, we need to also add additional variables to the string. 
+
+For instance, suppose we wanted to get daily data values for ozone concentrations in the state of North Carolina. After determining the endpoint ('dailyData/byState'), we need to add in a variable for state, the beginning date, ending date for our data, and a paramter, ozone. If we wrote out the entire call as URL, including authentication, we would have this: https://aqs.epa.gov/data/api/dailyData/byState?&email=youremail@domain.com@key=yourapikey&state=37&bdate=20200101&edate=20200102&param=44201. 
+
+It's not hard to see that having to write these queries by hand is probably not the best idea. This package aims to minimize the amount of time spent writing a query freeing the researcher to work on analyzing their data.  
+
