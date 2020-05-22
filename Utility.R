@@ -201,6 +201,7 @@ example.check <- function( string ){
   return( grepl("Example", string, fixed = TRUE) )
 }
 
+
 #### Function to give to list structure creator
 create.list.endpoints.examples.params <- function( row.number, df ){
   test.list <- list()
@@ -211,9 +212,12 @@ create.list.endpoints.examples.params <- function( row.number, df ){
   if( ! example.check( df$'Required Variables'[row.number]) ){
     test.list$RequiredVariables <- df$'Required Variables'[row.number]
   }
-  if( ! example.check( df$`Optional Variables`[row.number]) & df$'Optional Variables'[row.number] != ""){
-    # Add the param variables there
-    test.list$OptionalVariables <- df$`Optional Variables`[row.number]
+  
+  if( ! is.na( df$'Optional Variable'[ row.number ]) ){
+    if( ! example.check( df$`Optional Variables`[row.number]) & df$'Optional Variables'[row.number] != ""){
+      # Add the param variables there
+      test.list$OptionalVariables <- df$`Optional Variables`[row.number]
+    }
   }
   if( example.check( df$Endpoint[row.number]  ) ){
     test.list$Example <- df$Endpoint[row.number] # Should be an example
@@ -226,8 +230,8 @@ create.list.endpoints.examples.params <- function( row.number, df ){
 ####
 
 ### Modify to pass in table, find the indices at which a filter exists
-determine.filter <- function( name.filter ){
-  indices <- which(copy.table$Filter == name.filter)
+determine.filter <- function( name.filter, df ){
+  indices <- which(df$Filter == name.filter)
   return( indices )
 }
 
@@ -243,7 +247,7 @@ create.filter.list <- function( df ){ # df contains a filter variable
     
     filter.name <- names.count[ i ]
     count <- counts[[ filter.name ]]
-    row.numbers <- determine.filter( filter.name )
+    row.numbers <- determine.filter( filter.name, df )
     
     results.list <- list()
     for( element in row.numbers){
@@ -252,6 +256,19 @@ create.filter.list <- function( df ){ # df contains a filter variable
     filter.list[[filter.name]] <- results.list
   }
   return( filter.list )
+}
+
+# Take a df and output a list with easy accessing for variables
+populate.service.list <- function( df ){
+  corrected.df <- df
+  result.list <- list()
+  
+  result.list$Service <- df$Service[1]
+  corrected.df <- correct.overflow.filter( df )
+  
+  result.list$Filter <- create.filter.list( corrected.df )
+  
+  return( result.list )
 }
 
 ####

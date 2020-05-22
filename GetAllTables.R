@@ -1,4 +1,5 @@
 # Acquire all endpoints in API
+# Get all tables into a list of services
 
 library(rvest)
 source("Utility.R")
@@ -13,31 +14,41 @@ tbls <- html_nodes( site, "table" )
 list.tbls <- html_table(tbls, fill = TRUE)
 ###
 
+class(list.tbls[[1]])
+
+
 ### Experimental case
 sample.table <- list.tbls[[15]]
 copy.table <- sample.table
 
-#### Recopy filter entries to cover the service entry
-copy.table <- correct.overflow.filter( sample.table )
+# Function testing
+tbl.list <- populate.service.list( copy.table )
+tbl.list
 
-copy.table$Filter
-sample.table$Filter
+## Perform for all tables (assuming each has a service)
 
-#### Create (possible reordering of code blocks here) sample list structure 
-#### Will contain final product
+tbl.list$Service
 
-sample.list <- list()
+# Take a list of html tables, output a list of lists, each list a service.
+populate.all.services <- function( list.tables ){
+  services.list <- list()
+  for( i in 1:length( list.tables ) ){
+    df <- list.tables[[i]]
+    if(  length( df$Filter ) !=0  ) {
+      if( !is.na( df$Filter )[1] ) {
+        service.name <- df$Service[1]
+        services.list[[ service.name ]] <- populate.service.list( df )
+      }
+    }
+  }
+  return( services.list )
+}
 
-# Set up service name
-sample.list$Service <- copy.table$Service[1]
-sample.list
-####
+services <- populate.all.services( list.tbls )
 
-#### Test procedure
-sample.list$Filter <- create.filter.list( copy.table )
-sample.list$Filter
+services$MetaData$Filter$
 
-
+is.null(list.tbls[[1]]$Filter)
 
 ######## Just endpoints #########
 ### Find the endpoints
