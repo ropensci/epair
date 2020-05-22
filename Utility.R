@@ -183,6 +183,77 @@ endpoint.checker <- function( string ){
   return( example.check | returns.check | https.check)
 }
 
+# Function that replaces overflow entries (for filter)
+# TODO, generalize to variable
+correct.overflow.filter <- function( df  ){
+  copy.df <- df
+  for( i in 1:length( df$Filter) ){
+    if( df$Filter[i] == df$Service[1]){     # Assume that the service entry overflowed into the filter
+      copy.df$Filter[i] <- df$Filter[i - 1] # Assign the previous entry, still in same filter
+    }
+  }
+  return( copy.df )
+}
+
+#### Find out if a string has Example in it
+#### --> For finding the examples in the entries
+example.check <- function( string ){
+  return( grepl("Example", string, fixed = TRUE) )
+}
+
+#### Function to give to list structure creator
+create.list.endpoints.examples.params <- function( row.number, df ){
+  test.list <- list()
+  if( ! example.check( df$Endpoint[row.number]) ){
+    # Add the endpoint to the endpoint reading
+    test.list$Endpoint <- df$Endpoint[row.number]
+  }
+  if( ! example.check( df$'Required Variables'[row.number]) ){
+    test.list$RequiredVariables <- df$'Required Variables'[row.number]
+  }
+  if( ! example.check( df$`Optional Variables`[row.number]) & df$'Optional Variables'[row.number] != ""){
+    # Add the param variables there
+    test.list$OptionalVariables <- df$`Optional Variables`[row.number]
+  }
+  if( example.check( df$Endpoint[row.number]  ) ){
+    test.list$Example <- df$Endpoint[row.number] # Should be an example
+  }
+  test.list
+  return( test.list )
+}
+# result.list <- create.list.endpoints.examples.params( 8, copy.table)
+# result.list$Example
+####
+
+### Modify to pass in table, find the indices at which a filter exists
+determine.filter <- function( name.filter ){
+  indices <- which(copy.table$Filter == name.filter)
+  return( indices )
+}
+
+#### Find the counts for each filter entry, (assumes the filter has been cleaned
+create.filter.list <- function( df ){ # df contains a filter variable
+  
+  # Keep track of each filter entry
+  counts <- table(df$Filter)
+  names.count <- names(counts)
+  
+  filter.list <- list()
+  for(i in 1:length( names.count  )){
+    
+    filter.name <- names.count[ i ]
+    count <- counts[[ filter.name ]]
+    row.numbers <- determine.filter( filter.name )
+    
+    results.list <- list()
+    for( element in row.numbers){
+      results.list <- append( results.list, create.list.endpoints.examples.params( element, df ) )
+    }
+    filter.list[[filter.name]] <- results.list
+  }
+  return( filter.list )
+}
+
 ####
 ####
 ####
