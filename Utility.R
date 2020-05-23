@@ -6,6 +6,7 @@ EMAIL <- ''
 KEY <-  ''
 AUTHENTICATION <- ''
 SERVICES <- ''
+SERVICE.NAMES <- data.frame()
 VARIABLES <- ''
 VARIABLE.TYPES <- list("state" = 'list/states',
                        "county" = 'list/countiesByState',
@@ -90,7 +91,7 @@ get.transpose <- function( df  ){
 ####
 
 # Services the API provides
-get.services <- function(){
+get.service.names <- function(){
   
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
   table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
@@ -100,13 +101,13 @@ get.services <- function(){
   
   t.df <- get.transpose(df)
   
-  SERVICES <<- t.df
+  SERVICE.NAMES <<- t.df
   return( t.df )
 }
 
 ## TODO setup assert to ensure services are present
-show.services <- function(){
-  print( colnames( SERVICES ) )
+show.service.names <- function(){
+  print( colnames( SERVICE.NAMES ) )
 }
 
 # Variables for making requests
@@ -302,6 +303,15 @@ show.endpoints <- function( list.tables ){
     }
   }
   return( pure.endpoints )
+}
+
+# Get all the html tables in the API site and return a list with tables
+# -- Be sure bug in rvest has been fixed
+get.all.tables <- function( ){
+  site <- read_html( 'https://aqs.epa.gov/aqsweb/documents/data_api.html' )
+  tbls <- html_nodes( site, "table" )
+  list.tbls <- html_table(tbls, fill = TRUE)
+  return( list.tbls )
 }
 
 ####
