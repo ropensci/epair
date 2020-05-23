@@ -271,6 +271,39 @@ populate.service.list <- function( df ){
   return( result.list )
 }
 
+# Take a list of html tables, output a list of lists, each list a service.
+populate.all.services <- function( list.tables ){
+  services.list <- list()
+  for( i in 1:length( list.tables ) ){
+    df <- list.tables[[i]]
+    if(  length( df$Filter ) != 0  ) { # Esnure all services going into final list have a filter
+      if( !is.na( df$Filter )[1] ) {
+        service.name <- df$Service[1]
+        services.list[[ service.name ]] <- populate.service.list( df )
+      }
+    }
+  }
+  return( services.list )
+}
+
+# Take a list of html tables from api and output all endpoints
+show.endpoints <- function( list.tables ){
+  endpoints <- c()
+  for( i in 1:length( list.tables ) ){
+    if( "Endpoint" %in% colnames( list.tables[[i]] ) ){
+      endpoints <- c( endpoints, list.tables[[i]]$Endpoint ) 
+    }
+  }
+  # Filter out entries that aren't endpoints
+  pure.endpoints <- c()
+  for( i in 1:length( endpoints ) ){
+    if( !endpoint.checker( endpoints[i] ) ){
+      pure.endpoints <- c( pure.endpoints, endpoints[i])
+    }
+  }
+  return( pure.endpoints )
+}
+
 ####
 ####
 ####
