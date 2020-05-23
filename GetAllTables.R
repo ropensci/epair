@@ -14,58 +14,16 @@ tbls <- html_nodes( site, "table" )
 list.tbls <- html_table(tbls, fill = TRUE)
 ###
 
-class(list.tbls[[1]])
 
-
-### Experimental case
+### Experimental case for a single table
 sample.table <- list.tbls[[15]]
-copy.table <- sample.table
-
-# Function testing
-tbl.list <- populate.service.list( copy.table )
-tbl.list
+tbl.list <- populate.service.list( sample.table )
+tbl.list$Filter$`By County`$Endpoint
 
 ## Perform for all tables (assuming each has a service)
-
-tbl.list$Service
-
-# Take a list of html tables, output a list of lists, each list a service.
-populate.all.services <- function( list.tables ){
-  services.list <- list()
-  for( i in 1:length( list.tables ) ){
-    df <- list.tables[[i]]
-    if(  length( df$Filter ) !=0  ) {
-      if( !is.na( df$Filter )[1] ) {
-        service.name <- df$Service[1]
-        services.list[[ service.name ]] <- populate.service.list( df )
-      }
-    }
-  }
-  return( services.list )
-}
-
 services <- populate.all.services( list.tbls )
+services$List$Filter$`Sites by County`
 
-services$MetaData$Filter$
-
-is.null(list.tbls[[1]]$Filter)
-
-######## Just endpoints #########
-### Find the endpoints
-endpoints <- c()
-for( i in 1:length( df.tbls ) ){
-  if( "Endpoint" %in% colnames( df.tbls[[i]] ) ){
-   endpoints <- c( endpoints, df.tbls[[i]]$Endpoint ) 
-  }
-}
-# Filter out entries that aren't endpoints
-pure.endpoints <- c()
-for( i in 1:length( endpoints ) ){
-  if( !endpoint.checker( endpoints[i] ) ){
-    pure.endpoints <- c( pure.endpoints, endpoints[i])
-  }
-}
-pure.endpoints
-######## Just endpoints #########
-
-
+### Get only the endpoints
+endpoints <- show.endpoints( list.tbls )
+endpoints
