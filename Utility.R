@@ -5,7 +5,7 @@
 EMAIL <- ''
 KEY <-  ''
 AUTHENTICATION <- ''
-SERVICES <- ''
+SERVICES <- list()
 SERVICE.NAMES <- data.frame()
 VARIABLES <- ''
 VARIABLE.TYPES <- list("state" = 'list/states',
@@ -312,6 +312,33 @@ get.all.tables <- function( ){
   tbls <- html_nodes( site, "table" )
   list.tbls <- html_table(tbls, fill = TRUE)
   return( list.tbls )
+}
+
+# Assign a description to each service using the service and description table
+assign.description.to.services <- function( services ){
+  if( length( SERVICE.NAMES) == 0){
+    stop( "Fill up SERVICE.NAMES by calling get.service.names()")
+  }
+  # Remove the signup since the user will do that via the website
+  no.sign.up.services <- SERVICE.NAMES[-1]
+  for(i in 1:length( no.sign.up.services )){
+    services[[i]]$Description <- no.sign.up.services[[i]][2]    # Second entry is description
+  }
+  return( services )
+}
+
+# Assign description to services in list structure
+get.services <- function(){
+  if( length( SERVICE.NAMES)  == 0){
+    stop( "Must populate SERVICE.NAMES with names and descriptions of service.")
+  }
+  tbls <- get.all.tables()
+  services <- populate.all.services( tbls )
+  services <- assign.description.to.services( services )
+  
+  SERVICES <<- services
+  
+  return( services )
 }
 
 ####
