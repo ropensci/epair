@@ -57,19 +57,19 @@ At the outset, we may not know exactly what we want from the API. We can start b
 
 If we just want to see a quick list of services, we can try.
 ```{r}
-show.services()
+show.service.names()
 ```
 
 If we want detail, we can get a list containing the services and short description of each. 
 ```{r}
-services.df <- get.services()
-services.df[, c(1:5)]
+services <- get.service.names()
+SERVICE.NAMES
 ```
 Using R's smart variable selection, simply typing services.table$ will open up a service to select, and its description. 
 
 Here's an example for monitors. 
 ```{r}
-services.df$Monitors
+SERVICE.NAMES$Monitors
 ```
 
 
