@@ -1,6 +1,8 @@
 ## Utility package for creating queries in EPA API 
 ## at https://aqs.epa.gov/aqsweb/documents/data_api.html#signup
 
+library(magrittr)
+library(rvest)
 
 EMAIL <- ''
 KEY <-  ''
@@ -21,18 +23,30 @@ VARIABLE.TYPES <- list("state" = 'list/states',
 #### Authentication 
 ####
 
+# Email for API in queries
 set.email <- function( email ){
   EMAIL <<- email
 }
+#set.email( "myemail@domain.com" )
+#EMAIL
 
+# Key for API in queries
 set.key <- function( key ){
   KEY <<- key
 }
+#set.key( "mykey" )
+#KEY
 
+# Combine email and key into one string for querying
 create.authentication <- function(){
+  if( KEY == '' | EMAIL == ''){
+    stop( "KEY or EMAIL must both be setup." )
+  }
   authentication.string <- sprintf('&email=%s&key=%s', EMAIL, KEY)
   AUTHENTICATION <<- authentication.string
 }
+#create.authentication()
+#AUTHENTICATION
 
 ####
 ####
@@ -42,16 +56,24 @@ create.authentication <- function(){
 #### Calls 
 ####
 
+# The first call to make when forming a query.  
 create.base.call <- function( endpoint ){
+  if( AUTHENTICATION == ''){
+    stop( "Make sure AUTHENTICATION has been setup properly.")
+  }
   base = 'https://aqs.epa.gov/data/api/'
   result <- paste( base, endpoint, "?", AUTHENTICATION, sep = "")
   return( result )
 }
+#endpoint <- "list/states"
+#call <- create.base.call( endpoint )
+#call
 
 ####
 #### Site scraping and data transformation
 ####
 
+# Output is a dataframe
 get.table <- function( url, table.xpath ){
   found.table <- url %>%
     read_html() %>%
@@ -59,21 +81,39 @@ get.table <- function( url, table.xpath ){
     html_table()
   return( found.table[[1]] )
 }
+# Used in get.service.names()
+#url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
+#table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
+#df <- get.table( url, table.path )
+#df
+
+# Replace all string entries of pattern with replacement in df
+string.replacer <- function( df, pattern, replacement){
+  modified.df <- lapply( df, gsub, pattern = pattern, replacement = replacement, fixed = TRUE)
+  return( as.data.frame( modified.df ) )
+}
+#df <- data.frame( c("1", "2", "3", "4"))
+#modified.df <- string.replacer( df, "1", "One")
+#modified.df
 
 # TODO, simplify code with multiple pattern regex matching
 remove.escapes.spaces <- function( df ){
-  for(i in 1:nrow(df) ){
-    for(j in 1:ncol(df) ){
-      df[i, j] <- gsub( "\r\n", "", df[i, j] )
-      df[i, j] <- gsub( "\t", "", df[i, j] )
-      df[i, j] <- gsub( "   ", "", df[i, j] )
-    }
-  }
-  return( df )
+  clean.df <- string.replacer( df, "\t", "") %>%
+    string.replacer( "\r\n", "") %>%
+    string.replacer( "   ", "")
+  return( clean.df )
 }
+#url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
+#table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
+#df <- get.table( url, table.path )
+#df
+
+#clean.df <- remove.escapes.spaces( df )
+#clean.df
+
 
 get.transpose <- function( df  ){
-  t.df <-  t(df)
+  t.df <-  t( df )
   t.names <- c()
   for( i in 1:nrow( df ) ){
     t.names <- c( t.names, df[i, 1] )
@@ -81,6 +121,11 @@ get.transpose <- function( df  ){
   colnames( t.df ) <- t.names
   return( as.data.frame(t.df, stringsAsFactors = FALSE) )
 }
+#url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
+#table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
+#df <- get.table( url, table.path )
+#t.df <- get.transpose( df )
+#t.df
 
 ####
 ####
