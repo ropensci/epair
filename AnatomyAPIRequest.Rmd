@@ -1,0 +1,46 @@
+---
+title: "The anatomy of an EPA API request"
+author: "Leonard Orozco"
+date: "2020/5/19"
+output: html_document
+---
+
+Although we do not need to write out an entire API url request, knowing how API requests are built helps when using this package.
+
+Each request comes in the form of a URL. A url usually starts with "https" or something similar and may 
+look like this: 
+
+> https://thewebsiteofinterest.com 
+
+
+In this API, a user writes out a url and then places it in their browser or in an API service (much like this package) to retrieve data. In the case of the EPA API, all requests have up to four components:
+
+* a base url 
+* an endpoint
+* authentication
+* variables
+
+The base url consists of the website where the API is found.  It looks like this:
+
+> https://aqs.epa.gov/data/api/ 
+
+An endpoint refers to the string coming right after the base url, and refers to the service the API gives. For example, the API can show a list of states and their respective codes to use when querying. The endpoint for this is the string 'list/states?'. So, if we join this endpoint with the base, we get the following 
+url:
+
+> https://aqs.epa.gov/data/api/list/states?
+
+To acutally request data, a user needs to have registered a valid email and received an API key (to do so [see here](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup) ). This email and key go into an authentication string that gets appended to the url. To be able to query the url we showed above, we add
+our authentication. Now, our URL would look like this: 
+
+> https://aqs.epa.gov/data/api/list/states?&email=youremail@domain.com@key=yourapikey
+
+At this point, we can place the URL in the browser and retrieve data about states. Most data, however,
+will probably involve a particular pollutant in a desired region. In that case, we must also add additional variables to the url string. 
+
+For example, suppose we wanted to get daily data values for ozone concentrations in the state of North Carolina. After determining the endpoint ('dailyData/byState'), we need to add in a variable for state, the beginning date, ending date for our data, and a paramter, ozone. If we wrote out the entire call as URL, including authentication, we would have this: 
+
+> https://aqs.epa.gov/data/api/dailyData/byState?&email=youremail@domain.com@key=yourapikey&state=37&bdate=20200101&edate=20200102&param=44201
+
+It's not hard to see that writing out these queries and placing them in a browser could get
+tedious. This package aims to simplify making these urls and using them to retrieve data. 
+
