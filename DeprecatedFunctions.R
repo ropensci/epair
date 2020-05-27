@@ -1,5 +1,5 @@
 # Functions created to experiment with EPA API.
-# No longer in use. 
+# These functions are no longer in use. 
 
 create_base_query <- function( endpoint ){
   # Assuming base doesn't change for a near future. 
@@ -38,3 +38,13 @@ add.param <- function( query, param ){
   return( result )
 }
 
+remove.escapes.spaces <- function( df ){
+  for(i in 1:nrow(df) ){
+    for(j in 1:ncol(df) ){
+      df[i, j] <- gsub( "\r\n", "", df[i, j] )
+      df[i, j] <- gsub( "\t", "", df[i, j] )
+      df[i, j] <- gsub( "   ", "", df[i, j] )
+    }
+  }
+  return( df )
+}
