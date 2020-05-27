@@ -3,13 +3,15 @@
 
 library(magrittr)
 library(rvest)
+# if (j+k > nrow(out)) break;
+fixInNamespace("html_table.xml_node", "rvest")
 
 EMAIL <- ''
 KEY <-  ''
 AUTHENTICATION <- ''
 SERVICES <- list()
 SERVICE.NAMES <- data.frame()
-VARIABLES <- ''
+VARIABLES <- data.frame()
 VARIABLE.TYPES <- list("state" = 'list/states',
                        "county" = 'list/countiesByState',
                        "site" = 'list/sitesByCounty',
@@ -377,7 +379,10 @@ get.services <- function(){
   if( length( SERVICE.NAMES)  == 0){
     stop( "Must populate SERVICE.NAMES with names and descriptions of service.")
   }
+  # Get HTML tables
   tbls <- get.all.tables()
+  
+  # Turn HTML tables into a workable variable
   services <- populate.all.services( tbls )
   services <- assign.description.to.services( services )
   
@@ -385,6 +390,44 @@ get.services <- function(){
   
   return( services )
 }
+
+# Populate SERVICES and VARIABLES to be ready for the user to query.
+setup.environment.services.variables <- function(){
+  
+  get.service.names()
+  get.services()
+  SERVICES <<- clean.services( SERVICES )
+  
+  get.variables()
+  
+}
+#setup.environment.services.variables()
+#SERVICES
+
+# Replace every string entry in a list, matching pattern, replacing with replacement.
+string.replacer.list <- function( entry.list, pattern, replacement ){
+  new.list <- rapply( entry.list, 
+                      gsub, 
+                      pattern = pattern, 
+                      replacement = replacement, 
+                      fixed = TRUE,
+                      how = "replace")
+  return( new.list )
+}
+#get.services()
+#SERVICES <- string.replacer.list( SERVICES, "\t", "")
+
+
+# Remove \t, \r\n, "   " from SERVICES entries
+clean.services <- function( services ){
+  new.list <- string.replacer.list( services, "\t", "") %>%
+    string.replacer.list( "\r\n", "") %>%
+    string.replacer.list( "   ", "")
+  return( new.list )
+}
+#get.services()
+#SERVICES <- clean.services( SERVICES )
+#SERVICES
 
 ####
 ####
