@@ -3,6 +3,7 @@
 
 library(magrittr)
 library(rvest)
+library(httr)
 # if (j+k > nrow(out)) break;
 fixInNamespace("html_table.xml_node", "rvest")
 
@@ -98,6 +99,19 @@ string.replacer <- function( df, pattern, replacement){
 #modified.df <- string.replacer( df, "1", "One")
 #modified.df
 
+# Replace every string entry in a list, matching pattern, replacing with replacement.
+list.string.replacer <- function( entry.list, pattern, replacement ){
+  new.list <- rapply( entry.list, 
+                      gsub, 
+                      pattern = pattern, 
+                      replacement = replacement, 
+                      fixed = TRUE,
+                      how = "replace")
+  return( new.list )
+}
+#get.services()
+#SERVICES <- list.string.replacer( SERVICES, "\t", "")
+
 # TODO, simplify code with multiple pattern regex matching
 remove.escapes.spaces <- function( df ){
   clean.df <- string.replacer( df, "\t", "") %>%
@@ -113,6 +127,16 @@ remove.escapes.spaces <- function( df ){
 #clean.df <- remove.escapes.spaces( df )
 #clean.df
 
+# Remove \t, \r\n, "   " from entries in a list
+list.remove.escapes.spaces <- function( a.list ){
+  new.list <- list.string.replacer( a.list, "\t", "") %>%
+    list.string.replacer( "\r\n", "") %>%
+    list.string.replacer( "   ", "")
+  return( new.list )
+}
+#get.services()
+#SERVICES <- list.remove.escapes.spaces( SERVICES )
+#SERVICES
 
 get.transpose <- function( df  ){
   t.df <-  t( df )
@@ -144,18 +168,23 @@ get.service.names <- function(){
   table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
   df <- get.table( url, table.path )
   
-  df <- remove.escapes.spaces( df )
-  
-  t.df <- get.transpose(df)
+  t.df <- get.transpose( df )
+  t.df <- remove.escapes.spaces( t.df )
   
   SERVICE.NAMES <<- t.df
   return( t.df )
 }
+#get.service.names()
+#SERVICE.NAMES
 
 ## TODO setup assert to ensure services are present
 show.service.names <- function(){
+  if( length(SERVICE.NAMES) == 0 ){
+    stop( "Make sure SERVICE.NAMES has been populated.")
+  }
   print( colnames( SERVICE.NAMES ) )
 }
+#show.service.names()
 
 # Variables for making requests
 get.variables <- function(){
@@ -164,20 +193,24 @@ get.variables <- function(){
   table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[2]'
   df <- get.table( url, table.path )
   
-  # TODO extra spaces, some words got squished
-  df <- remove.escapes.spaces( df )
-  
   t.df <- get.transpose( df )
+  t.df <- list.remove.escapes.spaces( t.df )
   
   VARIABLES <<- t.df
   return( t.df )
 }
+#get.variables()
+#VARIABLES
 
 # Print the available variables. 
 # TODO assert variables present
 show.variables <- function(){
+  if( length(VARIABLES) == 0){
+    stop( "Make sure VARIABLES has been populated with get.variables().")
+  }
   print( colnames( VARIABLES ) )
 }
+#show.variables()
 
 # Check if the API is up and running 
 is.API.running <- function(){
@@ -186,8 +219,9 @@ is.API.running <- function(){
   result <- GET( url )
   return( result )
 }
+#is.API.running()
 
-## Add a vriable to a call, make sure the variable name matches API specs
+## Add a vriable to a call, make sure variable name matches API specs
 add.variable <- function( query, variable, name = deparse( substitute( variable ) ) ){
   result <- paste( query, '&', name, '=', variable, sep = "" )
   return( result )
@@ -396,37 +430,12 @@ setup.environment.services.variables <- function(){
   
   get.service.names()
   get.services()
-  SERVICES <<- clean.services( SERVICES )
+  SERVICES <<- list.remove.escapes.spaces( SERVICES )
   
   get.variables()
   
 }
-#setup.environment.services.variables()
-#SERVICES
-
-# Replace every string entry in a list, matching pattern, replacing with replacement.
-string.replacer.list <- function( entry.list, pattern, replacement ){
-  new.list <- rapply( entry.list, 
-                      gsub, 
-                      pattern = pattern, 
-                      replacement = replacement, 
-                      fixed = TRUE,
-                      how = "replace")
-  return( new.list )
-}
-#get.services()
-#SERVICES <- string.replacer.list( SERVICES, "\t", "")
-
-
-# Remove \t, \r\n, "   " from SERVICES entries
-clean.services <- function( services ){
-  new.list <- string.replacer.list( services, "\t", "") %>%
-    string.replacer.list( "\r\n", "") %>%
-    string.replacer.list( "   ", "")
-  return( new.list )
-}
-#get.services()
-#SERVICES <- clean.services( SERVICES )
+setup.environment.services.variables()
 #SERVICES
 
 ####
