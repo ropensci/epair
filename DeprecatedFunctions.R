@@ -1,6 +1,57 @@
 # Functions created to experiment with EPA API.
 # These functions are no longer in use. 
 
+#' Email for API in queries
+#'
+#' @param email Email used to sign up with the EPA API. 
+#' Sign your email up at https://aqs.epa.gov/aqsweb/documents/data_api.html#signup. 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' set.email( "myemail@domain.com" )
+#' EMAIL 
+set.email <- function( email ){
+  EMAIL <<- email
+}
+
+#' Key for API in queries
+#'
+#' @param key Key for making data request to EPA API.
+#' Get your key at https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' set.key( "mykey" )
+#' KEY
+set.key <- function( key ){
+  KEY <<- key
+}
+
+#' Make the first call when forming a query.  
+#'
+#' @param endpoint Endpoint for forming a query. See ENDPOINTS for all available endpoints. See 
+#' SERVICES if you know the service but not the endpoint.
+#'
+#' @return A URL string containing authentication for the call.
+#' @export
+#'
+#' @examples
+#' endpoint <- "list/states"
+#' call <- create.base.call( endpoint )
+#' call
+#create.base.call <- function( endpoint ){
+if( AUTHENTICATION == ''){
+  stop( "Make sure AUTHENTICATION has been setup properly.")
+}
+base = 'https://aqs.epa.gov/data/api/'
+result <- paste( base, endpoint, "?", AUTHENTICATION, sep = "")
+return( result )
+}
+
 create_base_query <- function( endpoint ){
   # Assuming base doesn't change for a near future. 
   base = 'https://aqs.epa.gov/data/api/'

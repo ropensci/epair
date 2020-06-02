@@ -9,9 +9,6 @@ library(jsonlite)
 # if (j+k > nrow(out)) break;
 fixInNamespace("html_table.xml_node", "rvest")
 
-EMAIL <- ''
-KEY <-  ''
-AUTHENTICATION <- ''
 SERVICES <- list()
 SERVICE.NAMES <- data.frame()
 VARIABLES <- data.frame()
@@ -29,52 +26,22 @@ ENDPOINTS <- c()
 #### Authentication 
 ####
 
-#' Email for API in queries
+#' Generate the string authentication needed for EPA API
 #'
-#' @param email Email used to sign up with the EPA API. 
-#' Sign your email up at https://aqs.epa.gov/aqsweb/documents/data_api.html#signup. 
-#'
-#' @return
-#' @export
-#'
-#' @examples
-#' set.email( "myemail@domain.com" )
-#' EMAIL 
-set.email <- function( email ){
-  EMAIL <<- email
-}
-
-#' Key for API in queries
-#'
-#' @param key Key for making data request to EPA API.
-#' Get your key at https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
+#' @param email Email registered with EPA API
+#' @param key Key obtained from EPA API. Register your email for a key here 
+#' https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
 #'
 #' @return
 #' @export
 #'
 #' @examples
-#' set.key( "mykey" )
-#' KEY
-set.key <- function( key ){
-  KEY <<- key
+#' create.authentication( "myemail@domain.com", "myapikey")
+create.authentication <- function( email, key){
+  authentication.string <- sprintf('&email=%s&key=%s', email, key)
+  return( authentication.string )
 }
 
-
-#' Combine email and key into one string for querying
-#'
-#' @return
-#' @export
-#'
-#' @examples
-#' create.authentication()
-#' AUTHENTICATION
-create.authentication <- function(){
-  if( KEY == '' | EMAIL == ''){
-    stop( "KEY or EMAIL must both be setup." )
-  }
-  authentication.string <- sprintf('&email=%s&key=%s', EMAIL, KEY)
-  AUTHENTICATION <<- authentication.string
-}
 
 ####
 ####
@@ -97,14 +64,13 @@ create.authentication <- function(){
 #' call <- create.base.call( endpoint )
 #' call
 create.base.call <- function( endpoint ){
-  if( AUTHENTICATION == ''){
-    stop( "Make sure AUTHENTICATION has been setup properly.")
+  if( length( getOption( "epa_authentication") ) == 0 ){
+    stop( "Make sure you've declared the option for epa_authentication.")
   }
   base = 'https://aqs.epa.gov/data/api/'
-  result <- paste( base, endpoint, "?", AUTHENTICATION, sep = "")
+  result <- paste( base, endpoint, "?", getOption( "epa_authentication" ), sep = "")
   return( result )
 }
-
 
 ####
 #### Site scraping and data transformation

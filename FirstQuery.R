@@ -6,9 +6,8 @@ library(httr)
 source("Utility.R")
 
 # Setup authentication strings 
-set.email( 'glo003@bucknell.edu' )
-set.key( 'goldram72' )
-create.authentication()
+epa.authentication <- create.authentication( "glo003@bucknell.edu", "goldram72")
+options( epa_authentication = epa.authentication)
 
 ## Show available services
 get.services()
