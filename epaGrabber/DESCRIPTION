@@ -3,7 +3,7 @@ Title: Grabs data from EPA API, simplifies getting pollutant data
 Version: 0.0.0.9
 Authors@R: person("Leo", "Orozco-Mulfinger", email = "glo003@bucknell.edu", role = c("aut", "cre"))
 Description: The package aids the user in constructing queries to the EPA API site found at https://aqs.epa.gov/aqsweb/documents/data_api.html.
-Depends: R (>= 3.3.3), rvest, magrittr, httr, jsonlite
+Depends: R (>= 3.3.3)
 License: TODO
 Encoding: UTF-8
 LazyData: true
