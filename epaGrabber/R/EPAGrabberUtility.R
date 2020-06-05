@@ -9,22 +9,6 @@
 # if (j+k > nrow(out)) break;
 # fixInNamespace("html_table.xml_node", "rvest")
 
-EMAIL <- ''
-KEY <-  ''
-AUTHENTICATION <- ''
-SERVICES <- list()
-SERVICE.NAMES <- data.frame()
-VARIABLES <- data.frame()
-VARIABLE.TYPES <- list("state" = 'list/states',
-                       "county" = 'list/countiesByState',
-                       "site" = 'list/sitesByCounty',
-                       "cbsa" = 'list/cbsa',
-                       "classes" = 'list/parametersByClass',
-                       "pqao" = 'list/pqaos',
-                       "ma" = 'list/mas')
-ENDPOINTS <- c()
-
-
 ####
 #### Authentication 
 ####
