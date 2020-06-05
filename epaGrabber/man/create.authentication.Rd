@@ -2,14 +2,19 @@
 % Please edit documentation in R/EPAGrabberUtility.R
 \name{create.authentication}
 \alias{create.authentication}
-\title{Combine email and key into one string for querying}
+\title{Generate the string authentication needed for EPA API}
 \usage{
-create.authentication()
+create.authentication(email, key)
+}
+\arguments{
+\item{email}{Email registered with EPA API}
+
+\item{key}{Key obtained from EPA API. Register your email for a key here 
+https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.}
 }
 \description{
-Combine email and key into one string for querying
+Generate the string authentication needed for EPA API
 }
 \examples{
-create.authentication()
-AUTHENTICATION
+create.authentication( "myemail@domain.com", "myapikey")
 }
