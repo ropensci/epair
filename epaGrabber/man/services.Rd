@@ -3,13 +3,9 @@
 \docType{data}
 \name{services}
 \alias{services}
-\alias{services}
 \title{Services offered by the EPA API}
 \description{
 The services list contains comprehensive information about all services provided
 by the EPA API site.
-
-The service.names list contains names of all services offered by the EPA API
-along with a description of each service.
 }
 \keyword{datasets}

@@ -1,10 +1,5 @@
 ## Utility file for creating queries in EPA API at https://aqs.epa.gov/aqsweb/documents/data_api.html
 
-#library(magrittr)
-#library(rvest)
-#library(httr)
-#library(jsonlite)
-
 # Bug in rvest, code must be fixed to contain this line.
 # if (j+k > nrow(out)) break;
 # fixInNamespace("html_table.xml_node", "rvest")
