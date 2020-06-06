@@ -706,7 +706,7 @@ remove.all.service.names <- function( services ){
 }
 
 #' Populate SERVICES, VARIABLES, and ENDPOINTS to be ready for the user to query
-#'
+#' TODO modify for system without global variables
 #' @return
 #' @export
 #'
