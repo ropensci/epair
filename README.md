@@ -1,2 +1,2 @@
-# polMod
-Wrapper for RNOAA and software for easily querying EPA API.
+# epaGrabber
+Package to acquire data from EPA API site. 
