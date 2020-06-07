@@ -1,6 +1,28 @@
 # Functions created to experiment with EPA API.
 # These functions are no longer in use. 
 
+#' Populate SERVICES, VARIABLES, and ENDPOINTS to be ready for the user to query
+#' TODO modify for system without global variables
+#' @return
+#' @export
+#'
+#' @examples
+#' setup.services.variables.endpoints()
+#' SERVICES
+#' VARIABLE
+#' ENDPOINTS
+setup.services.variables.endpoints <- function(){
+  
+  get.service.names()
+  get.services()
+  SERVICES <<- list.remove.escapes.spaces( SERVICES )
+  SERVICES <<- remove.all.service.names( SERVICES )
+  
+  get.variables()
+  
+  get.endpoints()
+}
+
 #' Email for API in queries
 #'
 #' @param email Email used to sign up with the EPA API. 

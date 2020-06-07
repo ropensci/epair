@@ -605,12 +605,12 @@ find.endpoints.in.tables <- function( list.tables ){
 #' @export
 #'
 #' @examples
-#' get.endpoints()
-#' ENDPOINTS
+#' endpoints <- get.endpoints()
+#' endpoints
 get.endpoints <- function(){
   API.tables <- get.all.tables()
-  ENDPOINTS <<- find.endpoints.in.tables( API.tables )
-  return( ENDPOINTS )
+  endpoints <- find.endpoints.in.tables( API.tables )
+  return( endpoints )
 }
 
 
@@ -660,9 +660,6 @@ assign.description.to.services <- function( services ){
 #' get.services()
 #' SERVICES
 get.services <- function(){
-  if( length( SERVICE.NAMES)  == 0){
-    stop( "Must populate SERVICE.NAMES with names and descriptions of service.")
-  }
   # Get HTML tables
   tbls <- get.all.tables()
   
@@ -670,7 +667,8 @@ get.services <- function(){
   services <- populate.all.services( tbls )
   services <- assign.description.to.services( services )
   
-  SERVICES <<- services
+  services <- list.remove.escapes.spaces( services )
+  services <- remove.all.service.names( services )
   
   return( services )
 }
@@ -703,26 +701,4 @@ remove.service.name <- function( service ){
 #' SERVICES
 remove.all.service.names <- function( services ){
   services <- lapply( services, remove.service.name )
-}
-
-#' Populate SERVICES, VARIABLES, and ENDPOINTS to be ready for the user to query
-#' TODO modify for system without global variables
-#' @return
-#' @export
-#'
-#' @examples
-#' setup.services.variables.endpoints()
-#' SERVICES
-#' VARIABLE
-#' ENDPOINTS
-setup.services.variables.endpoints <- function(){
-  
-  get.service.names()
-  get.services()
-  SERVICES <<- list.remove.escapes.spaces( SERVICES )
-  SERVICES <<- remove.all.service.names( SERVICES )
-  
-  get.variables()
-  
-  get.endpoints()
 }
