@@ -465,7 +465,6 @@ create.list.endpoints.examples.params <- function( row.number, df ){
   if( example.check( df$Endpoint[row.number]  ) ){
     test.list$Example <- df$Endpoint[row.number] # Should be an example
   }
-  test.list
   return( test.list )
 }
 
@@ -543,7 +542,6 @@ populate.service.list <- function( df ){
   
   return( result.list )
 }
-
 
 #' Take a list of html tables, output a list of lists, each list a service
 #'
@@ -664,13 +662,11 @@ get.services <- function(){
   tbls <- get.all.tables()
   
   # Turn HTML tables into a workable variable
-  services <- populate.all.services( tbls )
-  services <- assign.description.to.services( services )
-  
-  services <- list.remove.escapes.spaces( services )
-  services <- remove.all.service.names( services )
-  
-  services <- change.classes.filter( services )
+  services <- populate.all.services( tbls ) %>%
+    assign.description.to.services() %>%
+    list.remove.escapes.spaces() %>%
+    remove.all.service.names() %>%
+    change.classes.filter()
   
   return( services )
 }
