@@ -7,9 +7,9 @@ tbls[[5]]$Endpoint
 ## Solution using hard coded table structure
 
 # Split into tables having multiple examples and those having only one
-# --> Anyone before the 4 is unnecessary
+# --> Anyone before the 4th is unnecessary
 # - Meta data is the only table having the third-ish entry down as multiple
-multiple.example.tables <- list( tbls[[4]],
+tables.to.modify <- list( tbls[[4]],
                                  tbls[[6]],
                                  tbls[[7]],
                                  tbls[[8]],
@@ -21,8 +21,93 @@ multiple.example.tables <- list( tbls[[4]],
                                  tbls[[14]],
                                  tbls[[15]])
 
+## Iterating through, apply to all members
 
-# Issue with classes not showing
-multiple.example.tables$daily.table$Endpoint
+# Prototype the list
+single <- tbls[[4]]
 
-# -- And all easier to manage if you isolate tbls[[5]]
+# -- service.list -> final structure containing all services and their info
+service.list <- list()
+
+#' Give a service name
+#'
+#' @param df 
+#' @param service.list 
+#'
+#' @return Service 
+#'
+#' @examples
+assign.service.name <- function( df, service.list ){
+  service.name <- df$Service[1]
+  service.list[[service.name]] <- "Place Holder"
+  return( service.list )
+}
+service.list <- assign.service.name( single, service.list)
+
+#' Title
+#'
+#' @param df 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get.true.filters <- function( df ){
+  unique.filters <- unique( df$Filter )
+  unique.filters <- unique.filters[which( unique.filters != service.name )]
+  return( unique.filters )
+}
+true.filters <- get.true.filters( single )
+
+#' Title
+#'
+#' @param filter.name 
+#' @param df 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get.first.entry.for.filter <- function( filter.name, df ){
+  indices <- which( df$Filter == filter.name)
+  first.occurence <- min( indices )
+  return( first.occurence )
+}
+first.occurence.of.rh <- get.first.entry.for.filter( "Revision History", single)
+
+# Get the first occurence for each member of true filters
+#' Title
+#'
+#' @param df 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get.first.occurences <- function( df ){
+  true.filters <- get.true.filters( df )
+  first.occurences <- sapply( true.filters, find.first.entry.for.filter, df)
+  return( first.occurences )
+}
+first.occurences <- get.first.occurences( single )
+
+# Holds indices of first occurence of a filter
+# -- hypothesizing they fit in properly
+first.indices.for.filters 
+
+
+
+
+
+######
+
+# Then take the min
+single$Filter
+
+single$Filters 
+
+single$Endpoint
+
+single$`Required Variables`
+
+single$`Optional Variables`
