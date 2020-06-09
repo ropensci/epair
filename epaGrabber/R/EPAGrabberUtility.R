@@ -657,8 +657,8 @@ assign.description.to.services <- function( services ){
 #' @export
 #'
 #' @examples
-#' get.services()
-#' SERVICES
+#' services <- get.services()
+#' services
 get.services <- function(){
   # Get HTML tables
   tbls <- get.all.tables()
@@ -670,6 +670,29 @@ get.services <- function(){
   services <- list.remove.escapes.spaces( services )
   services <- remove.all.service.names( services )
   
+  services <- change.classes.filter( services )
+  
+  return( services )
+}
+
+#' Update name to parameter class entry
+#'
+#' @param services List of services offered by the API.
+#'
+#' @return Services with corrected name of filter for parameter classes. 
+#'
+#' @examples
+#' services <- get.services()
+#' services <- change.classes.filter( services )
+#' services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)`
+change.classes.filter <- function( services ){
+  names(services$List$Filter)[3] <- "Parameter Classes (groups of parameters, like criteria or all)"
+  
+  service.attributes <- list( Endpoint = "list/classes",
+                              RequiredVariables = "email, key",
+                              OptionalVariables = "",
+                              Example = "https://aqs.epa.gov/data/api/list/classes?email=test@aqs.api&key=test")
+  services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)` <- service.attributes
   return( services )
 }
 
