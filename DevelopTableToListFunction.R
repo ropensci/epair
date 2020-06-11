@@ -26,29 +26,18 @@ tables.to.modify <- list( tbls[[4]],tbls[[5]],
 # Prototype the list
 single <- tbls[[4]]
 
-#' Give a service name
+#' Get filter names in data frame
 #'
-#' @param df 
-#' @param service.list 
+#' @param df Data frame containing repeated or mixed filter names.
 #'
-#' @return Service 
-#'
-#' @examples
-assign.service.name <- function( df, service.list ){
-  service.name <- df$Service[1]
-  service.list[[service.name]] <- "Place Holder"
-  return( service.list )
-}
-service.list <- assign.service.name( single, service.list)
-
-#' Title
-#'
-#' @param df 
-#'
-#' @return
+#' @return Vector containing only filter names for the API service. Service name 
+#' and repeated filter names are removed. 
 #' @export
 #'
 #' @examples
+#' tbls <- get.all.tables()
+#' single <- tbls[[6]]
+#' get.true.filters( single )
 get.true.filters <- function( df ){
   service.name <- df$Service[1]
   unique.filters <- unique( df$Filter )
@@ -57,15 +46,18 @@ get.true.filters <- function( df ){
 }
 true.filters <- get.true.filters( single )
 
-#' Title
+#' Get the first entry for a filter name
 #'
-#' @param filter.name 
-#' @param df 
+#' @param filter.name Name of the filter in API
+#' @param df Data frame containing filter info.
 #'
-#' @return
+#' @return The index for the first occurence of the filter in the data frame.
 #' @export
 #'
 #' @examples
+#' tbls <- get.all.tables()
+#' single <- tbls[[11]]
+#' get.first.entry.for.filter( "Filter Name", single )
 get.first.entry.for.filter <- function( filter.name, df ){
   indices <- which( df$Filter == filter.name)
   first.occurence <- min( indices )
@@ -73,15 +65,19 @@ get.first.entry.for.filter <- function( filter.name, df ){
 }
 first.occurence.of.rh <- get.first.entry.for.filter( "Revision History", single)
 
-# Get the first occurence for each member of true filters
-#' Title
+
+#' Get first entries for filter names
 #'
-#' @param df 
+#' @param df Data frame with filters
 #'
-#' @return
+#' @return A vector of indices. These indices are where the first entry for a filter 
+#' exists in df. 
 #' @export
 #'
 #' @examples
+#' tbls <- get.all.tables()
+#' single <- tbls[[10]]
+#' first.occurences <- get.first.occurences( single )
 get.first.occurences <- function( df ){
   true.filters <- get.true.filters( df )
   first.occurences <- sapply( true.filters, find.first.entry.for.filter, df)
@@ -94,15 +90,18 @@ first.occurences <- get.first.occurences( single )
 names(first.occurences)[1]
 # "Is the API available for use?"
 
-#' Title
+#' Generate filter content for an API filter
 #'
-#' @param i 
-#' @param df 
+#' @param i Row number at which to get the information for filter.
+#' @param df The data frame containing filter information.
 #'
-#' @return
+#' @return A list with filter content (endpoint, required variables, etc.)
 #' @export
 #'
 #' @examples
+#' tbls <- get.all.tables()
+#' single <- tbls[[7]]
+#' content <- generate.filter.content( 1, single )
 generate.filter.content <- function( i, df){
   filter.content <- list( Endpoint = df$Endpoint[i],
                           RequiredVariables = df$`Required Variables`[i],
@@ -112,16 +111,21 @@ generate.filter.content <- function( i, df){
 }
 rev.his <- generate.filter.content( 3, single)
 
-#' Title
+#' Create a single filter 
 #'
-#' @param filter.name 
-#' @param i 
-#' @param df 
+#' @param filter.name Name of filter in API service
+#' @param i Row number to use to create filter. Make sure filter information is 
+#' present at i before hand.
+#' @param df Data frame with filter information.
 #'
-#' @return
+#' @return A list with filter content given to the filter name.
 #' @export
 #'
 #' @examples
+#' tbls <- get.all.tables()
+#' single <- tbls[[9]]
+#' filter.name <- "My filter"
+#' setup.single.filter( filter.name, 1, single)
 setup.single.filter <- function( filter.name, i, df ){
   filter.content <- generate.filter.content( i, df )
   filter.out <- list()
@@ -141,14 +145,17 @@ for( i in 1:n){
 }
 filters.list$`Known Issues`
 
-#' Get filters going
+#' Create a list of filters
 #'
-#' @param df 
+#' @param df A data frame having filter information (e.g. name, required variables).
 #'
-#' @return
+#' @return A list containing filters and respective info. 
 #' @export
 #'
 #' @examples
+#' tbls <- get.all.tables()
+#' single <- tbls[[8]]
+#' generate.filters.list( single )
 generate.filters.list <- function( df ){
   filters.list <- list()
   first.occurences <- get.first.occurences( df )
@@ -165,14 +172,17 @@ single.filters <- generate.filters.list( single )
 
 ####### Putting it all together
 
-#' Title
+#' Make list of single service
 #'
-#' @param df 
+#' @param df Data frame with info to make an API service. 
 #'
-#' @return
+#' @return A list with the filter content of a service set to the service name.
 #' @export
 #'
 #' @examples
+#' tbls <- get.all.tables()
+#' single <- tbls[[8]]
+#' setup.service( single )
 setup.service <- function( df ){
   service.list <- list()
   service.name <- df$Service[1]
@@ -189,3 +199,25 @@ for( i in 1:length(tables.to.modify)){
   service.list <- c( service.list, single.service)
 }
 service.list$List$`Parameters in a class (obtain the list of classes from the List - Parameter Classes service)`
+
+#' Turn tables of API services into a list
+#'
+#' @param tables.to.modify List of tables from API. Each table is a data frame.  
+#'
+#' @return A list with each service and filters as chained variables to make for easy calling.
+#' @export
+#'
+#' @examples
+#' tables.to.modify <- get.all.tables()
+#' services <- populate.all.services( tables.to.modify )
+#' services$List
+populate.all.services <- function( tables.to.modify ){
+  service.list <- list()
+  for( i in 1:length(tables.to.modify)){
+    df <- tables.to.modify[[i]]
+    single.service <- setup.service( df )
+    service.list <- c( service.list, single.service)
+  }
+  return(service.list)
+}
+services <- populate.all.services( tables.to.modify )

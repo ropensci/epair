@@ -121,3 +121,65 @@ remove.escapes.spaces <- function( df ){
   }
   return( df )
 }
+
+#' Take a list of html tables, output a list of lists, each list a service
+#'
+#' @param list.tables EPA API html tables
+#'
+#' @return A list containing services, each service is a list.
+#' @export
+#'
+#' @examples
+#' API.tables <- get.all.tables()
+#' services <- populate.all.services( API.tables )
+#' services$MetaData$Filter$`Known Issues`$Endpoint
+populate.all.services <- function( list.tables ){
+  services.list <- list()
+  for( i in 1:length( list.tables ) ){
+    df <- list.tables[[i]]
+    if(  length( df$Filter ) != 0  ) { # Ensure all services going into final list have a filter
+      if( !is.na( df$Filter )[1] ) {   # Ensure the filter isn't NA
+        service.name <- df$Service[1]
+        services.list[[ service.name ]] <- populate.service.list( df )
+      }
+    }
+  }
+  return( services.list )
+}
+
+#' Take a df - a table from EPA site - and output a list with easy accessing for variables
+#'
+#' @param df Data frame of an HTML table in the EPA API site.
+#'
+#' @return A list containing the service variables for a service in the EPA API site
+#' @export
+#'
+#' @examples
+#' API.tables <- get.all.tables()
+#' df <- API.tables[[4]]
+#' result <- populate.service.list( df )
+#' result$Filter$`Known Issues`$RequiredVariables
+populate.service.list <- function( df ){
+  result.list <- list()
+  result.list$Service <- df$Service[1]
+  
+  corrected.df <- correct.overflow.filter( df )
+  result.list$Filter <- create.filter.list( corrected.df )
+  
+  return( result.list )
+}
+
+#' Give a service name
+#'
+#' @param df 
+#' @param service.list 
+#'
+#' @return Service 
+#'
+#' @examples
+assign.service.name <- function( df, service.list ){
+  service.name <- df$Service[1]
+  service.list[[service.name]] <- "Place Holder"
+  return( service.list )
+}
+service.list <- assign.service.name( single, service.list)
