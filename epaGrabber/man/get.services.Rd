@@ -13,6 +13,6 @@ List of services the EPA API offers.
 Get a list of services the EPA API offers
 }
 \examples{
-get.services()
-SERVICES
+services <- get.services()
+services
 }

@@ -4,10 +4,14 @@
 \alias{get.list.variable.endpoint}
 \title{Show endpoint for listing information on a variable}
 \usage{
-get.list.variable.endpoint(variable.type)
+get.list.variable.endpoint(variable.type, variable.types)
 }
 \arguments{
 \item{variable.type}{A variable used in the EPA API service. Consult VARIABLE.TYPES for available variables.}
+
+\item{variable.types}{A list contianing variable types mapped to their endpoints. This vector 
+should be loaded in with the package and can be found in the package data files. Type ?variable.types
+for more info.}
 }
 \value{
 An endpoint character that lists information to help the user query a variable.

@@ -2,21 +2,21 @@
 % Please edit documentation in R/EPAGrabberUtility.R
 \name{populate.all.services}
 \alias{populate.all.services}
-\title{Take a list of html tables, output a list of lists, each list a service}
+\title{Turn tables of API services into a list}
 \usage{
-populate.all.services(list.tables)
+populate.all.services(tables.to.modify)
 }
 \arguments{
-\item{list.tables}{EPA API html tables}
+\item{tables.to.modify}{List of tables from API. Each table is a data frame.}
 }
 \value{
-A list containing services, each service is a list.
+A list with each service and filters as chained variables to make for easy calling.
 }
 \description{
-Take a list of html tables, output a list of lists, each list a service
+Turn tables of API services into a list
 }
 \examples{
-API.tables <- get.all.tables()
-services <- populate.all.services( API.tables )
-services$MetaData$Filter$`Known Issues`$Endpoint
+tables.to.modify <- get.all.tables()
+services <- populate.all.services( tables.to.modify )
+services$List
 }

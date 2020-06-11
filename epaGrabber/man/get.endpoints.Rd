@@ -13,6 +13,6 @@ Vector of endpoints from the API
 Get all endpoints from EPA API
 }
 \examples{
-get.endpoints()
-ENDPOINTS
+endpoints <- get.endpoints()
+endpoints
 }

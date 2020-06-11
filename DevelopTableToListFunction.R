@@ -46,23 +46,7 @@ get.true.filters <- function( df ){
 }
 true.filters <- get.true.filters( single )
 
-#' Get the first entry for a filter name
-#'
-#' @param filter.name Name of the filter in API
-#' @param df Data frame containing filter info.
-#'
-#' @return The index for the first occurence of the filter in the data frame.
-#' @export
-#'
-#' @examples
-#' tbls <- get.all.tables()
-#' single <- tbls[[11]]
-#' get.first.entry.for.filter( "Filter Name", single )
-get.first.entry.for.filter <- function( filter.name, df ){
-  indices <- which( df$Filter == filter.name)
-  first.occurence <- min( indices )
-  return( first.occurence )
-}
+
 first.occurence.of.rh <- get.first.entry.for.filter( "Revision History", single)
 
 

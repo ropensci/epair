@@ -54,8 +54,6 @@ create.base.call <- function( endpoint ){
   return( result )
 }
 
-
-
 ####
 #### Site scraping and data transformation
 ####
@@ -80,7 +78,6 @@ get.table <- function( url, table.xpath ){
     html_table()
   return( found.table[[1]] )
 }
-
 
 #' Replace all characters entries in df
 #'
@@ -110,8 +107,9 @@ string.replacer <- function( df, pattern, replacement){
 #' @export
 #'
 #' @examples
-#' get.services()
-#' SERVICES <- list.string.replacer( SERVICES, "\t", "")
+#' services <- get.services()
+#' services <- list.string.replacer( services, "\t", "")
+#' services
 list.string.replacer <- function( entry.list, pattern, replacement ){
   new.list <- rapply( entry.list, 
                       gsub, 
@@ -152,9 +150,9 @@ remove.escapes.spaces <- function( df ){
 #' @export
 #'
 #' @examples
-#' get.services()
-#' SERVICES <- list.remove.escapes.spaces( SERVICES )
-#' SERVICES
+#' services <- get.services()
+#' services <- list.remove.escapes.spaces( services )
+#' services
 list.remove.escapes.spaces <- function( a.list ){
   new.list <- list.string.replacer( a.list, "\t", "") %>%
     list.string.replacer( "\r\n", "") %>%
@@ -200,8 +198,8 @@ get.transpose <- function( df  ){
 #' @export
 #'
 #' @examples
-#' get.service.names()
-#' SERVICE.NAMES
+#' service.names <- get.service.names()
+#' service.names
 get.service.names <- function(){
   
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
@@ -211,23 +209,7 @@ get.service.names <- function(){
   t.df <- get.transpose( df )
   t.df <- remove.escapes.spaces( t.df )
   
-  SERVICE.NAMES <<- t.df
   return( t.df )
-}
-
-
-#' Print SERVICE.NAMES to see names of services offered
-#'
-#' @return
-#' @export
-#'
-#' @examples
-#' show.service.names()
-show.service.names <- function(){
-  if( length(SERVICE.NAMES) == 0 ){
-    stop( "Make sure SERVICE.NAMES has been populated.")
-  }
-  print( colnames( SERVICE.NAMES ) )
 }
 
 #' Popoulate VARIABLES for info on making requests
@@ -236,8 +218,8 @@ show.service.names <- function(){
 #' @export
 #'
 #' @examples
-#' get.variables()
-#' VARIABLES$edate
+#' vars <- get.variables()
+#' vars$edate
 get.variables <- function(){
   
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
@@ -247,22 +229,7 @@ get.variables <- function(){
   t.df <- get.transpose( df )
   t.df <- list.remove.escapes.spaces( t.df )
   
-  VARIABLES <<- t.df
   return( t.df )
-}
-
-#' Print the available variables
-#'
-#' @return 
-#' @export
-#'
-#' @examples
-#' show.variables()
-show.variables <- function(){
-  if( length(VARIABLES) == 0){
-    stop( "Make sure VARIABLES has been populated with get.variables().")
-  }
-  print( colnames( VARIABLES ) )
 }
 
 #' Check if the API is up and running 
@@ -330,6 +297,9 @@ add.variables <- function( query, variables ){
 #' Show endpoint for listing information on a variable
 #'
 #' @param variable.type A variable used in the EPA API service. Consult VARIABLE.TYPES for available variables.
+#' @param variable.types A list contianing variable types mapped to their endpoints. This vector 
+#' should be loaded in with the package and can be found in the package data files. Type ?variable.types
+#' for more info.
 #' 
 #' @return An endpoint character that lists information to help the user query a variable.
 #' @export
@@ -337,9 +307,9 @@ add.variables <- function( query, variables ){
 #' @examples
 #' get.list.variable.endpoint( "state" )
 #' get.list.variable.endpoint( "classes" )
-get.list.variable.endpoint <- function( variable.type ){
+get.list.variable.endpoint <- function( variable.type, variable.types ){
   name <- substitute( variable.type ) 
-  return( VARIABLE.TYPES[[name]] )
+  return( variable.types[[name]] )
 }
 
 #' Perform call and convert data into list
@@ -379,8 +349,6 @@ perform.call.raw <- function( call ){
   return( raw )
 }
 
-
-
 #' Check if a string contains characters not seen in endpoints
 #'
 #' @param string A character entry from entries in the data frame of API services
@@ -397,132 +365,6 @@ endpoint.checker <- function( string ){
   https.check <- grepl( "https:", string, fixed = TRUE)
   return( example.check | returns.check | https.check)
 }
-
-#' Correct the overflow in filter names
-#'
-#' @param df A data frame containing overflow filter names.
-#'
-#' @return A data frame with overflow from service names corrected to be filter names
-#' @export
-#'
-#' @examples
-#' API.tables <- get.all.tables()
-#' df <- API.tables[[5]] 
-#' corrected.df <- correct.overflow.filter( df )
-#' corrected.df
-correct.overflow.filter <- function( df  ){
-  copy.df <- df
-  for( i in 1:length( df$Filter) ){
-    if( df$Filter[i] == df$Service[1]){     # Assume that the service entry overflowed into the filter
-      copy.df$Filter[i] <- df$Filter[i - 1] # Assign the previous entry, still in same filter
-    }
-  }
-  return( copy.df )
-}
-
-#' Find out if a string has 'Example' in it
-#'
-#' @param string A string, intended as an entry in a dataframe containing info about services
-#'
-#' @return Boolean reflecting presence of 'Example' in string
-#' @export
-#'
-#' @examples
-#' example.check( "Example number one")
-#' example.check( "Number two ")
-example.check <- function( string ){
-  return( grepl("Example", string, fixed = TRUE) )
-}
-
-#' Make a list containing endpoints, example, and parameters for a service
-#'
-#' @param row.number The row number in the data frame containing a service
-#' @param df A data frame containing services
-#'
-#' @return A list structure to allow for chained variable calls
-#' @export
-#'
-#' @examples
-#' API.tables <- get.all.tables()
-#' df <- API.tables[[4]]
-#' row.number <- 2
-#' result <- create.list.endpoints.examples.params( row.number, df)
-#' result
-create.list.endpoints.examples.params <- function( row.number, df ){
-  test.list <- list()
-  if( ! example.check( df$Endpoint[row.number]) ){
-    test.list$Endpoint <- df$Endpoint[row.number]
-  }
-  if( ! example.check( df$'Required Variables'[row.number]) ){
-    test.list$RequiredVariables <- df$'Required Variables'[row.number]
-  }
-  
-  if( ! is.na( df$'Optional Variable'[ row.number ]) ){
-    if( ! example.check( df$`Optional Variables`[row.number]) & df$'Optional Variables'[row.number] != ""){
-      test.list$OptionalVariables <- df$`Optional Variables`[row.number]
-    }
-  }
-  if( example.check( df$Endpoint[row.number]  ) ){
-    test.list$Example <- df$Endpoint[row.number] # Should be an example
-  }
-  return( test.list )
-}
-
-#' Find the indices for a filter in a data frame
-#'
-#' @param name.filter The name of the filter we want
-#' @param df Data frame containing the filters
-#'
-#' @return Vector of integer indices showing where a particular filter is
-#' @export
-#'
-#' @examples
-#' API.tables <- get.all.tables()
-#' df <- API.tables[[4]]
-#' name.filter <- 'Is the API available for use?'
-#' indices <- determine.filter( name.filter, df)
-#' indices
-determine.filter <- function( name.filter, df ){
-  indices <- which(df$Filter == name.filter)
-  return( indices )
-}
-
-#' Create the filter list to allow for chained variable calls
-#'
-#' @param df Data frame containing the service. Assumes filters exist for this data frame.
-#'
-#' @return A list for filters in a service
-#' @export
-#'
-#' @examples
-#' API.tables <- get.all.tables()
-#' df <- API.tables[[4]]
-#' filter.list <- create.filter.list( df )
-#' filter.list
-create.filter.list <- function( df ){
-  
-  # Keep track of each filter entry
-  counts <- table(df$Filter)
-  names.count <- names(counts)
-  
-  filter.list <- list()
-  for(i in 1:length( names.count  )){
-    
-    filter.name <- names.count[ i ]
-    count <- counts[[ filter.name ]]
-    row.numbers <- determine.filter( filter.name, df )
-    
-    results.list <- list()
-    for( element in row.numbers){
-      results.list <- append( results.list, create.list.endpoints.examples.params( element, df ) )
-    }
-    filter.list[[filter.name]] <- results.list
-  }
-  return( filter.list )
-}
-
-
-
 
 #' Take a list of html tables from api and output all endpoints
 #'
@@ -593,11 +435,9 @@ get.all.tables <- function( ){
 #' services <- assign.description.to.services( services )
 #' services[[1]]$Description
 assign.description.to.services <- function( services ){
-  if( length( SERVICE.NAMES) == 0){
-    stop( "Fill up SERVICE.NAMES by calling get.service.names()")
-  }
+  service.names <- get.service.names()
   # Remove the signup since the user will do that via the website
-  no.sign.up.services <- SERVICE.NAMES[-1]
+  no.sign.up.services <- service.names[-1]
   for(i in 1:length( no.sign.up.services )){
     services[[i]]$Description <- no.sign.up.services[[i]][2]    # Second entry is description
   }
@@ -615,7 +455,7 @@ assign.description.to.services <- function( services ){
 get.services <- function(){
   # Get HTML tables
   tbls <- get.all.tables()
-  tbls <- tbls[-c(1, 2, 3)]    # Service, variables, sign up removed
+  tbls <- tbls[-c(1, 2, 3)]    # Service, variables, and sign up services removed
   
   # Turn HTML tables into a workable variable
   services <- populate.all.services( tbls ) %>%
@@ -644,36 +484,6 @@ change.classes.filter <- function( services ){
                               Example = "https://aqs.epa.gov/data/api/list/classes?email=test@aqs.api&key=test")
   services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)` <- service.attributes
   return( services )
-}
-
-#' Remove extraneaous service name variable in a service list
-#'
-#' @param services List of services from the EPA API
-#'
-#' @return A service list without the service name variable
-#' @export
-#'
-#' @examples
-#' services <- SERVICES
-#' services[[1]] <- remove.service.name( services[[1]] )
-#' services[[1]]
-#' 
-remove.service.name <- function( service ){
-  service <- within( service, rm( Service ))
-}
-
-#' Remove extraneous service name variable from all services
-#'
-#' @param services The EPA API services as a list
-#'
-#' @return List of services without service name variable
-#' @export
-#'
-#' @examples
-#' SERVICES <- remove.all.service.names( SERVICES )
-#' SERVICES
-remove.all.service.names <- function( services ){
-  services <- lapply( services, remove.service.name )
 }
 
 #' Get filter names in data frame
@@ -727,7 +537,7 @@ get.first.entry.for.filter <- function( filter.name, df ){
 #' first.occurences <- get.first.occurences( single )
 get.first.occurences <- function( df ){
   true.filters <- get.true.filters( df )
-  first.occurences <- sapply( true.filters, find.first.entry.for.filter, df)
+  first.occurences <- sapply( true.filters, get.first.entry.for.filter, df)
   return( first.occurences )
 }
 

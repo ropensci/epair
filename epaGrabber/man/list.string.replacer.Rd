@@ -20,6 +20,7 @@ A list with entries matching the pattern replaced by replacement
 Replace every string entry in a list
 }
 \examples{
-get.services()
-SERVICES <- list.string.replacer( SERVICES, "\\t", "")
+services <- get.services()
+services <- list.string.replacer( services, "\\t", "")
+services
 }

@@ -13,6 +13,6 @@ A data frame containing services with names and descriptions offered by the EPA 
 Get service names and descriptions to the services
 }
 \examples{
-get.service.names()
-SERVICE.NAMES
+service.names <- get.service.names()
+service.names
 }

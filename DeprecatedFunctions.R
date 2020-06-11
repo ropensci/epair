@@ -183,3 +183,184 @@ assign.service.name <- function( df, service.list ){
   return( service.list )
 }
 service.list <- assign.service.name( single, service.list)
+
+#' Remove extraneous service name variable from all services
+#'
+#' @param services The EPA API services as a list
+#'
+#' @return List of services without service name variable
+#' @export
+#'
+#' @examples
+#' SERVICES <- remove.all.service.names( SERVICES )
+#' SERVICES
+remove.all.service.names <- function( services ){
+  services <- lapply( services, remove.service.name )
+}
+
+#' Remove extraneaous service name variable in a service list
+#'
+#' @param services List of services from the EPA API
+#'
+#' @return A service list without the service name variable
+#' @export
+#'
+#' @examples
+#' services <- SERVICES
+#' services[[1]] <- remove.service.name( services[[1]] )
+#' services[[1]]
+#' 
+remove.service.name <- function( service ){
+  service <- within( service, rm( Service ))
+}
+
+#' Create the filter list to allow for chained variable calls
+#'
+#' @param df Data frame containing the service. Assumes filters exist for this data frame.
+#'
+#' @return A list for filters in a service
+#' @export
+#'
+#' @examples
+#' API.tables <- get.all.tables()
+#' df <- API.tables[[4]]
+#' filter.list <- create.filter.list( df )
+#' filter.list
+create.filter.list <- function( df ){
+  
+  # Keep track of each filter entry
+  counts <- table(df$Filter)
+  names.count <- names(counts)
+  
+  filter.list <- list()
+  for(i in 1:length( names.count  )){
+    
+    filter.name <- names.count[ i ]
+    count <- counts[[ filter.name ]]
+    row.numbers <- determine.filter( filter.name, df )
+    
+    results.list <- list()
+    for( element in row.numbers){
+      results.list <- append( results.list, create.list.endpoints.examples.params( element, df ) )
+    }
+    filter.list[[filter.name]] <- results.list
+  }
+  return( filter.list )
+}
+
+#' Find the indices for a filter in a data frame
+#'
+#' @param name.filter The name of the filter we want
+#' @param df Data frame containing the filters
+#'
+#' @return Vector of integer indices showing where a particular filter is
+#' @export
+#'
+#' @examples
+#' API.tables <- get.all.tables()
+#' df <- API.tables[[4]]
+#' name.filter <- 'Is the API available for use?'
+#' indices <- determine.filter( name.filter, df)
+#' indices
+determine.filter <- function( name.filter, df ){
+  indices <- which(df$Filter == name.filter)
+  return( indices )
+}
+
+#' Make a list containing endpoints, example, and parameters for a service
+#'
+#' @param row.number The row number in the data frame containing a service
+#' @param df A data frame containing services
+#'
+#' @return A list structure to allow for chained variable calls
+#' @export
+#'
+#' @examples
+#' API.tables <- get.all.tables()
+#' df <- API.tables[[4]]
+#' row.number <- 2
+#' result <- create.list.endpoints.examples.params( row.number, df)
+#' result
+create.list.endpoints.examples.params <- function( row.number, df ){
+  test.list <- list()
+  if( ! example.check( df$Endpoint[row.number]) ){
+    test.list$Endpoint <- df$Endpoint[row.number]
+  }
+  if( ! example.check( df$'Required Variables'[row.number]) ){
+    test.list$RequiredVariables <- df$'Required Variables'[row.number]
+  }
+  
+  if( ! is.na( df$'Optional Variable'[ row.number ]) ){
+    if( ! example.check( df$`Optional Variables`[row.number]) & df$'Optional Variables'[row.number] != ""){
+      test.list$OptionalVariables <- df$`Optional Variables`[row.number]
+    }
+  }
+  if( example.check( df$Endpoint[row.number]  ) ){
+    test.list$Example <- df$Endpoint[row.number] # Should be an example
+  }
+  return( test.list )
+}
+
+#' Find out if a string has 'Example' in it
+#'
+#' @param string A string, intended as an entry in a dataframe containing info about services
+#'
+#' @return Boolean reflecting presence of 'Example' in string
+#' @export
+#'
+#' @examples
+#' example.check( "Example number one")
+#' example.check( "Number two ")
+example.check <- function( string ){
+  return( grepl("Example", string, fixed = TRUE) )
+}
+
+#' Correct the overflow in filter names
+#'
+#' @param df A data frame containing overflow filter names.
+#'
+#' @return A data frame with overflow from service names corrected to be filter names
+#' @export
+#'
+#' @examples
+#' API.tables <- get.all.tables()
+#' df <- API.tables[[5]] 
+#' corrected.df <- correct.overflow.filter( df )
+#' corrected.df
+correct.overflow.filter <- function( df  ){
+  copy.df <- df
+  for( i in 1:length( df$Filter) ){
+    if( df$Filter[i] == df$Service[1]){     # Assume that the service entry overflowed into the filter
+      copy.df$Filter[i] <- df$Filter[i - 1] # Assign the previous entry, still in same filter
+    }
+  }
+  return( copy.df )
+}
+
+#' Print the available variables
+#'
+#' @return 
+#' @export
+#'
+#' @examples
+#' show.variables()
+show.variables <- function(){
+  if( length(VARIABLES) == 0){
+    stop( "Make sure VARIABLES has been populated with get.variables().")
+  }
+  print( colnames( VARIABLES ) )
+}
+
+#' Print SERVICE.NAMES to see names of services offered
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' show.service.names()
+show.service.names <- function(){
+  if( length(SERVICE.NAMES) == 0 ){
+    stop( "Make sure SERVICE.NAMES has been populated.")
+  }
+  print( colnames( SERVICE.NAMES ) )
+}

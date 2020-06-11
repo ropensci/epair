@@ -16,7 +16,7 @@ A list without '\t', '\r\n' and "  "
 Remove '\t', '\r\n', "   " from entries in a list
 }
 \examples{
-get.services()
-SERVICES <- list.remove.escapes.spaces( SERVICES )
-SERVICES
+services <- get.services()
+services <- list.remove.escapes.spaces( services )
+services
 }
