@@ -4,7 +4,8 @@
 \alias{perform.call}
 \title{Perform call and convert data into list}
 \usage{
-perform.call(call)
+perform.call(endpoint, variables = list(),
+  name = deparse(substitute(variables)))
 }
 \arguments{
 \item{call}{URL following structure from EPA API}
@@ -14,11 +15,4 @@ A list containing requested data
 }
 \description{
 Perform call and convert data into list
-}
-\examples{
-endpoint <- 'list/states'
-call <- create.base.call( endpoint )
-call.data <- perform.call( call )
-call.data$Header
-call.data$Data
 }

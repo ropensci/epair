@@ -1,6 +1,26 @@
 # Functions created to experiment with EPA API.
 # These functions are no longer in use. 
 
+#' Perform call and convert data into list
+#'
+#' @param call URL following structure from EPA API
+#'
+#' @return A list containing requested data
+#' @export
+#'
+#' @examples
+#' endpoint <- 'list/states'
+#' call <- create.base.call( endpoint )
+#' call.data <- perform.call( call )
+#' call.data$Header
+#' call.data$Data
+perform.call <- function( call ){
+  raw <- GET( call )
+  data <- content( raw, "text" )
+  converted <- fromJSON( data, flatten = TRUE)
+  return( converted )
+}
+
 #' Populate SERVICES, VARIABLES, and ENDPOINTS to be ready for the user to query
 #' TODO modify for system without global variables
 #' @return

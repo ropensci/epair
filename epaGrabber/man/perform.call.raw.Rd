@@ -2,22 +2,17 @@
 % Please edit documentation in R/EPAGrabberUtility.R
 \name{perform.call.raw}
 \alias{perform.call.raw}
-\title{Perform call and maintain jsonlite structure}
+\title{Perform call and keep original result}
 \usage{
-perform.call.raw(call)
+perform.call.raw(endpoint, variables = list(),
+  name = deparse(substitute(variables)))
 }
 \arguments{
 \item{call}{URL following structure from EPA API}
 }
 \value{
-Results of data request in json format
+A list containing result from query to EPA API
 }
 \description{
-Perform call and maintain jsonlite structure
-}
-\examples{
-endpoint <- 'list/states'
-call <- create.base.call( endpoint )
-raw.call <- perform.call.raw( call )
-raw.call
+Perform call and keep original result
 }

@@ -460,7 +460,8 @@ get.services <- function(){
   # Turn HTML tables into a workable variable
   services <- populate.all.services( tbls ) %>%
     assign.description.to.services() %>%
-    list.remove.escapes.spaces()
+    list.remove.escapes.spaces() %>%
+    change.classes.filter()
   
   return( services )
 }
