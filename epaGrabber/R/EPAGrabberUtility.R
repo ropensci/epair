@@ -312,21 +312,16 @@ get.list.variable.endpoint <- function( variable.type, variable.types ){
   return( variable.types[[name]] )
 }
 
-#' Perform call and convert data into list
+#' Place the URL as a call to the EPA API
 #'
-#' @param call URL following structure from EPA API
+#' @param url A string with a valid URL for the EPA API
 #'
-#' @return A list containing requested data
+#' @return Result of query from the API
 #' @export
 #'
 #' @examples
-#' endpoint <- 'list/states'
-#' call <- create.base.call( endpoint )
-#' call.data <- perform.call( call )
-#' call.data$Header
-#' call.data$Data
-perform.call <- function( call ){
-  raw <- GET( call )
+place.call <- function( url ){
+  raw <- GET( url )
   data <- content( raw, "text" )
   converted <- fromJSON( data, flatten = TRUE)
   return( converted )
@@ -344,10 +339,75 @@ perform.call <- function( call ){
 #' call <- create.base.call( endpoint )
 #' raw.call <- perform.call.raw( call )
 #' raw.call
-perform.call.raw <- function( call ){
-  raw <- GET( call )
-  return( raw )
+place.call.raw <- function( url ){
+  result <- GET( url )
+  return( result )
 }
+
+#' Perform call and convert data into list
+#'
+#' @param call URL following structure from EPA API
+#'
+#' @return A list containing requested data
+#' @export
+#'
+#' @examples
+perform.call <- function( endpoint, variables = list(), name = deparse( substitute( variables ) )  ){
+  
+  # The user passed no variables 
+  if( length(variables) == 0){
+    call <- create.base.call( endpoint )
+    result <- place.call( call )
+    return( result )
+  }
+  
+  # The user passed a single variable
+  if( class(variables) == "character"){
+    call <- create.base.call( endpoint )
+    call <- add.variable( call, variables, name )
+    result <- place.call( call )
+    return( result )
+  }
+  
+  # The user passed multiple variables as a list
+  call <- create.base.call( endpoint )
+  call <- add.variables( call, variables )
+  result <- place.call( call )
+  return( result )
+}
+
+#' Perform call and keep original result
+#'
+#' @param call URL following structure from EPA API
+#'
+#' @return A list containing result from query to EPA API
+#' @export
+#'
+#' @examples
+perform.call.raw <- function( endpoint, variables = list(), name = deparse( substitute( variables ) )  ){
+  
+  # The user passed no variables 
+  if( length(variables) == 0){
+    call <- create.base.call( endpoint )
+    result <- place.call.raw( call )
+    return( result )
+  }
+  
+  # The user passed a single variable
+  if( class(variables) == "character"){
+    call <- create.base.call( endpoint )
+    call <- add.variable( call, variables, name )
+    result <- place.call.raw( call )
+    return( result )
+  }
+  
+  # The user passed multiple variables as a list
+  call <- create.base.call( endpoint )
+  call <- add.variables( call, variables )
+  result <- place.call.raw( call )
+  return( result )
+}
+
 
 #' Check if a string contains characters not seen in endpoints
 #'
@@ -444,6 +504,28 @@ assign.description.to.services <- function( services ){
   return( services )
 }
 
+#' Update name to parameter class entry
+#'
+#' @param services List of services offered by the API.
+#' 
+#' @return Services with corrected name of filter for parameter classes. 
+#' @export
+#'
+#' @examples
+#' services <- get.services()
+#' services <- change.classes.filter( services )
+#' services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)`
+change.classes.filter <- function( services ){
+  names(services$List$Filters)[5] <- "Parameter Classes (groups of parameters, like criteria or all)"
+  
+  service.attributes <- list( Endpoint = "list/classes",
+                              RequiredVariables = "email, key",
+                              OptionalVariables = "",
+                              Example = "https://aqs.epa.gov/data/api/list/classes?email=test@aqs.api&key=test")
+  services$List$Filters$`Parameter Classes (groups of parameters, like criteria or all)` <- service.attributes
+  return( services )
+}
+
 #' Get a list of services the EPA API offers
 #'
 #' @return List of services the EPA API offers.
@@ -461,31 +543,12 @@ get.services <- function(){
   services <- populate.all.services( tbls ) %>%
     assign.description.to.services() %>%
     list.remove.escapes.spaces() %>%
-    change.classes.filter()
+    change.classes.filter
   
   return( services )
 }
 
-#' Update name to parameter class entry
-#'
-#' @param services List of services offered by the API.
-#'
-#' @return Services with corrected name of filter for parameter classes. 
-#'
-#' @examples
-#' services <- get.services()
-#' services <- change.classes.filter( services )
-#' services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)`
-change.classes.filter <- function( services ){
-  names(services$List$Filter)[3] <- "Parameter Classes (groups of parameters, like criteria or all)"
-  
-  service.attributes <- list( Endpoint = "list/classes",
-                              RequiredVariables = "email, key",
-                              OptionalVariables = "",
-                              Example = "https://aqs.epa.gov/data/api/list/classes?email=test@aqs.api&key=test")
-  services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)` <- service.attributes
-  return( services )
-}
+
 
 #' Get filter names in data frame
 #'
