@@ -234,7 +234,7 @@ get.variables <- function(){
 
 #' Check if the API is up and running 
 #'
-#' @return Json result showing whether the API is up.
+#' 
 #' @export
 #'
 #' @examples
@@ -242,8 +242,12 @@ get.variables <- function(){
 is.API.running <- function(){
   endpoint <-  'metaData/isAvailable'
   url <- create.base.call( endpoint  )
-  result <- GET( url )
-  return( result )
+  raw <- GET( url )
+  text.content <- content( raw, "text" )
+  converted <- fromJSON( text.content, flatten = TRUE )
+  
+  print( converted$Header$status )
+  print( converted$Header$request_time)
 }
 
 #' Add a variable to a call
