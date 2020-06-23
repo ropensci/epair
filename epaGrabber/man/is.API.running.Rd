@@ -6,9 +6,6 @@
 \usage{
 is.API.running()
 }
-\value{
-Json result showing whether the API is up.
-}
 \description{
 Check if the API is up and running
 }
