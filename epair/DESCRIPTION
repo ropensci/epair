@@ -1,4 +1,4 @@
-Package: epaGrabber
+Package: epair
 Title: Grabs data from EPA API, simplifies getting pollutant data
 Version: 0.0.0.9
 Authors@R: person("Leo", "Orozco-Mulfinger", email = "glo003@bucknell.edu", role = c("aut", "cre"))
