@@ -166,9 +166,9 @@ create.base.call <- function( endpoint ){
 #' df
 get.table <- function( url, table.xpath ){
   found.table <- url %>%
-    read_html() %>%
-    html_nodes( xpath = table.xpath ) %>% 
-    html_table()
+    xml2::read_html() %>%
+    rvest::html_nodes( xpath = table.xpath ) %>% 
+    rvest::html_table()
   return( found.table[[1]] )
 }
 
@@ -335,9 +335,9 @@ get.variables <- function(){
 is.API.running <- function(){
   endpoint <-  'metaData/isAvailable'
   url <- create.base.call( endpoint  )
-  raw <- GET( url )
-  text.content <- content( raw, "text" )
-  converted <- fromJSON( text.content, flatten = TRUE )
+  raw <- httr::GET( url )
+  text.content <- httr::content( raw, "text" )
+  converted <- jsonlite::fromJSON( text.content, flatten = TRUE )
   
   print( converted$Header$status )
   print( converted$Header$request_time)
@@ -418,9 +418,9 @@ get.list.variable.endpoint <- function( variable.type, variable.types ){
 #'
 #' @examples
 place.call <- function( url ){
-  raw <- GET( url )
-  data <- content( raw, "text" )
-  converted <- fromJSON( data, flatten = TRUE)
+  raw <- httr::GET( url )
+  data <- httr::content( raw, "text" )
+  converted <- jsonlite::fromJSON( data, flatten = TRUE)
   return( converted )
 }
 
@@ -437,7 +437,7 @@ place.call <- function( url ){
 #' raw.call <- perform.call.raw( call )
 #' raw.call
 place.call.raw <- function( url ){
-  result <- GET( url )
+  result <- httr::GET( url )
   return( result )
 }
 
@@ -575,9 +575,9 @@ get.endpoints <- function(){
 #' html.tables.list <- get.all.table()
 #' html.tables.list
 get.all.tables <- function( ){
-  site <- read_html( 'https://aqs.epa.gov/aqsweb/documents/data_api.html' )
-  tbls <- html_nodes( site, "table" )
-  list.tbls <- html_table(tbls, fill = TRUE)
+  site <- xml2::read_html( 'https://aqs.epa.gov/aqsweb/documents/data_api.html' )
+  tbls <- rvest::html_nodes( site, "table" )
+  list.tbls <- rvest::html_table(tbls, fill = TRUE)
   return( list.tbls )
 }
 
