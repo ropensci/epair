@@ -1,0 +1,86 @@
+#### This module was built to encapsulate call construction to place requests to EPA API
+
+#' Generate the string authentication needed for EPA API
+#'
+#' @param email Email registered with EPA API
+#' @param key Key obtained from EPA API. Register your email for a key here 
+#' https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' create.authentication( "myemail@domain.com", "myapikey")
+create.authentication <- function( email, key){
+  authentication.string <- sprintf('&email=%s&key=%s', email, key)
+  return( authentication.string )
+}
+
+#' Make the first call when forming a query.  
+#'
+#' @param endpoint Endpoint for forming a query. See ENDPOINTS for all available endpoints. See 
+#' SERVICES if you know the service but not the endpoint.
+#'
+#' @return A URL string containing authentication for the call.
+#' @export
+#'
+#' @examples
+#' endpoint <- "list/states"
+#' call <- create.base.call( endpoint )
+#' call
+create.base.call <- function( endpoint ){
+  if( length( getOption( "epa_authentication") ) == 0 ){
+    stop( "Make sure you've declared the option for epa_authentication.")
+  }
+  base = 'https://aqs.epa.gov/data/api/'
+  result <- paste( base, endpoint, "?", getOption( "epa_authentication" ), sep = "")
+  return( result )
+}
+
+#' Add a variable to a call
+#'
+#' @param query A URL containing authentication for EPA API
+#' @param variable A variable for a call. Consult VARIABLE.TYPES for possible variables. 
+#' @param name Default argument should be left as is. Will take the name used for variable above
+#' to create the final URL.
+#'
+#' @return A URL containing query + variable.
+#' @export
+#'
+#' @examples
+#' endpoint <- 'dailyData/byState'
+#' state <- "37"
+#' call <- create.base.call( endpoint )
+#' call <- add.variable( call, state )
+#' call     # Call requires more variables before being placed
+add.variable <- function( query, variable, name = deparse( substitute( variable ) ) ){
+  result <- paste( query, '&', name, '=', variable, sep = "" )
+  return( result )
+}
+
+#' Add variables to a query
+#'
+#' @param query A URL containing authentication for the EPA API site.
+#' @param variables A list of variables. Each variable should be declareed with the approporiate name.
+#' Consult VARIABLE.TYPES for the right names.
+#'
+#' @return A URL consisting of query + variables.
+#' @export
+#'
+#' @examples
+#' endpoint <- 'dailyData/byState'
+#' variable.list <- list( "state" = '37', 
+#'                       "bdate" = '20200101', 
+#'                       "edate" = '20200102', 
+#'                       "param" = '44201')
+#' call <- create.base.call( endpoint )
+#' call <- add.variables( call, variable.list )
+#' call
+add.variables <- function( query, variables ){
+  var.names <- names( variables )
+  for( i in 1:length( variables ) ){
+    var.name <- var.names[i]
+    query <- paste( query, '&', var.name, '=', variables[[ var.name ]], sep = "" )
+  }
+  return( query )
+}
