@@ -16,3 +16,7 @@ A list containing result from query to EPA API
 \description{
 Perform call and keep original result
 }
+\examples{
+endpoint <- 'list/states'
+result <- perform.call.raw(endpoint)
+}

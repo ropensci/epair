@@ -26,6 +26,8 @@ is.API.running <- function(){
 #' @export
 #'
 #' @examples
+#' endpoint <- 'list/states'
+#' result <- perform.call.raw(endpoint)
 perform.call.raw <- function( endpoint, variables = list(), name = deparse( substitute( variables ) )  ){
   
   # The user passed no variables 
@@ -59,6 +61,9 @@ perform.call.raw <- function( endpoint, variables = list(), name = deparse( subs
 #' @export
 #'
 #' @examples
+#' endpoint <- 'list/states'
+#' result <- perform.call(endpoint)
+#' 
 perform.call <- function( endpoint, variables = list(), name = deparse( substitute( variables ) )  ){
   
   # The user passed no variables 
@@ -92,6 +97,9 @@ perform.call <- function( endpoint, variables = list(), name = deparse( substitu
 #' @export
 #'
 #' @examples
+#' url <- "user_url"
+#' result <- place.call(url)
+#' 
 place.call <- function( url ){
   raw <- httr::GET( url )
   data <- httr::content( raw, "text" )

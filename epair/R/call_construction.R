@@ -6,7 +6,7 @@
 #' @param key Key obtained from EPA API. Register your email for a key here 
 #' https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
 #'
-#' @return
+#' @return A string with authentication info. It looks like '&email=user_email&key=user_key'.
 #' @export
 #'
 #' @examples
@@ -67,8 +67,7 @@ add.variable <- function( query, variable, name = deparse( substitute( variable 
 #' @return A URL consisting of query + variables.
 #' @export
 #'
-#' @examples
-#' endpoint <- 'dailyData/byState'
+#' @examples endpoint <- 'dailyData/byState'
 #' variable.list <- list( "state" = '37', 
 #'                       "bdate" = '20200101', 
 #'                       "edate" = '20200102', 

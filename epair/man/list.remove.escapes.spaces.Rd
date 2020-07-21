@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_transforms.R
 \name{list.remove.escapes.spaces}
 \alias{list.remove.escapes.spaces}
-\title{Remove '\t', '\r\n', "   " from entries in a list}
+\title{Remove tabs, new lines, and empty spaces from entries in a list}
 \usage{
 list.remove.escapes.spaces(a.list)
 }
@@ -10,10 +10,10 @@ list.remove.escapes.spaces(a.list)
 \item{a.list}{List to remove entries from.}
 }
 \value{
-A list without '\t', '\r\n' and "  "
+A list without tabs, new lines, and empty spaces
 }
 \description{
-Remove '\t', '\r\n', "   " from entries in a list
+Remove tabs, new lines, and empty spaces from entries in a list
 }
 \examples{
 services <- get.services()

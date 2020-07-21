@@ -2,18 +2,18 @@
 % Please edit documentation in R/data_transforms.R
 \name{remove.escapes.spaces}
 \alias{remove.escapes.spaces}
-\title{Remove '\t', '\r\n', "   " from entries in a data frame}
+\title{Remove tabs, new lines, and empty spaces from entries in a data frame}
 \usage{
 remove.escapes.spaces(df)
 }
 \arguments{
-\item{df}{Data frame to remove '\t', '\r\n', "   " from}
+\item{df}{Data frame to remove tabs, new lines, and empty spaces from}
 }
 \value{
-Data frame without '\t', '\r\n', "   "
+Data frame without tabs, new lines, and empty spaces
 }
 \description{
-Remove '\t', '\r\n', "   " from entries in a data frame
+Remove tabs, new lines, and empty spaces from entries in a data frame
 }
 \examples{
 url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"

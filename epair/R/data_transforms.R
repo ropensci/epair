@@ -41,11 +41,11 @@ list.string.replacer <- function( entry.list, pattern, replacement ){
   return( new.list )
 }
 
-#' Remove '\t', '\r\n', "   " from entries in a data frame
+#' Remove tabs, new lines, and empty spaces from entries in a data frame
 #'
-#' @param df Data frame to remove '\t', '\r\n', "   " from
+#' @param df Data frame to remove tabs, new lines, and empty spaces from
 #'
-#' @return Data frame without '\t', '\r\n', "   "
+#' @return Data frame without tabs, new lines, and empty spaces
 #' @export
 #'
 #' @examples
@@ -63,11 +63,11 @@ remove.escapes.spaces <- function( df ){
   return( clean.df )
 }
 
-#' Remove '\t', '\r\n', "   " from entries in a list
+#' Remove tabs, new lines, and empty spaces from entries in a list
 #'
 #' @param a.list List to remove entries from.
 #'
-#' @return A list without '\t', '\r\n' and "  "
+#' @return A list without tabs, new lines, and empty spaces
 #' @export
 #'
 #' @examples

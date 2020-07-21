@@ -16,3 +16,8 @@ A list containing requested data
 \description{
 Perform call and convert data into list
 }
+\examples{
+endpoint <- 'list/states'
+result <- perform.call(endpoint)
+
+}

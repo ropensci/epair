@@ -15,3 +15,8 @@ Result of query from the API
 \description{
 Place the URL as a call to the EPA API
 }
+\examples{
+url <- "user_url"
+result <- place.call(url)
+
+}

@@ -7,17 +7,6 @@
 modified.html_table.xml_node(x, header = NA, trim = TRUE, fill = FALSE,
   dec = ".")
 }
-\arguments{
-\item{x}{}
-
-\item{header}{}
-
-\item{trim}{}
-
-\item{fill}{}
-
-\item{dec}{}
-}
 \description{
 See original specs for html_table.xml_node in rvest package. Modification done 
 to allow for more flexible table scraping in websites.
