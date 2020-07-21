@@ -1,4 +1,5 @@
-#### Function from rvest. Modified line 63 to allow for multi indexed html table grabbing. 
+#### Function from rvest. 
+#### Modified line 63 to allow for multi indexed html table grabbing. 
 
 #' Modified html_table.xml_node 
 #' 

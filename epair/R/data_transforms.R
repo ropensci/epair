@@ -1,68 +1,5 @@
 #### This module was built to hold data transformations on scraped tables from the EPA API
 
-#' Take a list of html tables from api and output all endpoints
-#'
-#' @param list.tables List of HTML tables from EPA API
-#'
-#' @return Vector with only endpoints for the API.
-#' @export
-#'
-#' @examples
-#' API.tables <- get.all.tables()
-#' endpoints <- find.endpoints.in.tables( API.tables )
-#' endpoints
-find.endpoints.in.tables <- function( list.tables ){
-  endpoints <- c()
-  for( i in 1:length( list.tables ) ){
-    if( "Endpoint" %in% colnames( list.tables[[i]] ) ){
-      endpoints <- c( endpoints, list.tables[[i]]$Endpoint ) 
-    }
-  }
-  # Don't insert entries that aren't endpoints
-  pure.endpoints <- c()
-  for( i in 1:length( endpoints ) ){
-    if( !endpoint.checker( endpoints[i] ) ){
-      pure.endpoints <- c( pure.endpoints, endpoints[i])
-    }
-  }
-  return( pure.endpoints )
-}
-
-#' Show endpoint for listing information on a variable
-#'
-#' @param variable.type A variable used in the EPA API service. Consult VARIABLE.TYPES for available variables.
-#' @param variable.types A list contianing variable types mapped to their endpoints. This vector 
-#' should be loaded in with the package and can be found in the package data files. Type ?variable.types
-#' for more info.
-#' 
-#' @return An endpoint character that lists information to help the user query a variable.
-#' @export
-#'
-#' @examples
-#' get.list.variable.endpoint( "state" )
-#' get.list.variable.endpoint( "classes" )
-get.list.variable.endpoint <- function( variable.type, variable.types ){
-  name <- substitute( variable.type ) 
-  return( variable.types[[name]] )
-}
-
-#' Check if a string contains characters not seen in endpoints
-#'
-#' @param string A character entry from entries in the data frame of API services
-#'
-#' @return A boolean reflecting presence of endpoint in string
-#' @export
-#'
-#' @examples
-#' endpoint.checker( "list/states" )
-#' endpoint.checker( "https://example here")
-endpoint.checker <- function( string ){
-  example.check <- grepl( "Example", string, fixed = TRUE)
-  returns.check <- grepl( "Returns", string, fixed = TRUE)
-  https.check <- grepl( "https:", string, fixed = TRUE)
-  return( example.check | returns.check | https.check)
-}
-
 #' Replace all characters entries in df
 #'
 #' @param df Data frame containing character entries
@@ -166,6 +103,3 @@ get.transpose <- function( df  ){
   colnames( t.df ) <- t.names
   return( as.data.frame(t.df, stringsAsFactors = FALSE) )
 }
-
-
-
