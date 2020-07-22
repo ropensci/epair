@@ -13,6 +13,8 @@ Vector of endpoints from the API
 Get all endpoints from EPA API
 }
 \examples{
+\dontrun{
 endpoints <- get.endpoints()
 endpoints
+}
 }

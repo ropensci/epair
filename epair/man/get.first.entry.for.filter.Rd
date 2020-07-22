@@ -18,7 +18,9 @@ The index for the first occurence of the filter in the data frame.
 Get the first entry for a filter name
 }
 \examples{
+\dontrun{
 tbls <- get.all.tables()
 single <- tbls[[11]]
 get.first.entry.for.filter( "Filter Name", single )
+}
 }

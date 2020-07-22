@@ -21,9 +21,11 @@ A URL containing query + variable.
 Add a variable to a call
 }
 \examples{
+\dontrun{
 endpoint <- 'dailyData/byState'
 state <- "37"
 call <- create.base.call( endpoint )
 call <- add.variable( call, state )
 call     # Call requires more variables before being placed
+}
 }

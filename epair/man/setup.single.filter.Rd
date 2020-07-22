@@ -21,8 +21,10 @@ A list with filter content given to the filter name.
 Create a single filter
 }
 \examples{
+\dontrun{
 tbls <- get.all.tables()
 single <- tbls[[9]]
 filter.name <- "My filter"
 setup.single.filter( filter.name, 1, single)
+}
 }

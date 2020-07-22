@@ -16,7 +16,9 @@ Vector with only endpoints for the API.
 Take a list of html tables from api and output all endpoints
 }
 \examples{
+\dontrun{
 API.tables <- get.all.tables()
 endpoints <- find.endpoints.in.tables( API.tables )
 endpoints
+}
 }

@@ -13,6 +13,8 @@ Data frame containing variables and information about them used in the EPA API.
 Popoulate VARIABLES for info on making requests
 }
 \examples{
+\dontrun{
 vars <- get.variables()
 vars$edate
+}
 }

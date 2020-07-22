@@ -18,8 +18,10 @@ A data frame of the HTML table
 Get an HTML table at URL
 }
 \examples{
+\dontrun{
 url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
 df <- get.table( url, table.path )
 df
+}
 }

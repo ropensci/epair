@@ -16,6 +16,8 @@ The list of services with descriptions for each service.
 Assign a description to each service
 }
 \examples{
+\dontrun{
 services <- assign.description.to.services( services )
 services[[1]]$Description
+}
 }

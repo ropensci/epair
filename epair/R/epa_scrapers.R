@@ -8,11 +8,15 @@
 #' @return A data frame of the HTML table
 #' @export
 #'
+#' @import magrittr
+#'
 #' @examples
+#' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
 #' df <- get.table( url, table.path )
 #' df
+#' }
 get.table <- function( url, table.xpath ){
   found.table <- url %>%
     xml2::read_html() %>%
@@ -27,8 +31,10 @@ get.table <- function( url, table.xpath ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' service.names <- get.service.names()
 #' service.names
+#' }
 get.service.names <- function(){
   
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
@@ -47,8 +53,10 @@ get.service.names <- function(){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' vars <- get.variables()
 #' vars$edate
+#' }
 get.variables <- function(){
   
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
@@ -67,8 +75,10 @@ get.variables <- function(){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' endpoints <- get.endpoints()
 #' endpoints
+#' }
 get.endpoints <- function(){
   API.tables <- get.all.tables()
   endpoints <- find.endpoints.in.tables( API.tables )
@@ -83,9 +93,11 @@ get.endpoints <- function(){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' API.tables <- get.all.tables()
 #' endpoints <- find.endpoints.in.tables( API.tables )
 #' endpoints
+#' }
 find.endpoints.in.tables <- function( list.tables ){
   endpoints <- c()
   for( i in 1:length( list.tables ) ){
@@ -114,8 +126,10 @@ find.endpoints.in.tables <- function( list.tables ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' get.list.variable.endpoint( "state" )
 #' get.list.variable.endpoint( "classes" )
+#' }
 get.list.variable.endpoint <- function( variable.type, variable.types ){
   name <- substitute( variable.type ) 
   return( variable.types[[name]] )
@@ -144,8 +158,10 @@ endpoint.checker <- function( string ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' html.tables.list <- get.all.table()
 #' html.tables.list
+#' }
 get.all.tables <- function( ){
   site <- xml2::read_html( 'https://aqs.epa.gov/aqsweb/documents/data_api.html' )
   tbls <- rvest::html_nodes( site, "table" )
@@ -157,10 +173,14 @@ get.all.tables <- function( ){
 #'
 #' @return List of services the EPA API offers.
 #' @export
+#' 
+#' @import magrittr
 #'
 #' @examples
+#' \dontrun{
 #' services <- get.services()
 #' services
+#' }
 get.services <- function(){
   # Get HTML tables
   tbls <- get.all.tables()

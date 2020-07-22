@@ -18,7 +18,9 @@ A list with filter content (endpoint, required variables, etc.)
 Generate filter content for an API filter
 }
 \examples{
+\dontrun{
 tbls <- get.all.tables()
 single <- tbls[[7]]
 content <- generate.filter.content( 1, single )
+}
 }

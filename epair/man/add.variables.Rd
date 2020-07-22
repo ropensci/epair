@@ -19,6 +19,7 @@ A URL consisting of query + variables.
 Add variables to a query
 }
 \examples{
+\dontrun{
 endpoint <- 'dailyData/byState'
 variable.list <- list( "state" = '37', 
                       "bdate" = '20200101', 
@@ -27,4 +28,5 @@ variable.list <- list( "state" = '37',
 call <- create.base.call( endpoint )
 call <- add.variables( call, variable.list )
 call
+}
 }

@@ -28,9 +28,11 @@ string.replacer <- function( df, pattern, replacement){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' services <- get.services()
 #' services <- list.string.replacer( services, "\t", "")
 #' services
+#' }
 list.string.replacer <- function( entry.list, pattern, replacement ){
   new.list <- rapply( entry.list, 
                       gsub, 
@@ -49,6 +51,7 @@ list.string.replacer <- function( entry.list, pattern, replacement ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
 #' df <- get.table( url, table.path )
@@ -56,6 +59,7 @@ list.string.replacer <- function( entry.list, pattern, replacement ){
 #' 
 #' clean.df <- remove.escapes.spaces( df )
 #' clean.df
+#' }
 remove.escapes.spaces <- function( df ){
   clean.df <- string.replacer( df, "\t", "") %>%
     string.replacer( "\r\n", "") %>%
@@ -71,9 +75,11 @@ remove.escapes.spaces <- function( df ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' services <- get.services()
 #' services <- list.remove.escapes.spaces( services )
 #' services
+#' }
 list.remove.escapes.spaces <- function( a.list ){
   new.list <- list.string.replacer( a.list, "\t", "") %>%
     list.string.replacer( "\r\n", "") %>%
@@ -89,11 +95,13 @@ list.remove.escapes.spaces <- function( a.list ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
 #' df <- get.table( url, table.path )
 #' t.df <- get.transpose( df )
 #' t.df
+#' }
 get.transpose <- function( df  ){
   t.df <-  t( df )
   t.names <- c()

@@ -17,7 +17,9 @@ and repeated filter names are removed.
 Get filter names in data frame
 }
 \examples{
+\dontrun{
 tbls <- get.all.tables()
 single <- tbls[[6]]
 get.true.filters( single )
+}
 }

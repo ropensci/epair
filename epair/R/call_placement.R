@@ -6,7 +6,9 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' is.API.running()
+#' }
 is.API.running <- function(){
   endpoint <-  'metaData/isAvailable'
   url <- create.base.call( endpoint  )
@@ -20,14 +22,19 @@ is.API.running <- function(){
 
 #' Perform call and keep original result
 #'
-#' @param call URL following structure from EPA API
-#'
+#' @param endpoint An endpoint from the available EPA API endpoints
+#' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
+#' @param name Specifies the name each variable should have when placed in the URL. User input
+#' is not necessary and should be left in default state.
+#' 
 #' @return A list containing result from query to EPA API
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- 'list/states'
 #' result <- perform.call.raw(endpoint)
+#' }
 perform.call.raw <- function( endpoint, variables = list(), name = deparse( substitute( variables ) )  ){
   
   # The user passed no variables 
@@ -55,15 +62,19 @@ perform.call.raw <- function( endpoint, variables = list(), name = deparse( subs
 
 #' Perform call and convert data into list
 #'
-#' @param call URL following structure from EPA API
+#' @param endpoint An endpoint from the available EPA API endpoints
+#' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
+#' @param name Specifies the name each variable should have when placed in the URL. User input
+#' is not necessary and should be left in default state.
 #'
 #' @return A list containing requested data
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- 'list/states'
 #' result <- perform.call(endpoint)
-#' 
+#' }
 perform.call <- function( endpoint, variables = list(), name = deparse( substitute( variables ) )  ){
   
   # The user passed no variables 
@@ -97,9 +108,10 @@ perform.call <- function( endpoint, variables = list(), name = deparse( substitu
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' url <- "user_url"
 #' result <- place.call(url)
-#' 
+#' }
 place.call <- function( url ){
   raw <- httr::GET( url )
   data <- httr::content( raw, "text" )
@@ -109,16 +121,18 @@ place.call <- function( url ){
 
 #' Perform call and maintain jsonlite structure
 #'
-#' @param call URL following structure from EPA API
+#' @param url URL following structure from EPA API
 #'
 #' @return Results of data request in json format
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- 'list/states'
 #' call <- create.base.call( endpoint )
 #' raw.call <- perform.call.raw( call )
 #' raw.call
+#' }
 place.call.raw <- function( url ){
   result <- httr::GET( url )
   return( result )

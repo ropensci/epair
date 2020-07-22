@@ -16,7 +16,9 @@ A list with the filter content of a service set to the service name.
 Make list of single service
 }
 \examples{
+\dontrun{
 tbls <- get.all.tables()
 single <- tbls[[8]]
 setup.service( single )
+}
 }

@@ -10,7 +10,8 @@
 #' @export
 #'
 #' @examples
-#' create.authentication( "myemail@domain.com", "myapikey")
+#' auth <- create.authentication( "myemail@domain.com", "myapikey")
+#' auth
 create.authentication <- function( email, key){
   authentication.string <- sprintf('&email=%s&key=%s', email, key)
   return( authentication.string )
@@ -25,9 +26,11 @@ create.authentication <- function( email, key){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- "list/states"
 #' call <- create.base.call( endpoint )
 #' call
+#' }
 create.base.call <- function( endpoint ){
   if( length( getOption( "epa_authentication") ) == 0 ){
     stop( "Make sure you've declared the option for epa_authentication.")
@@ -48,11 +51,13 @@ create.base.call <- function( endpoint ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- 'dailyData/byState'
 #' state <- "37"
 #' call <- create.base.call( endpoint )
 #' call <- add.variable( call, state )
 #' call     # Call requires more variables before being placed
+#' }
 add.variable <- function( query, variable, name = deparse( substitute( variable ) ) ){
   result <- paste( query, '&', name, '=', variable, sep = "" )
   return( result )
@@ -67,7 +72,9 @@ add.variable <- function( query, variable, name = deparse( substitute( variable 
 #' @return A URL consisting of query + variables.
 #' @export
 #'
-#' @examples endpoint <- 'dailyData/byState'
+#' @examples 
+#' \dontrun{
+#' endpoint <- 'dailyData/byState'
 #' variable.list <- list( "state" = '37', 
 #'                       "bdate" = '20200101', 
 #'                       "edate" = '20200102', 
@@ -75,6 +82,7 @@ add.variable <- function( query, variable, name = deparse( substitute( variable 
 #' call <- create.base.call( endpoint )
 #' call <- add.variables( call, variable.list )
 #' call
+#' }
 add.variables <- function( query, variables ){
   var.names <- names( variables )
   for( i in 1:length( variables ) ){

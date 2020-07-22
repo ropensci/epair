@@ -7,7 +7,7 @@
 place.call.raw(url)
 }
 \arguments{
-\item{call}{URL following structure from EPA API}
+\item{url}{URL following structure from EPA API}
 }
 \value{
 Results of data request in json format
@@ -16,8 +16,10 @@ Results of data request in json format
 Perform call and maintain jsonlite structure
 }
 \examples{
+\dontrun{
 endpoint <- 'list/states'
 call <- create.base.call( endpoint )
 raw.call <- perform.call.raw( call )
 raw.call
+}
 }

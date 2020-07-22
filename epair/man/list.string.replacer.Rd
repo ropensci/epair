@@ -20,7 +20,9 @@ A list with entries matching the pattern replaced by replacement
 Replace every string entry in a list
 }
 \examples{
+\dontrun{
 services <- get.services()
 services <- list.string.replacer( services, "\\t", "")
 services
+}
 }

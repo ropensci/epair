@@ -16,7 +16,9 @@ A list containing filters and respective info.
 Create a list of filters
 }
 \examples{
+\dontrun{
 tbls <- get.all.tables()
 single <- tbls[[8]]
 generate.filters.list( single )
+}
 }

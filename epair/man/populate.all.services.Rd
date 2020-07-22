@@ -16,7 +16,9 @@ A list with each service and filters as chained variables to make for easy calli
 Turn tables of API services into a list
 }
 \examples{
+\dontrun{
 tables.to.modify <- get.all.tables()
 services <- populate.all.services( tables.to.modify )
 services$List
+}
 }

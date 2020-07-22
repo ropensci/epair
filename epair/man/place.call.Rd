@@ -16,7 +16,8 @@ Result of query from the API
 Place the URL as a call to the EPA API
 }
 \examples{
+\dontrun{
 url <- "user_url"
 result <- place.call(url)
-
+}
 }

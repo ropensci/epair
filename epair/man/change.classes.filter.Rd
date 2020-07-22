@@ -16,7 +16,9 @@ Services with corrected name of filter for parameter classes.
 Update name to parameter class entry
 }
 \examples{
+\dontrun{
 services <- get.services()
 services <- change.classes.filter( services )
 services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)`
+}
 }

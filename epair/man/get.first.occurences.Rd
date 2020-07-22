@@ -17,7 +17,9 @@ exists in df.
 Get first entries for filter names
 }
 \examples{
+\dontrun{
 tbls <- get.all.tables()
 single <- tbls[[10]]
 first.occurences <- get.first.occurences( single )
+}
 }

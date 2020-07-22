@@ -17,7 +17,9 @@ A URL string containing authentication for the call.
 Make the first call when forming a query.
 }
 \examples{
+\dontrun{
 endpoint <- "list/states"
 call <- create.base.call( endpoint )
 call
+}
 }

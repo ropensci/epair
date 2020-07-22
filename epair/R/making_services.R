@@ -9,9 +9,11 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tables.to.modify <- get.all.tables()
 #' services <- populate.all.services( tables.to.modify )
 #' services$List
+#' }
 populate.all.services <- function( tables.to.modify ){
   service.list <- list()
   for( i in 1:length(tables.to.modify)){
@@ -30,9 +32,11 @@ populate.all.services <- function( tables.to.modify ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[8]]
 #' setup.service( single )
+#' }
 setup.service <- function( df ){
   service.list <- list()
   service.name <- df$Service[1]
@@ -51,9 +55,11 @@ setup.service <- function( df ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[6]]
 #' get.true.filters( single )
+#' }
 get.true.filters <- function( df ){
   service.name <- df$Service[1]
   unique.filters <- unique( df$Filter )
@@ -69,9 +75,11 @@ get.true.filters <- function( df ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' services <- get.services()
 #' services <- change.classes.filter( services )
 #' services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)`
+#' }
 change.classes.filter <- function( services ){
   names(services$List$Filters)[5] <- "Parameter Classes (groups of parameters, like criteria or all)"
   
@@ -91,8 +99,10 @@ change.classes.filter <- function( services ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' services <- assign.description.to.services( services )
 #' services[[1]]$Description
+#' }
 assign.description.to.services <- function( services ){
   service.names <- get.service.names()
   # Remove the signup since the user will do that via the website
@@ -112,9 +122,11 @@ assign.description.to.services <- function( services ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[11]]
 #' get.first.entry.for.filter( "Filter Name", single )
+#' }
 get.first.entry.for.filter <- function( filter.name, df ){
   indices <- which( df$Filter == filter.name)
   first.occurence <- min( indices )
@@ -132,9 +144,11 @@ get.first.entry.for.filter <- function( filter.name, df ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[7]]
 #' content <- generate.filter.content( 1, single )
+#' }
 generate.filter.content <- function( i, df){
   filter.content <- list( Endpoint = df$Endpoint[i],
                           RequiredVariables = df$`Required Variables`[i],
@@ -152,9 +166,11 @@ generate.filter.content <- function( i, df){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[10]]
 #' first.occurences <- get.first.occurences( single )
+#' }
 get.first.occurences <- function( df ){
   true.filters <- get.true.filters( df )
   first.occurences <- sapply( true.filters, get.first.entry.for.filter, df)
@@ -174,10 +190,12 @@ get.first.occurences <- function( df ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[9]]
 #' filter.name <- "My filter"
 #' setup.single.filter( filter.name, 1, single)
+#' }
 setup.single.filter <- function( filter.name, i, df ){
   filter.content <- generate.filter.content( i, df )
   filter.out <- list()
@@ -193,9 +211,11 @@ setup.single.filter <- function( filter.name, i, df ){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[8]]
 #' generate.filters.list( single )
+#' }
 generate.filters.list <- function( df ){
   filters.list <- list()
   first.occurences <- get.first.occurences( df )

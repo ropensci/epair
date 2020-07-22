@@ -16,6 +16,7 @@ Data frame without tabs, new lines, and empty spaces
 Remove tabs, new lines, and empty spaces from entries in a data frame
 }
 \examples{
+\dontrun{
 url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
 df <- get.table( url, table.path )
@@ -23,4 +24,5 @@ df
 
 clean.df <- remove.escapes.spaces( df )
 clean.df
+}
 }

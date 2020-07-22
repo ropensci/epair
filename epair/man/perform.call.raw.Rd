@@ -8,7 +8,12 @@ perform.call.raw(endpoint, variables = list(),
   name = deparse(substitute(variables)))
 }
 \arguments{
-\item{call}{URL following structure from EPA API}
+\item{endpoint}{An endpoint from the available EPA API endpoints}
+
+\item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
+
+\item{name}{Specifies the name each variable should have when placed in the URL. User input
+is not necessary and should be left in default state.}
 }
 \value{
 A list containing result from query to EPA API
@@ -17,6 +22,8 @@ A list containing result from query to EPA API
 Perform call and keep original result
 }
 \examples{
+\dontrun{
 endpoint <- 'list/states'
 result <- perform.call.raw(endpoint)
+}
 }

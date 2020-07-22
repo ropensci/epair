@@ -10,5 +10,7 @@ is.API.running()
 Check if the API is up and running
 }
 \examples{
+\dontrun{
 is.API.running()
+}
 }

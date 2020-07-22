@@ -13,6 +13,8 @@ A list of HTML tables from the EPA API site.
 Get all the html tables in the API site
 }
 \examples{
+\dontrun{
 html.tables.list <- get.all.table()
 html.tables.list
+}
 }

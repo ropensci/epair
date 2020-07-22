@@ -13,6 +13,8 @@ List of services the EPA API offers.
 Get a list of services the EPA API offers
 }
 \examples{
+\dontrun{
 services <- get.services()
 services
+}
 }

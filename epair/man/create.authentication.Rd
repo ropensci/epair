@@ -19,5 +19,6 @@ A string with authentication info. It looks like '&email=user_email&key=user_key
 Generate the string authentication needed for EPA API
 }
 \examples{
-create.authentication( "myemail@domain.com", "myapikey")
+auth <- create.authentication( "myemail@domain.com", "myapikey")
+auth
 }

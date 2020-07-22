@@ -16,9 +16,11 @@ The transposed data frame. First variable entries become column names.
 Transpose a data frame
 }
 \examples{
+\dontrun{
 url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
 df <- get.table( url, table.path )
 t.df <- get.transpose( df )
 t.df
+}
 }

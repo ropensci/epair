@@ -20,6 +20,8 @@ An endpoint character that lists information to help the user query a variable.
 Show endpoint for listing information on a variable
 }
 \examples{
+\dontrun{
 get.list.variable.endpoint( "state" )
 get.list.variable.endpoint( "classes" )
+}
 }
