@@ -10,12 +10,12 @@
 #' @export
 #'
 #' @examples
-#' df <- data.frame( c("1", "2", "3", "4"))
-#' modified.df <- string.replacer( df, "1", "One")
+#' df <- data.frame(c("1", "2", "3", "4"))
+#' modified.df <- string.replacer df, "1", "One")
 #' modified.df
-string.replacer <- function( df, pattern, replacement){
-  modified.df <- lapply( df, gsub, pattern = pattern, replacement = replacement, fixed = TRUE)
-  return( as.data.frame( modified.df ) )
+string.replacer <- function(df, pattern, replacement) {
+  modified.df <- lapply(df, gsub, pattern = pattern, replacement = replacement, fixed = TRUE)
+  return(as.data.frame(modified.df))
 }
 
 #' Replace every string entry in a list 
@@ -33,14 +33,14 @@ string.replacer <- function( df, pattern, replacement){
 #' services <- list.string.replacer( services, "\t", "")
 #' services
 #' }
-list.string.replacer <- function( entry.list, pattern, replacement ){
-  new.list <- rapply( entry.list, 
-                      gsub, 
-                      pattern = pattern, 
-                      replacement = replacement, 
-                      fixed = TRUE,
-                      how = "replace")
-  return( new.list )
+list.string.replacer <- function(entry.list, pattern, replacement) {
+  new.list <- rapply(entry.list, 
+                     gsub, 
+                     pattern = pattern, 
+                     replacement = replacement, 
+                     fixed = TRUE,
+                     how = "replace")
+  return(new.list)
 }
 
 #' Remove tabs, new lines, and empty spaces from entries in a data frame
@@ -54,17 +54,17 @@ list.string.replacer <- function( entry.list, pattern, replacement ){
 #' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-#' df <- get.table( url, table.path )
+#' df <- get.table(url, table.path)
 #' df
 #' 
-#' clean.df <- remove.escapes.spaces( df )
+#' clean.df <- remove.escapes.spaces(df)
 #' clean.df
 #' }
-remove.escapes.spaces <- function( df ){
-  clean.df <- string.replacer( df, "\t", "") %>%
-    string.replacer( "\r\n", "") %>%
-    string.replacer( "   ", "")
-  return( clean.df )
+remove.escapes.spaces <- function(df) {
+  clean.df <- string.replacer(df, "\t", "") %>%
+    string.replacer("\r\n", "") %>%
+    string.replacer("   ", "")
+  return(clean.df)
 }
 
 #' Remove tabs, new lines, and empty spaces from entries in a list
@@ -77,14 +77,14 @@ remove.escapes.spaces <- function( df ){
 #' @examples
 #' \dontrun{
 #' services <- get.services()
-#' services <- list.remove.escapes.spaces( services )
+#' services <- list.remove.escapes.spaces(services)
 #' services
 #' }
-list.remove.escapes.spaces <- function( a.list ){
-  new.list <- list.string.replacer( a.list, "\t", "") %>%
-    list.string.replacer( "\r\n", "") %>%
-    list.string.replacer( "   ", "")
-  return( new.list )
+list.remove.escapes.spaces <- function(a.list) {
+  new.list <- list.string.replacer(a.list, "\t", "") %>%
+    list.string.replacer("\r\n", "") %>%
+    list.string.replacer("   ", "")
+  return(new.list)
 }
 
 #' Transpose a data frame
@@ -98,16 +98,16 @@ list.remove.escapes.spaces <- function( a.list ){
 #' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-#' df <- get.table( url, table.path )
-#' t.df <- get.transpose( df )
+#' df <- get.table(url, table.path)
+#' t.df <- get.transpose(df)
 #' t.df
 #' }
-get.transpose <- function( df  ){
-  t.df <-  t( df )
+get.transpose <- function(df) {
+  t.df <-  t(df)
   t.names <- c()
-  for( i in 1:nrow( df ) ){
-    t.names <- c( t.names, df[i, 1] )
+  for( i in 1:nrow(df)) {
+    t.names <- c(t.names, df[i, 1])
   }
-  colnames( t.df ) <- t.names
-  return( as.data.frame(t.df, stringsAsFactors = FALSE) )
+  colnames(t.df) <- t.names
+  return(as.data.frame(t.df, stringsAsFactors = FALSE))
 }

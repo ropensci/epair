@@ -1,23 +1,20 @@
-#### This module was built to encapsulate call construction to place requests to EPA API
-
 #' Generate the string authentication needed for EPA API
 #'
 #' @param email Email registered with EPA API
-#' @param key Key obtained from EPA API. Register your email for a key here 
-#' https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
+#' @param key Key obtained from EPA API. Register your email for a key here https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
 #'
 #' @return A string with authentication info. It looks like '&email=user_email&key=user_key'.
 #' @export
 #'
 #' @examples
-#' auth <- create.authentication( "myemail@domain.com", "myapikey")
+#' auth <- create.authentication("myemail@domain.com", "myapikey")
 #' auth
-create.authentication <- function( email, key){
-  authentication.string <- sprintf('&email=%s&key=%s', email, key)
-  return( authentication.string )
+create.authentication <- function(email, key) {
+  authentication.string <- sprintf("&email=%s&key=%s", email, key)
+  return(authentication.string)
 }
 
-#' Make the first call when forming a query.  
+#' Make the first call when forming a query.
 #'
 #' @param endpoint Endpoint for forming a query. See ENDPOINTS for all available endpoints. See 
 #' SERVICES if you know the service but not the endpoint.
@@ -28,16 +25,16 @@ create.authentication <- function( email, key){
 #' @examples
 #' \dontrun{
 #' endpoint <- "list/states"
-#' call <- create.base.call( endpoint )
+#' call <- create.base.call(endpoint)
 #' call
 #' }
-create.base.call <- function( endpoint ){
-  if( length( getOption( "epa_authentication") ) == 0 ){
-    stop( "Make sure you've declared the option for epa_authentication.")
+create.base.call <- function(endpoint) {
+  if (length(getOption("epa_authentication")) == 0) {
+    stop("Make sure you've declared the option for epa_authentication.")
   }
-  base = 'https://aqs.epa.gov/data/api/'
-  result <- paste( base, endpoint, "?", getOption( "epa_authentication" ), sep = "")
-  return( result )
+  base <- "https://aqs.epa.gov/data/api/"
+  result <- paste(base, endpoint, "?", getOption("epa_authentication"), sep = "")
+  return(result)
 }
 
 #' Add a variable to a call
@@ -54,13 +51,13 @@ create.base.call <- function( endpoint ){
 #' \dontrun{
 #' endpoint <- 'dailyData/byState'
 #' state <- "37"
-#' call <- create.base.call( endpoint )
-#' call <- add.variable( call, state )
+#' call <- create.base.call(endpoint)
+#' call <- add.variable(call, state)
 #' call     # Call requires more variables before being placed
 #' }
-add.variable <- function( query, variable, name = deparse( substitute( variable ) ) ){
-  result <- paste( query, '&', name, '=', variable, sep = "" )
-  return( result )
+add.variable <- function(query, variable, name = deparse(substitute(variable))) {
+  result <- paste(query, "&", name, "=", variable, sep = "")
+  return(result)
 }
 
 #' Add variables to a query
@@ -72,22 +69,22 @@ add.variable <- function( query, variable, name = deparse( substitute( variable 
 #' @return A URL consisting of query + variables.
 #' @export
 #'
-#' @examples 
+#' @examples
 #' \dontrun{
-#' endpoint <- 'dailyData/byState'
-#' variable.list <- list( "state" = '37', 
+#' endpoint <- "dailyData/byState"
+#' variable.list <- list("state" = '37', 
 #'                       "bdate" = '20200101', 
 #'                       "edate" = '20200102', 
 #'                       "param" = '44201')
-#' call <- create.base.call( endpoint )
-#' call <- add.variables( call, variable.list )
+#' call <- create.base.call(endpoint)
+#' call <- add.variables(call, variable.list)
 #' call
 #' }
-add.variables <- function( query, variables ){
-  var.names <- names( variables )
-  for( i in 1:length( variables ) ){
+add.variables <- function(query, variables) {
+  var.names <- names(variables)
+  for (i in seq_along(variables)) {
     var.name <- var.names[i]
-    query <- paste( query, '&', var.name, '=', variables[[ var.name ]], sep = "" )
+    query <- paste(query, "&", var.name, "=", variables[[var.name]], sep = "")
   }
-  return( query )
+  return(query)
 }

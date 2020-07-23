@@ -14,15 +14,15 @@
 #' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-#' df <- get.table( url, table.path )
+#' df <- get.table(url, table.path)
 #' df
 #' }
-get.table <- function( url, table.xpath ){
+get.table <- function(url, table.xpath) {
   found.table <- url %>%
     xml2::read_html() %>%
-    rvest::html_nodes( xpath = table.xpath ) %>% 
+    rvest::html_nodes(xpath = table.xpath) %>% 
     rvest::html_table()
-  return( found.table[[1]] )
+  return(found.table[[1]])
 }
 
 #' Get service names and descriptions to the services
@@ -35,19 +35,19 @@ get.table <- function( url, table.xpath ){
 #' service.names <- get.service.names()
 #' service.names
 #' }
-get.service.names <- function(){
+get.service.names <- function() {
   
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
   table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-  df <- get.table( url, table.path )
+  df <- get.table(url, table.path)
   
-  t.df <- get.transpose( df )
-  t.df <- remove.escapes.spaces( t.df )
+  t.df <- get.transpose(df)
+  t.df <- remove.escapes.spaces(t.df)
   
-  return( t.df )
+  return(t.df)
 }
 
-#' Popoulate VARIABLES for info on making requests
+#' Popoulate variables for info on making requests
 #'
 #' @return Data frame containing variables and information about them used in the EPA API.
 #' @export
@@ -57,16 +57,16 @@ get.service.names <- function(){
 #' vars <- get.variables()
 #' vars$edate
 #' }
-get.variables <- function(){
+get.variables <- function() {
   
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
   table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[2]'
-  df <- get.table( url, table.path )
+  df <- get.table(url, table.path)
   
-  t.df <- get.transpose( df )
-  t.df <- list.remove.escapes.spaces( t.df )
+  t.df <- get.transpose(df)
+  t.df <- list.remove.escapes.spaces(t.df)
   
-  return( t.df )
+  return(t.df)
 }
 
 #' Get all endpoints from EPA API
@@ -79,10 +79,10 @@ get.variables <- function(){
 #' endpoints <- get.endpoints()
 #' endpoints
 #' }
-get.endpoints <- function(){
+get.endpoints <- function() {
   API.tables <- get.all.tables()
-  endpoints <- find.endpoints.in.tables( API.tables )
-  return( endpoints )
+  endpoints <- find.endpoints.in.tables(API.tables)
+  return(endpoints)
 }
 
 #' Take a list of html tables from api and output all endpoints
@@ -95,24 +95,24 @@ get.endpoints <- function(){
 #' @examples
 #' \dontrun{
 #' API.tables <- get.all.tables()
-#' endpoints <- find.endpoints.in.tables( API.tables )
+#' endpoints <- find.endpoints.in.tables(API.tables)
 #' endpoints
 #' }
-find.endpoints.in.tables <- function( list.tables ){
+find.endpoints.in.tables <- function(list.tables) {
   endpoints <- c()
-  for( i in 1:length( list.tables ) ){
-    if( "Endpoint" %in% colnames( list.tables[[i]] ) ){
-      endpoints <- c( endpoints, list.tables[[i]]$Endpoint ) 
+  for(i in 1:length(list.tables)) {
+    if("Endpoint" %in% colnames(list.tables[[i]])) {
+      endpoints <- c(endpoints, list.tables[[i]]$Endpoint) 
     }
   }
   # Don't insert entries that aren't endpoints
   pure.endpoints <- c()
-  for( i in 1:length( endpoints ) ){
-    if( !endpoint.checker( endpoints[i] ) ){
-      pure.endpoints <- c( pure.endpoints, endpoints[i])
+  for(i in 1:length(endpoints)) {
+    if(!endpoint.checker(endpoints[i])) {
+      pure.endpoints <- c(pure.endpoints, endpoints[i])
     }
   }
-  return( pure.endpoints )
+  return(pure.endpoints)
 }
 
 #' Show endpoint for listing information on a variable
@@ -127,12 +127,12 @@ find.endpoints.in.tables <- function( list.tables ){
 #'
 #' @examples
 #' \dontrun{
-#' get.list.variable.endpoint( "state" )
-#' get.list.variable.endpoint( "classes" )
+#' get.list.variable.endpoint("state")
+#' get.list.variable.endpoint("classes")
 #' }
-get.list.variable.endpoint <- function( variable.type, variable.types ){
-  name <- substitute( variable.type ) 
-  return( variable.types[[name]] )
+get.list.variable.endpoint <- function(variable.type, variable.types) {
+  name <- substitute(variable.type) 
+  return(variable.types[[name]])
 }
 
 #' Check if a string contains characters not seen in endpoints
@@ -143,13 +143,13 @@ get.list.variable.endpoint <- function( variable.type, variable.types ){
 #' @export
 #'
 #' @examples
-#' endpoint.checker( "list/states" )
-#' endpoint.checker( "https://example here")
-endpoint.checker <- function( string ){
-  example.check <- grepl( "Example", string, fixed = TRUE)
-  returns.check <- grepl( "Returns", string, fixed = TRUE)
-  https.check <- grepl( "https:", string, fixed = TRUE)
-  return( example.check | returns.check | https.check)
+#' endpoint.checker("list/states")
+#' endpoint.checker("https://example here")
+endpoint.checker <- function(string) {
+  example.check <- grepl("Example", string, fixed = TRUE)
+  returns.check <- grepl("Returns", string, fixed = TRUE)
+  https.check <- grepl("https:", string, fixed = TRUE)
+  return(example.check | returns.check | https.check)
 }
 
 #' Get all the html tables in the API site
@@ -162,11 +162,11 @@ endpoint.checker <- function( string ){
 #' html.tables.list <- get.all.table()
 #' html.tables.list
 #' }
-get.all.tables <- function( ){
-  site <- xml2::read_html( 'https://aqs.epa.gov/aqsweb/documents/data_api.html' )
-  tbls <- rvest::html_nodes( site, "table" )
+get.all.tables <- function() {
+  site <- xml2::read_html('https://aqs.epa.gov/aqsweb/documents/data_api.html')
+  tbls <- rvest::html_nodes(site, "table")
   list.tbls <- rvest::html_table(tbls, fill = TRUE)
-  return( list.tbls )
+  return(list.tbls)
 }
 
 #' Get a list of services the EPA API offers
@@ -181,16 +181,16 @@ get.all.tables <- function( ){
 #' services <- get.services()
 #' services
 #' }
-get.services <- function(){
-  # Get HTML tables
+get.services <- function() {
   tbls <- get.all.tables()
-  tbls <- tbls[-c(1, 2, 3)]    # Service, variables, and sign up services removed
+  # Service, variables, and sign up services removed
+  tbls <- tbls[-c(1, 2, 3)]
   
   # Turn HTML tables into a workable variable
-  services <- populate.all.services( tbls ) %>%
+  services <- populate.all.services(tbls) %>%
     assign.description.to.services() %>%
     list.remove.escapes.spaces() %>%
     change.classes.filter
   
-  return( services )
+  return(services)
 }

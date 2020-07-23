@@ -11,15 +11,15 @@
 #' @examples
 #' \dontrun{
 #' tables.to.modify <- get.all.tables()
-#' services <- populate.all.services( tables.to.modify )
+#' services <- populate.all.services(tables.to.modify)
 #' services$List
 #' }
-populate.all.services <- function( tables.to.modify ){
+populate.all.services <- function(tables.to.modify) {
   service.list <- list()
-  for( i in 1:length(tables.to.modify)){
+  for(i in 1:length(tables.to.modify)) {
     df <- tables.to.modify[[i]]
-    single.service <- setup.service( df )
-    service.list <- c( service.list, single.service)
+    single.service <- setup.service(df)
+    service.list <- c(service.list, single.service)
   }
   return(service.list)
 }
@@ -35,13 +35,13 @@ populate.all.services <- function( tables.to.modify ){
 #' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[8]]
-#' setup.service( single )
+#' setup.service(single)
 #' }
-setup.service <- function( df ){
+setup.service <- function(df) {
   service.list <- list()
   service.name <- df$Service[1]
   filter.list <- list()
-  filter.list[["Filters"]] <- generate.filters.list( df )
+  filter.list[["Filters"]] <- generate.filters.list(df)
   service.list[[service.name]] <- filter.list
   return(service.list)
 }
@@ -60,11 +60,11 @@ setup.service <- function( df ){
 #' single <- tbls[[6]]
 #' get.true.filters( single )
 #' }
-get.true.filters <- function( df ){
+get.true.filters <- function(df) {
   service.name <- df$Service[1]
-  unique.filters <- unique( df$Filter )
-  unique.filters <- unique.filters[which( unique.filters != service.name )]
-  return( unique.filters )
+  unique.filters <- unique(df$Filter)
+  unique.filters <- unique.filters[which( unique.filters != service.name)]
+  return(unique.filters)
 }
 
 #' Update name to parameter class entry
@@ -80,15 +80,15 @@ get.true.filters <- function( df ){
 #' services <- change.classes.filter( services )
 #' services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)`
 #' }
-change.classes.filter <- function( services ){
+change.classes.filter <- function(services) {
   names(services$List$Filters)[5] <- "Parameter Classes (groups of parameters, like criteria or all)"
   
-  service.attributes <- list( Endpoint = "list/classes",
-                              RequiredVariables = "email, key",
-                              OptionalVariables = "",
-                              Example = "https://aqs.epa.gov/data/api/list/classes?email=test@aqs.api&key=test")
+  service.attributes <- list(Endpoint = "list/classes",
+                             RequiredVariables = "email, key",
+                             OptionalVariables = "",
+                             Example = "https://aqs.epa.gov/data/api/list/classes?email=test@aqs.api&key=test")
   services$List$Filters$`Parameter Classes (groups of parameters, like criteria or all)` <- service.attributes
-  return( services )
+  return(services)
 }
 
 #' Assign a description to each service
@@ -100,17 +100,18 @@ change.classes.filter <- function( services ){
 #'
 #' @examples
 #' \dontrun{
-#' services <- assign.description.to.services( services )
+#' services <- assign.description.to.services(services)
 #' services[[1]]$Description
 #' }
-assign.description.to.services <- function( services ){
+assign.description.to.services <- function(services) {
   service.names <- get.service.names()
   # Remove the signup since the user will do that via the website
   no.sign.up.services <- service.names[-1]
-  for(i in 1:length( no.sign.up.services )){
-    services[[i]]$Description <- no.sign.up.services[[i]][2]    # Second entry is description
+  for(i in 1:length(no.sign.up.services)) {
+    # Second entry is description
+    services[[i]]$Description <- no.sign.up.services[[i]][2]
   }
-  return( services )
+  return(services)
 }
 
 #' Get the first entry for a filter name
@@ -125,12 +126,12 @@ assign.description.to.services <- function( services ){
 #' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[11]]
-#' get.first.entry.for.filter( "Filter Name", single )
+#' get.first.entry.for.filter("Filter Name", single)
 #' }
-get.first.entry.for.filter <- function( filter.name, df ){
-  indices <- which( df$Filter == filter.name)
-  first.occurence <- min( indices )
-  return( first.occurence )
+get.first.entry.for.filter <- function(filter.name, df) {
+  indices <- which(df$Filter == filter.name)
+  first.occurence <- min(indices)
+  return(first.occurence)
 }
 
 
@@ -147,14 +148,14 @@ get.first.entry.for.filter <- function( filter.name, df ){
 #' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[7]]
-#' content <- generate.filter.content( 1, single )
+#' content <- generate.filter.content(1, single)
 #' }
-generate.filter.content <- function( i, df){
-  filter.content <- list( Endpoint = df$Endpoint[i],
-                          RequiredVariables = df$`Required Variables`[i],
-                          OptionalVariables = df$`Optional Variables`[i],
-                          Example = df$Endpoint[i + 1])
-  return( filter.content )
+generate.filter.content <- function(i, df) {
+  filter.content <- list(Endpoint = df$Endpoint[i],
+                         RequiredVariables = df$`Required Variables`[i],
+                         OptionalVariables = df$`Optional Variables`[i],
+                         Example = df$Endpoint[i + 1])
+  return(filter.content)
 }
 
 #' Get first entries for filter names
@@ -169,12 +170,12 @@ generate.filter.content <- function( i, df){
 #' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[10]]
-#' first.occurences <- get.first.occurences( single )
+#' first.occurences <- get.first.occurences(single)
 #' }
-get.first.occurences <- function( df ){
-  true.filters <- get.true.filters( df )
-  first.occurences <- sapply( true.filters, get.first.entry.for.filter, df)
-  return( first.occurences )
+get.first.occurences <- function(df) {
+  true.filters <- get.true.filters(df)
+  first.occurences <- sapply(true.filters, get.first.entry.for.filter, df)
+  return(first.occurences)
 }
 
 
@@ -194,13 +195,13 @@ get.first.occurences <- function( df ){
 #' tbls <- get.all.tables()
 #' single <- tbls[[9]]
 #' filter.name <- "My filter"
-#' setup.single.filter( filter.name, 1, single)
+#' setup.single.filter(filter.name, 1, single)
 #' }
-setup.single.filter <- function( filter.name, i, df ){
-  filter.content <- generate.filter.content( i, df )
+setup.single.filter <- function(filter.name, i, df) {
+  filter.content <- generate.filter.content(i, df)
   filter.out <- list()
   filter.out[[filter.name]] <- filter.content
-  return( filter.out )
+  return(filter.out)
 }
 
 #' Create a list of filters
@@ -214,17 +215,17 @@ setup.single.filter <- function( filter.name, i, df ){
 #' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[8]]
-#' generate.filters.list( single )
+#' generate.filters.list(single)
 #' }
-generate.filters.list <- function( df ){
+generate.filters.list <- function(df) {
   filters.list <- list()
-  first.occurences <- get.first.occurences( df )
+  first.occurences <- get.first.occurences(df)
   n = length(first.occurences)
-  for( i in 1:n){
+  for(i in 1:n){
     filter.name <- names(first.occurences)[i]
     filter.index <- first.occurences[[i]]
-    filter.out <- setup.single.filter( filter.name, filter.index, df)
-    filters.list <- c( filters.list, filter.out)
+    filter.out <- setup.single.filter(filter.name, filter.index, df)
+    filters.list <- c(filters.list, filter.out)
   }
-  return( filters.list )
+  return(filters.list)
 }
