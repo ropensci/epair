@@ -25,6 +25,6 @@ Create a single filter
 tbls <- get.all.tables()
 single <- tbls[[9]]
 filter.name <- "My filter"
-setup.single.filter( filter.name, 1, single)
+setup.single.filter(filter.name, 1, single)
 }
 }

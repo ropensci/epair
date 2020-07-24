@@ -19,6 +19,6 @@ Create a list of filters
 \dontrun{
 tbls <- get.all.tables()
 single <- tbls[[8]]
-generate.filters.list( single )
+generate.filters.list(single)
 }
 }

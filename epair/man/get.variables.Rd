@@ -2,7 +2,7 @@
 % Please edit documentation in R/epa_scrapers.R
 \name{get.variables}
 \alias{get.variables}
-\title{Popoulate VARIABLES for info on making requests}
+\title{Popoulate variables for info on making requests}
 \usage{
 get.variables()
 }
@@ -10,7 +10,7 @@ get.variables()
 Data frame containing variables and information about them used in the EPA API.
 }
 \description{
-Popoulate VARIABLES for info on making requests
+Popoulate variables for info on making requests
 }
 \examples{
 \dontrun{

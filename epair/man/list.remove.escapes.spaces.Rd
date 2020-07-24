@@ -18,7 +18,7 @@ Remove tabs, new lines, and empty spaces from entries in a list
 \examples{
 \dontrun{
 services <- get.services()
-services <- list.remove.escapes.spaces( services )
+services <- list.remove.escapes.spaces(services)
 services
 }
 }

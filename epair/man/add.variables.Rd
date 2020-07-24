@@ -20,13 +20,13 @@ Add variables to a query
 }
 \examples{
 \dontrun{
-endpoint <- 'dailyData/byState'
-variable.list <- list( "state" = '37', 
+endpoint <- "dailyData/byState"
+variable.list <- list("state" = '37', 
                       "bdate" = '20200101', 
                       "edate" = '20200102', 
                       "param" = '44201')
-call <- create.base.call( endpoint )
-call <- add.variables( call, variable.list )
+call <- create.base.call(endpoint)
+call <- add.variables(call, variable.list)
 call
 }
 }

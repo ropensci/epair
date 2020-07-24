@@ -20,6 +20,6 @@ Get first entries for filter names
 \dontrun{
 tbls <- get.all.tables()
 single <- tbls[[10]]
-first.occurences <- get.first.occurences( single )
+first.occurences <- get.first.occurences(single)
 }
 }

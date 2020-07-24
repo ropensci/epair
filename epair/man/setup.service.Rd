@@ -19,6 +19,6 @@ Make list of single service
 \dontrun{
 tbls <- get.all.tables()
 single <- tbls[[8]]
-setup.service( single )
+setup.service(single)
 }
 }

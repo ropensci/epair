@@ -16,6 +16,6 @@ A boolean reflecting presence of endpoint in string
 Check if a string contains characters not seen in endpoints
 }
 \examples{
-endpoint.checker( "list/states" )
-endpoint.checker( "https://example here")
+endpoint.checker("list/states")
+endpoint.checker("https://example here")
 }

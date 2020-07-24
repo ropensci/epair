@@ -21,7 +21,7 @@ Show endpoint for listing information on a variable
 }
 \examples{
 \dontrun{
-get.list.variable.endpoint( "state" )
-get.list.variable.endpoint( "classes" )
+get.list.variable.endpoint("state")
+get.list.variable.endpoint("classes")
 }
 }

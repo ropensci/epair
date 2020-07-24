@@ -20,7 +20,7 @@ A data frame with entries following the pattern being replaced by replacement
 Replace all characters entries in df
 }
 \examples{
-df <- data.frame( c("1", "2", "3", "4"))
-modified.df <- string.replacer( df, "1", "One")
+df <- data.frame(c("1", "2", "3", "4"))
+modified.df <- string.replacer df, "1", "One")
 modified.df
 }

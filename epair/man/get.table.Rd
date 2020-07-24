@@ -21,7 +21,7 @@ Get an HTML table at URL
 \dontrun{
 url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-df <- get.table( url, table.path )
+df <- get.table(url, table.path)
 df
 }
 }

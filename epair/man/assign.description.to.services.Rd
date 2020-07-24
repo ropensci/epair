@@ -17,7 +17,7 @@ Assign a description to each service
 }
 \examples{
 \dontrun{
-services <- assign.description.to.services( services )
+services <- assign.description.to.services(services)
 services[[1]]$Description
 }
 }

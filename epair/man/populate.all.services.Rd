@@ -18,7 +18,7 @@ Turn tables of API services into a list
 \examples{
 \dontrun{
 tables.to.modify <- get.all.tables()
-services <- populate.all.services( tables.to.modify )
+services <- populate.all.services(tables.to.modify)
 services$List
 }
 }

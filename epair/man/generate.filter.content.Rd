@@ -21,6 +21,6 @@ Generate filter content for an API filter
 \dontrun{
 tbls <- get.all.tables()
 single <- tbls[[7]]
-content <- generate.filter.content( 1, single )
+content <- generate.filter.content(1, single)
 }
 }

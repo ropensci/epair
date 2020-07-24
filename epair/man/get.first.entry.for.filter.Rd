@@ -21,6 +21,6 @@ Get the first entry for a filter name
 \dontrun{
 tbls <- get.all.tables()
 single <- tbls[[11]]
-get.first.entry.for.filter( "Filter Name", single )
+get.first.entry.for.filter("Filter Name", single)
 }
 }
