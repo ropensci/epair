@@ -17,4 +17,4 @@ Imports:
   magrittr (>= 1.5), 
   httr (>= 1.4.1), 
   jsonlite (>= 1.6.1)
-
+Suggests: testthat

@@ -7,11 +7,10 @@
 #' @param replacement Replacement of entries matching pattern
 #'
 #' @return A data frame with entries following the pattern being replaced by replacement
-#' @export
 #'
 #' @examples
 #' df <- data.frame(c("1", "2", "3", "4"))
-#' modified.df <- string.replacer df, "1", "One")
+#' modified.df <- string.replacer(df, "1", "One")
 #' modified.df
 string.replacer <- function(df, pattern, replacement) {
   modified.df <- lapply(df, gsub, pattern = pattern, replacement = replacement, fixed = TRUE)
@@ -25,12 +24,11 @@ string.replacer <- function(df, pattern, replacement) {
 #' @param replacement Replacement for entries following the pattern
 #'
 #' @return A list with entries matching the pattern replaced by replacement
-#' @export
 #'
 #' @examples
 #' \dontrun{
 #' services <- get.services()
-#' services <- list.string.replacer( services, "\t", "")
+#' services <- list.string.replacer(services, "\t", "")
 #' services
 #' }
 list.string.replacer <- function(entry.list, pattern, replacement) {
@@ -48,7 +46,6 @@ list.string.replacer <- function(entry.list, pattern, replacement) {
 #' @param df Data frame to remove tabs, new lines, and empty spaces from
 #'
 #' @return Data frame without tabs, new lines, and empty spaces
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -61,9 +58,9 @@ list.string.replacer <- function(entry.list, pattern, replacement) {
 #' clean.df
 #' }
 remove.escapes.spaces <- function(df) {
-  clean.df <- string.replacer(df, "\t", "") %>%
-    string.replacer("\r\n", "") %>%
-    string.replacer("   ", "")
+  clean.df <- string.replacer(df, "\t", "")
+  clean.df <- string.replacer(clean.df, "\r\n", "")
+  clean.df <- string.replacer(clean.df, "   ", "")
   return(clean.df)
 }
 
@@ -72,7 +69,6 @@ remove.escapes.spaces <- function(df) {
 #' @param a.list List to remove entries from.
 #'
 #' @return A list without tabs, new lines, and empty spaces
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -81,9 +77,9 @@ remove.escapes.spaces <- function(df) {
 #' services
 #' }
 list.remove.escapes.spaces <- function(a.list) {
-  new.list <- list.string.replacer(a.list, "\t", "") %>%
-    list.string.replacer("\r\n", "") %>%
-    list.string.replacer("   ", "")
+  new.list <- list.string.replacer(a.list, "\t", "")
+  new_list <- list.string.replacer(new.list, "\r\n", "")
+  new_list <- list.string.replacer(new_list, "   ", "")
   return(new.list)
 }
 
@@ -92,7 +88,6 @@ list.remove.escapes.spaces <- function(a.list) {
 #' @param df Data frame to be transposed
 #'
 #' @return The transposed data frame. First variable entries become column names.
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -105,7 +100,7 @@ list.remove.escapes.spaces <- function(a.list) {
 get.transpose <- function(df) {
   t.df <-  t(df)
   t.names <- c()
-  for( i in 1:nrow(df)) {
+  for(i in 1:nrow(df)) {
     t.names <- c(t.names, df[i, 1])
   }
   colnames(t.df) <- t.names
