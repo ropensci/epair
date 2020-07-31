@@ -1,7 +1,7 @@
 #### This module was built to hold data transformations on scraped tables from the EPA API
 
 #' Replace all characters entries in df
-#'
+#' 
 #' @param df Data frame containing character entries
 #' @param pattern Pattern to use for matching
 #' @param replacement Replacement of entries matching pattern
@@ -78,8 +78,8 @@ remove.escapes.spaces <- function(df) {
 #' }
 list.remove.escapes.spaces <- function(a.list) {
   new.list <- list.string.replacer(a.list, "\t", "")
-  new_list <- list.string.replacer(new.list, "\r\n", "")
-  new_list <- list.string.replacer(new_list, "   ", "")
+  new.list <- list.string.replacer(new.list, "\r\n", "")
+  new.list <- list.string.replacer(new.list, "   ", "")
   return(new.list)
 }
 

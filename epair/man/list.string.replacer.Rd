@@ -22,7 +22,7 @@ Replace every string entry in a list
 \examples{
 \dontrun{
 services <- get.services()
-services <- list.string.replacer( services, "\\t", "")
+services <- list.string.replacer(services, "\\t", "")
 services
 }
 }
