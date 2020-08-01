@@ -1,2 +1,2 @@
 # epair
-Package to acquire data from EPA API site. 
+Development site for epair. Project for getting data from EPA API.

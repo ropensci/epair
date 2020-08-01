@@ -19,7 +19,7 @@ Perform call and maintain jsonlite structure
 \dontrun{
 endpoint <- 'list/states'
 call <- create.base.call(endpoint)
-raw.call <- perform.call.raw(call)
+raw.call <- place.call.raw(call)
 raw.call
 }
 }

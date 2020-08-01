@@ -7,7 +7,7 @@ Description: A package to aid the user in constructing queries to the EPA API si
   easy to use loaded variables that help a user navigate services offered by the API and aid the user in 
   determining the appropriate way to make a an API call.
 Depends: R (>= 3.3.3)
-License: TODO
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
