@@ -19,11 +19,11 @@ bibliography: paper.bib
 
 # Summary
 
-R users trying to get pollutant data from the EPA website can get easily discouraged. 
-Needing to have a strong understanding of API’s, navigating json files, and a hefty load of 
-parameter codes contribute to this sense of unease. The package, epair, waves these difficulties away. 
-Built with R researchers in mind, epair makes data querying from the EPA intuitive. From options helping 
-the user figure out what data they want, to actually placing the query in the EPA API, epair can do it.
+R users trying to get data from the Environmental Protection Agency (EPA) API may run into 
+unexpected difficulties. Getting data requires a knowledge of API's, an aptitude for managing JSON files, understanding
+specific parameter codes for desired filtering of data, and knowledge of the range of EPA API services
+offered. This package simplifies the process of getting data at each step - from determining 
+what services are available, to simple placement of data calls to the EPA API. Researchers looking to use EPA data can skip time and setup intensive steps in their workflow by using this package.
 
 
 # Statement of need 
@@ -50,35 +50,9 @@ scientific explorations of forthcoming data releases from the *Gaia* mission
 
 # Citations
 
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
 # Acknowledgements
 
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
+We acknowledge the following testers for the beta version of the package TODO.
 
 # References
-Example paper.bib file:
 
-@article{Pearson:2017,
-  	Adsnote = {Provided by the SAO/NASA Astrophysics Data System},
-  	Adsurl = {http://adsabs.harvard.edu/abs/2017arXiv170304627P},
-  	Archiveprefix = {arXiv},
-  	Author = {{Pearson}, S. and {Price-Whelan}, A.~M. and {Johnston}, K.~V.},
-  	Eprint = {1703.04627},
-  	Journal = {ArXiv e-prints},
-  	Keywords = {Astrophysics - Astrophysics of Galaxies},
-  	Month = mar,
-  	Title = {{Gaps in Globular Cluster Streams: Pal 5 and the Galactic Bar}},
-  	Year = 2017
-}
