@@ -6,7 +6,7 @@
 #' See original specs for html_table.xml_node in rvest package. Modification done 
 #' to allow for more flexible table scraping in websites.
 #' @import rvest
-html_table.xml_node <- function (x, header = NA, trim = TRUE, fill = FALSE, dec = ".") 
+modified.html_table.xml_node <- function (x, header = NA, trim = TRUE, fill = FALSE, dec = ".") 
 {
   stopifnot(html_name(x) == "table")
   rows <- html_nodes(x, "tr")
