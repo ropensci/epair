@@ -1,6 +1,9 @@
 #### This module was built to contain functions related to building the services variable. 
 #### This services variables includes services offered by the EPA API, except for sign up.
 
+#### TODO Write more explicit documentation for the process of creating this variable.
+#### TODO Identify the key functions and expectations for testing.
+
 #' Turn tables of API services into a list
 #'
 #' @param tables.to.modify List of tables from API. Each table is a data frame.  
@@ -133,8 +136,6 @@ get.first.entry.for.filter <- function(filter.name, df) {
   first.occurence <- min(indices)
   return(first.occurence)
 }
-
-
 
 #' Generate filter content for an API filter
 #'
