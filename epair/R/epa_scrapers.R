@@ -6,9 +6,6 @@
 #' @param table.xpath The X path to the table
 #'
 #' @return A data frame of the HTML table
-#' @export
-#'
-#' @import magrittr
 #'
 #' @examples
 #' \dontrun{
@@ -18,10 +15,9 @@
 #' df
 #' }
 get.table <- function(url, table.xpath) {
-  found.table <- url %>%
-    xml2::read_html() %>%
-    rvest::html_nodes(xpath = table.xpath) %>% 
-    rvest::html_table()
+  site <- xml2::read_html(url)
+  found.table <- rvest::html_nodes(site, xpath = table.xpath)
+  found.table <- rvest::html_table(found.table)
   return(found.table[[1]])
 }
 
@@ -36,14 +32,11 @@ get.table <- function(url, table.xpath) {
 #' service.names
 #' }
 get.service.names <- function() {
-  
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
   table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
   df <- get.table(url, table.path)
-  
   t.df <- get.transpose(df)
   t.df <- remove.escapes.spaces(t.df)
-  
   return(t.df)
 }
 
@@ -172,9 +165,7 @@ get.all.tables <- function() {
 #' Get a list of services the EPA API offers
 #'
 #' @return List of services the EPA API offers.
-#' @export
 #' 
-#' @import magrittr
 #'
 #' @examples
 #' \dontrun{
@@ -187,10 +178,9 @@ get.services <- function() {
   tbls <- tbls[-c(1, 2, 3)]
   
   # Turn HTML tables into a workable variable
-  services <- populate.all.services(tbls) %>%
-    assign.description.to.services() %>%
-    list.remove.escapes.spaces() %>%
-    change.classes.filter
-  
+  services <- populate.all.services(tbls)
+  services <- assign.description.to.services(services)
+  services <- list.remove.escapes.spaces(services)
+  services <- change.classes.filter(services)
   return(services)
 }
