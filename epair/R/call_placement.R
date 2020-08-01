@@ -1,5 +1,7 @@
 #### This module was built to encapsulate call placement functions to the EPA API
 
+#### TODO identify key functions and make tests for each.
+
 #' Check if the API is up and running 
 #'
 #' 
@@ -130,7 +132,7 @@ place.call <- function(url) {
 #' \dontrun{
 #' endpoint <- 'list/states'
 #' call <- create.base.call(endpoint)
-#' raw.call <- perform.call.raw(call)
+#' raw.call <- place.call.raw(call)
 #' raw.call
 #' }
 place.call.raw <- function(url) {
