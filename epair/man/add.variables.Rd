@@ -25,7 +25,7 @@ variable.list <- list("state" = '37',
                       "bdate" = '20200101', 
                       "edate" = '20200102', 
                       "param" = '44201')
-call <- create.base.call(endpoint)
+call <- epair:::create.base.call(endpoint)
 call <- add.variables(call, variable.list)
 call
 }

@@ -19,7 +19,7 @@ Make the first call when forming a query.
 \examples{
 \dontrun{
 endpoint <- "list/states"
-call <- create.base.call(endpoint)
+call <- epair:::create.base.call(endpoint)
 call
 }
 }

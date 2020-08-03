@@ -14,7 +14,7 @@ Get a list of services the EPA API offers
 }
 \examples{
 \dontrun{
-services <- get.services()
+services <- epair:::get.services()
 services
 }
 }

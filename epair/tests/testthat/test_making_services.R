@@ -2,8 +2,6 @@ context("Services variable is setup properly")
 library(epair)
 library(rvest)
 
-## TODO documentation must be present to explain the html_table.xml_node() issue
-
 test_that("A unique filter is being retrieved from a table containing filters", {
   skip("Test uses web scraping method")
   api_tbls <- epair:::get.all.tables()

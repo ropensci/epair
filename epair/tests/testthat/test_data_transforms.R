@@ -36,15 +36,6 @@ test_that("Extra char in list get removed", {
   exp_list <- list("service" = service, "description" = description)
   expect_equal(found_list, exp_list)
 })
-# TODO
-test_that("A data frame gets transposed with variable names as row names", {
-  service <- c("Sign up")
-  description <- c("Get an account ready with the EPA API.") 
-  og_df <- data.frame(service, description)
-  found_df <- get.transpose(og_df)
-  exp_df <- data.frame(c(service, description), stringsAsFactors = FALSE)
-  expect_equal(found_df, exp_df)
-})
 
 
 

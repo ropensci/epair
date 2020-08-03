@@ -21,6 +21,6 @@ Replace all characters entries in df
 }
 \examples{
 df <- data.frame(c("1", "2", "3", "4"))
-modified.df <- string.replacer(df, "1", "One")
+modified.df <- epair:::string.replacer(df, "1", "One")
 modified.df
 }

@@ -20,12 +20,11 @@ create.authentication <- function(email, key) {
 #' SERVICES if you know the service but not the endpoint.
 #'
 #' @return A URL string containing authentication for the call.
-#' @export
 #'
 #' @examples
 #' \dontrun{
 #' endpoint <- "list/states"
-#' call <- create.base.call(endpoint)
+#' call <- epair:::create.base.call(endpoint)
 #' call
 #' }
 create.base.call <- function(endpoint) {
@@ -51,7 +50,7 @@ create.base.call <- function(endpoint) {
 #' \dontrun{
 #' endpoint <- 'dailyData/byState'
 #' state <- "37"
-#' call <- create.base.call(endpoint)
+#' call <- epair:::create.base.call(endpoint)
 #' call <- add.variable(call, state)
 #' call     # Call requires more variables before being placed
 #' }
@@ -76,7 +75,7 @@ add.variable <- function(query, variable, name = deparse(substitute(variable))) 
 #'                       "bdate" = '20200101', 
 #'                       "edate" = '20200102', 
 #'                       "param" = '44201')
-#' call <- create.base.call(endpoint)
+#' call <- epair:::create.base.call(endpoint)
 #' call <- add.variables(call, variable.list)
 #' call
 #' }

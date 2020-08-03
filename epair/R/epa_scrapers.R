@@ -11,7 +11,7 @@
 #' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-#' df <- get.table(url, table.path)
+#' df <- epair:::get.table(url, table.path)
 #' df
 #' }
 get.table <- function(url, table.xpath) {
@@ -24,11 +24,10 @@ get.table <- function(url, table.xpath) {
 #' Get service names and descriptions to the services
 #'
 #' @return A data frame containing services with names and descriptions offered by the EPA API.
-#' @export
 #'
 #' @examples
 #' \dontrun{
-#' service.names <- get.service.names()
+#' service.names <- epair:::get.service.names()
 #' service.names
 #' }
 get.service.names <- function() {
@@ -40,36 +39,32 @@ get.service.names <- function() {
   return(t.df)
 }
 
-#' Popoulate variables for info on making requests
+#' Populate variables for info on making requests
 #'
 #' @return Data frame containing variables and information about them used in the EPA API.
 #' @export
 #'
 #' @examples
 #' \dontrun{
-#' vars <- get.variables()
+#' vars <- epair:::get.variables()
 #' vars$edate
 #' }
 get.variables <- function() {
-  
   url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
   table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[2]'
   df <- get.table(url, table.path)
-  
   t.df <- get.transpose(df)
   t.df <- list.remove.escapes.spaces(t.df)
-  
   return(t.df)
 }
 
 #' Get all endpoints from EPA API
 #'
 #' @return Vector of endpoints from the API
-#' @export
 #'
 #' @examples
 #' \dontrun{
-#' endpoints <- get.endpoints()
+#' endpoints <- epair:::get.endpoints()
 #' endpoints
 #' }
 get.endpoints <- function() {
@@ -83,12 +78,11 @@ get.endpoints <- function() {
 #' @param list.tables List of HTML tables from EPA API
 #'
 #' @return Vector with only endpoints for the API.
-#' @export
 #'
 #' @examples
 #' \dontrun{
-#' API.tables <- get.all.tables()
-#' endpoints <- find.endpoints.in.tables(API.tables)
+#' API.tables <- epair:::get.all.tables()
+#' endpoints <- epair:::find.endpoints.in.tables(API.tables)
 #' endpoints
 #' }
 find.endpoints.in.tables <- function(list.tables) {
@@ -101,44 +95,23 @@ find.endpoints.in.tables <- function(list.tables) {
   # Don't insert entries that aren't endpoints
   pure.endpoints <- c()
   for(i in 1:length(endpoints)) {
-    if(!endpoint.checker(endpoints[i])) {
+    if(!non.endpoint.checker(endpoints[i])) {
       pure.endpoints <- c(pure.endpoints, endpoints[i])
     }
   }
   return(pure.endpoints)
 }
 
-#' Show endpoint for listing information on a variable
-#'
-#' @param variable.type A variable used in the EPA API service. Consult VARIABLE.TYPES for available variables.
-#' @param variable.types A list contianing variable types mapped to their endpoints. This vector 
-#' should be loaded in with the package and can be found in the package data files. Type ?variable.types
-#' for more info.
-#' 
-#' @return An endpoint character that lists information to help the user query a variable.
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' get.list.variable.endpoint("state")
-#' get.list.variable.endpoint("classes")
-#' }
-get.list.variable.endpoint <- function(variable.type, variable.types) {
-  name <- substitute(variable.type) 
-  return(variable.types[[name]])
-}
-
 #' Check if a string contains characters not seen in endpoints
 #'
 #' @param string A character entry from entries in the data frame of API services
 #'
-#' @return A boolean reflecting presence of endpoint in string
-#' @export
+#' @return A boolean reflecting presence of endpoint in string.
 #'
 #' @examples
-#' endpoint.checker("list/states")
-#' endpoint.checker("https://example here")
-endpoint.checker <- function(string) {
+#' epair:::non.endpoint.checker("list/states")
+#' epair:::non.endpoint.checker("https://example here")
+non.endpoint.checker <- function(string) {
   example.check <- grepl("Example", string, fixed = TRUE)
   returns.check <- grepl("Returns", string, fixed = TRUE)
   https.check <- grepl("https:", string, fixed = TRUE)
@@ -148,7 +121,6 @@ endpoint.checker <- function(string) {
 #' Get all the html tables in the API site
 #'
 #' @return A list of HTML tables from the EPA API site. 
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -165,11 +137,10 @@ get.all.tables <- function() {
 #' Get a list of services the EPA API offers
 #'
 #' @return List of services the EPA API offers.
-#' 
 #'
 #' @examples
 #' \dontrun{
-#' services <- get.services()
+#' services <- epair:::get.services()
 #' services
 #' }
 get.services <- function() {

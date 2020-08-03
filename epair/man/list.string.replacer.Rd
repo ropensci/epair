@@ -21,8 +21,8 @@ Replace every string entry in a list
 }
 \examples{
 \dontrun{
-services <- get.services()
-services <- list.string.replacer(services, "\\t", "")
+services <- epair:::get.services()
+services <- epair:::list.string.replacer(services, "\\t", "")
 services
 }
 }

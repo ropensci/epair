@@ -10,7 +10,7 @@
 #'
 #' @examples
 #' df <- data.frame(c("1", "2", "3", "4"))
-#' modified.df <- string.replacer(df, "1", "One")
+#' modified.df <- epair:::string.replacer(df, "1", "One")
 #' modified.df
 string.replacer <- function(df, pattern, replacement) {
   modified.df <- lapply(df, gsub, pattern = pattern, replacement = replacement, fixed = TRUE)
@@ -27,8 +27,8 @@ string.replacer <- function(df, pattern, replacement) {
 #'
 #' @examples
 #' \dontrun{
-#' services <- get.services()
-#' services <- list.string.replacer(services, "\t", "")
+#' services <- epair:::get.services()
+#' services <- epair:::list.string.replacer(services, "\t", "")
 #' services
 #' }
 list.string.replacer <- function(entry.list, pattern, replacement) {
@@ -51,10 +51,10 @@ list.string.replacer <- function(entry.list, pattern, replacement) {
 #' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-#' df <- get.table(url, table.path)
+#' df <- epair:::get.table(url, table.path)
 #' df
 #' 
-#' clean.df <- remove.escapes.spaces(df)
+#' clean.df <- epair:::remove.escapes.spaces(df)
 #' clean.df
 #' }
 remove.escapes.spaces <- function(df) {
@@ -72,8 +72,8 @@ remove.escapes.spaces <- function(df) {
 #'
 #' @examples
 #' \dontrun{
-#' services <- get.services()
-#' services <- list.remove.escapes.spaces(services)
+#' services <- epair:::get.services()
+#' services <- epair:::list.remove.escapes.spaces(services)
 #' services
 #' }
 list.remove.escapes.spaces <- function(a.list) {
@@ -93,8 +93,8 @@ list.remove.escapes.spaces <- function(a.list) {
 #' \dontrun{
 #' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
 #' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-#' df <- get.table(url, table.path)
-#' t.df <- get.transpose(df)
+#' df <- epair:::get.table(url, table.path)
+#' t.df <- epair:::get.transpose(df)
 #' t.df
 #' }
 get.transpose <- function(df) {

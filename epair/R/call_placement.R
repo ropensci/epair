@@ -1,7 +1,5 @@
 #### This module was built to encapsulate call placement functions to the EPA API
 
-#### TODO identify key functions and make tests for each.
-
 #' Check if the API is up and running 
 #'
 #' 
@@ -17,7 +15,6 @@ is.API.running <- function() {
   raw <- httr::GET(url)
   text.content <- httr::content(raw, "text")
   converted <- jsonlite::fromJSON(text.content, flatten = TRUE)
-  
   print(converted$Header$status)
   print(converted$Header$request_time)
 }
@@ -107,7 +104,6 @@ perform.call <- function(endpoint, variables = list(), name = deparse(substitute
 #' @param url A string with a valid URL for the EPA API
 #'
 #' @return Result of query from the API
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -126,7 +122,6 @@ place.call <- function(url) {
 #' @param url URL following structure from EPA API
 #'
 #' @return Results of data request in json format
-#' @export
 #'
 #' @examples
 #' \dontrun{

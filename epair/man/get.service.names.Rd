@@ -14,7 +14,7 @@ Get service names and descriptions to the services
 }
 \examples{
 \dontrun{
-service.names <- get.service.names()
+service.names <- epair:::get.service.names()
 service.names
 }
 }
