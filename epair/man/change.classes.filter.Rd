@@ -13,12 +13,14 @@ change.classes.filter(services)
 Services with corrected name of filter for parameter classes.
 }
 \description{
-Update name to parameter class entry
+As of this package release in TODO 2020, a service in the API was incorrectly described
+in the original website. This function gives the services variable the proper information
+describing usage of the service.
 }
 \examples{
 \dontrun{
 services <- get.services()
-services <- change.classes.filter( services )
+services <- change.classes.filter(services)
 services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)`
 }
 }

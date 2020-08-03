@@ -1,15 +1,11 @@
 #### This module was built to contain functions related to building the services variable. 
 #### This services variables includes services offered by the EPA API, except for sign up.
 
-#### TODO Write more explicit documentation for the process of creating this variable.
-#### TODO Identify the key functions and expectations for testing.
-
 #' Turn tables of API services into a list
 #'
 #' @param tables.to.modify List of tables from API. Each table is a data frame.  
 #'
 #' @return A list with each service and filters as chained variables to make for easy calling.
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -32,7 +28,6 @@ populate.all.services <- function(tables.to.modify) {
 #' @param df Data frame with info to make an API service. 
 #'
 #' @return A list with the filter content of a service set to the service name.
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -55,32 +50,38 @@ setup.service <- function(df) {
 #'
 #' @return Vector containing only filter names for the API service. Service name 
 #' and repeated filter names are removed. 
-#' @export
 #'
 #' @examples
 #' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[6]]
-#' get.true.filters( single )
+#' get.unique.filters(single)
 #' }
-get.true.filters <- function(df) {
-  service.name <- df$Service[1]
-  unique.filters <- unique(df$Filter)
-  unique.filters <- unique.filters[which( unique.filters != service.name)]
-  return(unique.filters)
+get.unique.filters <- function(df) {
+  if("Filter" %in% names(df)) { 
+    service.name <- df$Service[1]
+    unique.filters <- unique(df$Filter)
+    unique.filters <- unique.filters[which(unique.filters != service.name)]
+    return(unique.filters)
+  } else {
+    return("This table doesn't contain filters!")
+  }
 }
 
 #' Update name to parameter class entry
+#' 
+#' As of this package release in TODO 2020, a service in the API was incorrectly described
+#' in the original website. This function gives the services variable the proper information
+#' describing usage of the service.
 #'
 #' @param services List of services offered by the API.
 #' 
 #' @return Services with corrected name of filter for parameter classes. 
-#' @export
 #'
 #' @examples
 #' \dontrun{
 #' services <- get.services()
-#' services <- change.classes.filter( services )
+#' services <- change.classes.filter(services)
 #' services$List$Filter$`Parameter Classes (groups of parameters, like criteria or all)`
 #' }
 change.classes.filter <- function(services) {
@@ -99,7 +100,6 @@ change.classes.filter <- function(services) {
 #' @param services A list of services offered by the EPA API. 
 #'
 #' @return The list of services with descriptions for each service.
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -123,7 +123,6 @@ assign.description.to.services <- function(services) {
 #' @param df Data frame containing filter info.
 #'
 #' @return The index for the first occurence of the filter in the data frame.
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -143,8 +142,7 @@ get.first.entry.for.filter <- function(filter.name, df) {
 #' @param df The data frame containing filter information.
 #'
 #' @return A list with filter content (endpoint, required variables, etc.)
-#' @export
-#'
+#' 
 #' @examples
 #' \dontrun{
 #' tbls <- get.all.tables()
@@ -165,21 +163,18 @@ generate.filter.content <- function(i, df) {
 #'
 #' @return A vector of indices. These indices are where the first entry for a filter 
 #' exists in df. 
-#' @export
 #'
 #' @examples
 #' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[10]]
-#' first.occurences <- get.first.occurences(single)
+#' first.occurences <- get.first.entries(single)
 #' }
-get.first.occurences <- function(df) {
-  true.filters <- get.true.filters(df)
+get.first.entries <- function(df) {
+  true.filters <- get.unique.filters(df)
   first.occurences <- sapply(true.filters, get.first.entry.for.filter, df)
   return(first.occurences)
 }
-
-
 
 #' Create a single filter 
 #'
@@ -189,7 +184,6 @@ get.first.occurences <- function(df) {
 #' @param df Data frame with filter information.
 #'
 #' @return A list with filter content given to the filter name.
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -210,7 +204,6 @@ setup.single.filter <- function(filter.name, i, df) {
 #' @param df A data frame having filter information (e.g. name, required variables).
 #'
 #' @return A list containing filters and respective info. 
-#' @export
 #'
 #' @examples
 #' \dontrun{
@@ -220,7 +213,7 @@ setup.single.filter <- function(filter.name, i, df) {
 #' }
 generate.filters.list <- function(df) {
   filters.list <- list()
-  first.occurences <- get.first.occurences(df)
+  first.occurences <- get.first.entries(df)
   n = length(first.occurences)
   for(i in 1:n){
     filter.name <- names(first.occurences)[i]
