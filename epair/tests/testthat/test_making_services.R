@@ -4,9 +4,8 @@ library(rvest)
 
 ## TODO documentation must be present to explain the html_table.xml_node() issue
 
-## TODO Place skip() since these will be using API tables
-
 test_that("A unique filter is being retrieved from a table containing filters", {
+  skip("Test uses web scraping method")
   api_tbls <- epair:::get.all.tables()
   monitors_service <- api_tbls[[6]]
   exp_filters <- c("By Site", "By County", "By State", "By Box", "By CBSA")
@@ -16,6 +15,7 @@ test_that("A unique filter is being retrieved from a table containing filters", 
 
 
 test_that("A unique filter is being retrieved from a table not containing filters", {
+  skip("Test uses web scraping method")
   api_tbls <- epair:::get.all.tables()
   descriptions <- api_tbls[[1]]
   exp_filters <- "This table doesn't contain filters!"
@@ -24,12 +24,24 @@ test_that("A unique filter is being retrieved from a table not containing filter
 })
 
 test_that("A single service table got transformed into a list of expected format", {
-  service <- "Daily Data"
-  filter <- "By Box"
-  endpoint <- "dailyData/byBox"
-  required_variables <- 
-  daily_data <- data.frame()
-  #' setup.service(single)
+  Service <- "Daily Data"
+  Filter <- "By Box"
+  Endpoint <- "dailyData/byBox"
+  `Required Variables` <- "email, key, bounding box"
+  `Optional Variables` <- "options"
+  daily_data <- data.frame(Service, 
+                           Filter, 
+                           Endpoint, 
+                           `Required Variables`, 
+                           `Optional Variables`,
+                           stringsAsFactors = FALSE)
+  found_list <- epair:::setup.service(daily_data)
   
+  exp_list <- list()
+  exp_list$`Daily Data`$Filters$`By Box`$Endpoint <- "dailyData/byBox"
+  exp_list$`Daily Data`$Filters$`By Box`$RequiredVariables <- `Required Variables`
+  exp_list$`Daily Data`$Filters$`By Box`$OptionalVariables <- `Optional Variables`
+  exp_list$`Daily Data`$Filters$`By Box`$Example <- daily_data$Service[2]
   
+  expect_equal(found_list, exp_list)
 })
