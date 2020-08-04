@@ -4,8 +4,9 @@ tags:
   - R
   - EPA API
   - pollutant data
+  - environmental data
 authors:
-  - name: Geroge Leonard Orozco-Mulfinger
+  - name: George Leonard Orozco-Mulfinger
     orcid: TODO
     affiliation: TODO
   - name: Owais Gilani
@@ -32,9 +33,53 @@ what services are available, to simple placement of data calls to the EPA API. R
 
  
 
-`epair` was developed to help users download these data directly from R using a framework that beginner R users would be familiar with. It includes some interactive features that help the users explore what data they need to download, and to determine what parameters they need pass to the API to get their data. It thus allows users to document their data download/access process along with their analysis code for improved reproducibility and reliability. `epair` relies heavily on the packages `rvest` and … It has been used in recent scientific publications modeling ozone concentrations in CT [@gilani:2019], and is currently being used in other research projects exploring the impact of COVID-19 on air pollution concentrations.
+`epair` was developed to help users download these data directly from R using a framework that beginner R users would be familiar with. It includes some interactive features that help the users explore what data they need to download, and to determine what parameters they need pass to the API to get their data. It thus allows users to document their data download/access process along with their analysis code for improved reproducibility and reliability. `epair` relies heavily on the packages `rvest` and `httr`. It has been used in recent scientific publications modeling ozone concentrations in CT [@gilani:2019], and is currently being used in other research projects exploring the impact of COVID-19 on air pollution concentrations.
 
-# Citations
+# Examples
+
+In this example we replicate acquiring data used in [@gilani:2019]. The data section of (Gilani et al) requires Ozone concentrations in the state of CT from July 6 to August 5, 2016. Using `epair`, acquiring these data would reduce to the following. 
+
+### Finding the appropriate parameter codes for data calls
+
+Make sure the package is loaded.
+
+```
+library(epair)
+```
+
+Determining appropriate variables and parameters for the call can be done using `services` and `variables` that come loaded with `epair`. 
+
+To find the proper endpoint we can simply use
+```
+services$`Sample Data`$Filters$`By State`$Endpoint
+```
+
+For the state of CT, we find its parameter code through
+```
+endpoint <- services$List$Filters$States$Endpoint
+perform.call(endpoint)
+```
+
+Finally, to find the parameter code for Ozone, we can try
+```
+endpoint <- "list/parametersByClass"
+pc <- "AQI%20POLLUTANTS"
+perform.call(endpoint, pc)
+```
+
+### Making the data call
+
+To acquire the data, the following three lines suffice.
+```
+endpoint <- "sampleData/byState"
+vars <- list(state = "09", bdate = "20160706", edate = "20160805", param = "44201")
+perform.call(endpoint, vars)
+```
+
+### Further examples
+
+The site at https://epair.netlify.app/ provides an in depth tutorial with more examples for using the 
+package.
 
 # Acknowledgements
 
@@ -42,3 +87,4 @@ We acknowledge the following testers for the beta version of the package TODO.
 
 # References
 
+TODO insert CT paper
