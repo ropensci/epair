@@ -33,6 +33,8 @@ Or, download these files and in your working directory run
 devtools::install("GLOrozcoM/epair")
 ```
 
+`epair` depends on `httr` for making its data calls and `rvest` for creating the variables loaded in with the package. We recommend having `httr` installed (automatically taken care of through package dependencies), and only installing `rvest` if you're curious about how package variables were made.
+
 ### Key features
 
 Look at variables to glean more information on the kind of data call you want to make. 
