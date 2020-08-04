@@ -37,7 +37,7 @@ what services are available, to simple placement of data calls to the EPA API. R
 
 # Examples
 
-In this example we replicate acquiring data used in [@gilani:2019]. The data section of (Gilani et al) requires Ozone concentrations in the state of CT from July 6 to August 5, 2016. Using `epair`, acquiring these data would reduce to the following. 
+In this example we replicate acquiring data used in [@gilani:2019]. The data section of (Gilani et al) requires Ozone concentrations in the state of CT from July 6 to August 5, 2016. A potential workflow to getting these data with `epair` is as follows.
 
 ### Finding the appropriate parameter codes for data calls
 
@@ -46,8 +46,6 @@ Make sure the package is loaded.
 ```
 library(epair)
 ```
-
-Determining appropriate variables and parameters for the call can be done using `services` and `variables` that come loaded with `epair`. 
 
 To find the proper endpoint we can simply use
 ```
@@ -60,7 +58,7 @@ endpoint <- services$List$Filters$States$Endpoint
 perform.call(endpoint)
 ```
 
-Finally, to find the parameter code for Ozone, we can try
+Finally, to find the parameter code for Ozone, we use
 ```
 endpoint <- "list/parametersByClass"
 pc <- "AQI%20POLLUTANTS"
