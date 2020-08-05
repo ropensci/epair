@@ -135,7 +135,7 @@ Finally, to find the parameter code for Ozone, we list the parameter codes assoc
 
 ### Making the data call
 
-To acquire the data, the following three lines suffice.
+To acquire the data, the following lines suffice.
 ```
 > endpoint <- "sampleData/byState"
 > vars <- list(state = "09", bdate = "20160706", edate = "20160805", param = "44201")
