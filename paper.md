@@ -3,12 +3,11 @@ title: 'epair: An R package for acquiring EPA data easily'
 tags:
   - R
   - EPA API
-  - pollutant data
-  - environmental data
+  - pollutant data acquisition
+  - environmental data acquisition
 authors:
   - name: George Leonard Orozco-Mulfinger
-    orcid: TODO
-    affiliation: TODO
+    affiliation: Independent Researcher
   - name: Owais Gilani
     affiliation: Bucknell University
 affiliations:
