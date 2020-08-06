@@ -151,8 +151,8 @@ get.first.entry.for.filter <- function(filter.name, df) {
 #' }
 generate.filter.content <- function(i, df) {
   filter.content <- list(Endpoint = df$Endpoint[i],
-                         RequiredVariables = df$Required.Variables[i],
-                         OptionalVariables = df$Optional.Variables[i],
+                         RequiredVariables = df$`Required Variables`[i],
+                         OptionalVariables = df$`Optional Variables`[i],
                          Example = df$Endpoint[i + 1])
   return(filter.content)
 }
