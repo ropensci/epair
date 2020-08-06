@@ -41,11 +41,11 @@ what services are available, to simple placement of data calls to the EPA API. R
 
  
 
-`epair` was developed to help users download these data directly from R using a framework that beginner R users would be familiar with. It includes some interactive features that help the users explore what data they need to download, and to determine what parameters they need pass to the API to get their data. It thus allows users to document their data download/access process along with their analysis code for improved reproducibility and reliability. `epair` relies heavily on the packages `rvest` and `httr`. It has been used in recent scientific publications modeling ozone concentrations in Connecticut, USA [@gilani:2019], and is currently being used in other research projects exploring the impact of COVID-19 on air pollution concentrations.
+`epair` was developed to help users download these data directly from R using a framework that beginner R users would be familiar with. It includes some interactive features that help the users explore what data they need to download, and to determine what parameters they need pass to the API to get their data. It thus allows users to document their data download/access process along with their analysis code for improved reproducibility and reliability. `epair` relies heavily on the packages `rvest` and `httr`. It has been used in recent scientific publications modeling ozone concentrations in Connecticut, USA [@Gilani:2020], and is currently being used in other research projects exploring the impact of COVID-19 on air pollution concentrations.
 
 # Example
 
-In this example we replicate acquiring data used in [@Gilani:2019]. The data section of [@Gilani:2019] requires ozone concentrations in the state of Connecticut from July 6 to August 5, 2016. A potential workflow to getting these data with `epair` is given below. The site at https://epair.netlify.app/ provides an in depth tutorial with more examples on using the package.
+In this example we replicate acquiring data used in [@Gilani:2020]. The data section of [@Gilani:2020] requires ozone concentrations in the state of Connecticut from July 6 to August 5, 2016. A potential workflow to getting these data with `epair` is given below. The site at https://epair.netlify.app/ provides an in depth tutorial with more examples on using the package.
 
 ### Finding the appropriate parameter codes for data calls
 
