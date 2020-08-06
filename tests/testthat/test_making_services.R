@@ -25,20 +25,18 @@ test_that("A single service table got transformed into a list of expected format
   Service <- "Daily Data"
   Filter <- "By Box"
   Endpoint <- "dailyData/byBox"
-  `Required Variables` <- "email, key, bounding box"
-  `Optional Variables` <- "options"
   daily_data <- data.frame(Service, 
                            Filter, 
                            Endpoint, 
-                           `Required Variables`, 
-                           `Optional Variables`,
                            stringsAsFactors = FALSE)
+  daily_data$`Required Variables` <- "email, key, bounding box"
+  daily_data$`Optional Variables` <- "options"
   found_list <- epair:::setup.service(daily_data)
   
   exp_list <- list()
   exp_list$`Daily Data`$Filters$`By Box`$Endpoint <- "dailyData/byBox"
-  exp_list$`Daily Data`$Filters$`By Box`$RequiredVariables <- `Required Variables`
-  exp_list$`Daily Data`$Filters$`By Box`$OptionalVariables <- `Optional Variables`
+  exp_list$`Daily Data`$Filters$`By Box`$RequiredVariables <- daily_data$`Required Variables`
+  exp_list$`Daily Data`$Filters$`By Box`$OptionalVariables <- daily_data$`Optional Variables`
   exp_list$`Daily Data`$Filters$`By Box`$Example <- daily_data$Service[2]
   
   expect_equal(found_list, exp_list)
