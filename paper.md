@@ -7,6 +7,7 @@ tags:
   - environmental data acquisition
 authors:
   - name: George Leonard Orozco-Mulfinger^[corresponding author]
+    orcid: 0000-0002-9011-409X
     affiliation: 1
   - name: Owais Gilani
     orcid: 0000-0002-0402-6975
@@ -38,8 +39,6 @@ what services are available, to simple placement of data calls to the EPA API. R
 # Statement of need 
 
 `epair` is an R package that helps facilitate downloading air quality data from the US Environmental Protection Agency’s (EPA) Air Quality System (AQS) [@EPA] API. The US EPA records and maintains air quality data from a variety of sources and on various spatial and temporal domains. These data are used by researchers from diverse domains including statistics, environmental sciences, environmental health, climate change, physics, atmospheric sciences, and epidemiology, to name a few. Previously, to download these data users had to use an online form by selecting a data source, pollutant, time and spatial domains etc. Recently, the downloading procedure was changed by the EPA to an API where users are now required to build an API call which consists of various components, including a base URL, an end point, authentication code, and potential variables. Building such calls can be fairly complicated and time consuming for those not familiar with the AQS data sources and formats, as well as those not used to working with such APIs.
-
- 
 
 `epair` was developed to help users download these data directly from R using a framework that beginner R users would be familiar with. It includes some interactive features that help the users explore what data they need to download, and to determine what parameters they need pass to the API to get their data. It thus allows users to document their data download/access process along with their analysis code for improved reproducibility and reliability. `epair` relies heavily on the packages `rvest` and `httr`. It has been used in recent scientific publications modeling ozone concentrations in Connecticut, USA [@Gilani:2020], and is currently being used in other research projects exploring the impact of COVID-19 on air pollution concentrations.
 
@@ -178,9 +177,48 @@ state_code county_code site_number parameter_code poc latitude longitude datum p
 5 INSTRUMENTAL - ULTRA VIOLET ABSORPTION         087 Connecticut Tolland          2016-12-20     25540
 6 INSTRUMENTAL - ULTRA VIOLET ABSORPTION         087 Connecticut Tolland          2016-12-20     25540
 ```
+# Similar packages
 
-# Acknowledgements
+Another existing package, `aqsr` found at https://github.com/jpkeller/aqsr is similar in aims to `epair`, and we here mention key differences. 
 
-TODO.
+* `epair` provides a comprehensive `services` variable to help the user explore EPA API services from R.
+For instance, besides just listing all available services using `names(services)`, the user can check a description, available filters, endpoints associated with filters, required and optional variables, and 
+examples. An example is shown below for the `Quality Assurance - Collocated Assessments` service.
+
+```
+> services$`Quality Assurance - Collocated Assessments`$Description
+[1] "Quality assurance data - collocated assessments.  Collocated assessments are pairs of samples collected bydifferent samplers at the same time and place.  (These are \"operational\" samplers, assessments with independentlycalibrated samplers are called \"audits\".)"
+
+> names(services$`Quality Assurance - Collocated Assessments`$Filters)
+[1] "By Site"                                   "By County"                                
+[3] "By State"                                  "By Primary Quality Assurance Organization"
+[5] "By Monitoring Agency"  
+
+> services$`Quality Assurance - Collocated Assessments`$Filters$`By County`$Endpoint
+[1] "qaCollocatedAssessments/byCounty"
+
+> services$`Quality Assurance - Collocated Assessments`$Filters$`By County`$RequiredVariables
+[1] "email, key, param, bdate, edate, state, county"
+
+> services$`Quality Assurance - Collocated Assessments`$Filters$`By County`$Example
+[1] "Example; returns collocated assessment data for FRM PM2.5 in Madison County, AL for January 2013:https://aqs.epa.gov/data/api/qaCollocatedAssessments/byCounty?email=test@aqs.api&key=test&param=88101&bdate=20130101&edate=20130131&state=01&county=089"
+```
+
+* `epair` also provides `variables` containing a list with helpful descriptions for the user to know more about variables in EPA API. An example is shown below.
+
+```
+> names(variables)
+ [1] "email"  "key"    "bdate"  "edate"  "param"  "state"  "county" "site"   "cbsa"   "minlat" "maxlat"
+[12] "minlon" "maxlon" "cbdate" "cedate" "pqao"   "ma"     "class" 
+
+> variables$param
+[1] "param"                            
+[2] "The AQS parameter code for the data selection.  AQS uses proprietary 5 digit codes.  They may be obtained via the  list parameters service.  Up to 5 parameters may be requested, separated by commas.  Only data for these parameters will be returned."
+[3] "81101,44201"     
+```
+
+* `epair` ues only two functions, `perform.call()` and `perform.call.raw()`, to obtain data from the EPA API. In each case, the user can use `services` to determine the appropriate endpoints and filters to apply to the query.
+
+* `epair` provides documentation for each function, internal and external, as well as a PDF manual with usage examples for each function.
 
 # References
