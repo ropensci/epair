@@ -6,7 +6,7 @@ https://aqs.epa.gov/aqsweb/documents/data_api.
 ### Overview
 
 The `epair` package helps you determine what data you want and how to get that data from the EPA API.
-It provides loaded in variables that help you navigate services in the API, and a simple way to query the data. 
+It provides loaded in variables that help you navigate services in the API, and a simple way to query the data. A comprehensive tutorial for using `epair` can be found at https://epair.netlify.app/. 
 
 Easily find the endpoint you need. 
 ```
@@ -104,9 +104,5 @@ Place your call without having to worry about string manipulations or JSON files
 
 * `perform.call()` will take an endpoint and variables and provided the user with metadata and desired data as a dataframe. 
 * `perform.call.raw()` will give the same results as `perform.call()` except for in JSON format.
-
-### Learn how to use
-
-A comprehensive tutorial for using `epair` can be found at https://epair.netlify.app/. 
 
 
