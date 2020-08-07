@@ -13,7 +13,7 @@ change.classes.filter(services)
 Services with corrected name of filter for parameter classes.
 }
 \description{
-As of this package release in TODO 2020, a service in the API was incorrectly described
+As of this package release, a service in the API was incorrectly described
 in the original website. This function gives the services variable the proper information
 describing usage of the service.
 }

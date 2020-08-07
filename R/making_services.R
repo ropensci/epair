@@ -70,7 +70,7 @@ get.unique.filters <- function(df) {
 
 #' Update name to parameter class entry
 #' 
-#' As of this package release in TODO 2020, a service in the API was incorrectly described
+#' As of this package release, a service in the API was incorrectly described
 #' in the original website. This function gives the services variable the proper information
 #' describing usage of the service.
 #'
