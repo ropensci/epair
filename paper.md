@@ -217,7 +217,7 @@ examples. An example is shown below for the `Quality Assurance - Collocated Asse
 [3] "81101,44201"     
 ```
 
-* `epair` ues only two functions, `perform.call()` and `perform.call.raw()`, to obtain data from the EPA API. In each case, the user can use `services` to determine the appropriate endpoints and filters to apply to the query.
+* `epair` uses only two functions, `perform.call()` and `perform.call.raw()`, to obtain data from the EPA API. In each case, the user can use `services` to determine the appropriate endpoints and filters to apply to the query.
 
 * `epair` provides documentation for each function, internal and external, as well as a PDF manual with usage examples for each function.
 
