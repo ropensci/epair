@@ -55,6 +55,7 @@ create.base.call <- function(endpoint) {
 #' call     # Call requires more variables before being placed
 #' }
 add.variable <- function(query, variable, name = deparse(substitute(variable))) {
+  variable <- gsub(" ", "%20", fixed = TRUE, variable)
   result <- paste(query, "&", name, "=", variable, sep = "")
   return(result)
 }
@@ -80,10 +81,12 @@ add.variable <- function(query, variable, name = deparse(substitute(variable))) 
 #' call
 #' }
 add.variables <- function(query, variables) {
+  # TODO include catch for entries that have a space in them
   var.names <- names(variables)
   for (i in seq_along(variables)) {
     var.name <- var.names[i]
-    query <- paste(query, "&", var.name, "=", variables[[var.name]], sep = "")
+    variable <- gsub(" ", "%20", fixed = TRUE, variables[[var.name]])
+    query <- paste(query, "&", var.name, "=", variable, sep = "")
   }
   return(query)
 }
