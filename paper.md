@@ -18,9 +18,9 @@ authors:
 affiliations:
   - name: Independent Researcher
     index: 1
-  - name: Bucknell University
+  - name: Mathematics Department, Bucknell University
     index: 2
-  - name: Yale University
+  - name: Department of Biostatistics, Yale University
     index: 3
 date: 14 August 2020
 bibliography: paper.bib
@@ -38,29 +38,41 @@ what services are available, to simple placement of data calls to the EPA API. R
 
 # Statement of need 
 
-`epair` is an R package that helps facilitate downloading air quality data from the US Environmental Protection Agency’s (EPA) Air Quality System (AQS) [@EPA] API. The US EPA records and maintains air quality data from a variety of sources and on various spatial and temporal domains. These data are used by researchers from diverse domains including statistics, environmental sciences, environmental health, climate change, physics, atmospheric sciences, and epidemiology, to name a few. Previously, to download these data users had to use an online form by selecting a data source, pollutant, time and spatial domains etc. Recently, the downloading procedure was changed by the EPA to an API where users are now required to build an API call which consists of various components, including a base URL, an end point, authentication code, and potential variables. Building such calls can be fairly complicated and time consuming for those not familiar with the AQS data sources and formats, as well as those not used to working with such APIs.
+`epair` is an R package that helps facilitate downloading air quality data from the US Environmental Protection Agency’s (EPA) Air Quality System (AQS) API [@EPA]. The US EPA records and maintains air quality data from a variety of sources and on various spatial and temporal domains. These data are used by researchers from diverse domains including statistics, environmental sciences, environmental health, climate change, physics, atmospheric sciences, and epidemiology, to name a few. Previously, to download these data, users accessed a drop down menu in an online form and selected a data source, pollutant, time and spatial domains, etc. Recently, the downloading procedure was changed by the EPA to an API where users are now required to build an API call which consists of various components, including a base URL, an end point, authentication code, and potential variables. Building such calls can be fairly complicated and time consuming for those not familiar with the AQS data sources and formats, as well as those not used to working with such APIs.
 
-`epair` was developed to help users download these data directly from R using a framework that beginner R users would be familiar with. It includes some interactive features that help the users explore what data they need to download, and to determine what parameters they need pass to the API to get their data. It thus allows users to document their data download/access process along with their analysis code for improved reproducibility and reliability. `epair` relies heavily on the packages `rvest` and `httr`. It has been used in recent scientific publications modeling ozone concentrations in Connecticut, USA [@Gilani:2020], and is currently being used in other research projects exploring the impact of COVID-19 on air pollution concentrations.
+`epair` was developed to help users download these data directly from R using a framework that beginner R users would be familiar with. It includes interactive features that help the users explore what data they need to download and to determine what parameters they need pass to the API to get their data. It thus allows users to document their data download/access process along with their analysis code for improved reproducibility and reliability. `epair` relies heavily on the packages `rvest` and `httr`. It has been used in recent scientific publications modeling ozone concentrations in Connecticut, USA [@Gilani:2020], and is currently being used in other research projects exploring the impact of COVID-19 on air pollution concentrations.
 
 # Example
 
-In this example we replicate acquiring data used in [@Gilani:2020]. The data section of [@Gilani:2020] requires ozone concentrations in the state of Connecticut from July 6 to August 5, 2016. A potential workflow to getting these data with `epair` is given below. The site at https://epair.netlify.app/ provides an in depth tutorial with more examples on using the package.
+In this example we replicate acquiring data used in [@Gilani:2020]. For this analysis, they require ozone concentrations in the state of Connecticut from July 6 to August 5, 2016. A potential workflow to getting these data with `epair` is given below. The site at https://epair.netlify.app/ provides an in depth tutorial with more examples on using the package.
 
 ### Finding the appropriate parameter codes for data calls
 
-Make sure the package is loaded.
+Using RStudio's interactive features, we can determine the proper endpoint by starting with `services$`, and selecting `Sample Data`, folowed by `Filters`, `By State`, and `Endpoint`.
 
-```
-library(epair)
-```
-
-To find the proper endpoint we can simply use
 ```
 > services$`Sample Data`$Filters$`By State`$Endpoint
 [1] "sampleData/byState"
 ```
 
-For the state of CT, we find its parameter code by listing states and their respective codes through
+Note that we need to use the following variables in our API call to get our desired data.
+* bdate = July 6, 2016
+* edate = August 5, 2016
+* state = Connecticut (CT)
+* param = ozone
+
+Here, we may use `variables` to determine what format our dates need to be in.
+
+```
+> variables[["bdate"]]
+[1] "bdate"                                                                                             
+[2] "The begin date of the data selection in YYYYMMDD format.  Only data on or after this date will be returned.  (Note, for annual data, only the year portion of the bdate and edate are used and only whole years of data are returned.  For example, bdate = 20171231 and edate = 20180101 will return full data for 2017 and 2018.)"
+[3] "20170101"  
+```
+
+Similar output for `variables[["edate"]]` suggests that we may encode the beginning date and ending dates as `20160706` and `20160805` respectively. 
+
+To find the parameter code for CT, we use the listing states service.
 ```
 > endpoint <- services$List$Filters$States$Endpoint
 > result <- perform.call(endpoint)
@@ -78,6 +90,7 @@ For the state of CT, we find its parameter code by listing states and their resp
 ```
 
 Finally, to find the parameter code for ozone, we list the parameter codes associated with AQI Pollutants. 
+*TODO change to reflect potential coding change in space reading of url call*
 ```
 > endpoint <- "list/parametersByClass"
 > pc <- "AQI%20POLLUTANTS"
@@ -93,12 +106,19 @@ Finally, to find the parameter code for ozone, we list the parameter codes assoc
 7 88502 Acceptable PM2.5 AQI & Speciation Mass
 ```
 
+We have thus found the variables and necessary encodings for the call.
+* bdate = `20160706` 
+* edate = `20160805`
+* state = `09`
+* param = `44201`
+
 ### Making the data call
 
 To acquire the data, the following lines suffice.
 ```
 > endpoint <- "sampleData/byState"
-> vars <- list(state = "09", bdate = "20160706", edate = "20160805", param = "44201")
+> vars <- list(state = "09", bdate = "20160706", edate = "20160805", 
+               param = "44201")
 > result <- perform.call(endpoint, vars)
 ```
 
@@ -106,8 +126,8 @@ To acquire the data, the following lines suffice.
 
 Another existing package, `aqsr` found at https://github.com/jpkeller/aqsr is similar in aims to `epair`, and we here mention key differences. 
 
-`epair` provides a comprehensive `services` variable to help the user explore EPA API services from R.
-For instance, besides just listing all available services using `names(services)`, the user can check a description, available filters, endpoints associated with filters, required and optional variables, and 
-examples. `epair` also offers `variables`, a list with helpful descriptions for the user to know more about variables in EPA API. `epair` uses only two functions, `perform.call()` and `perform.call.raw()`, to obtain data from the EPA API. In each case, the user can use `services` to determine the appropriate endpoints and filters to apply to the query. `epair` provides documentation for each function, internal and external, as well as a PDF manual with usage examples for each function.
+`epair`, like the previous version of the EPA AQS datamart, provides an interactive interface for helping the user determine what data they need to query even if the user knows little about the AQS system. `epair` does this through a comprehensive `services` list object to help the user explore EPA API services from R. For instance, besides just listing all available services using `names(services)`, the user can check a description, available filters, endpoints associated with filters, required and optional variables, and examples. `epair` also offers the `variables` object, a list with helpful descriptions for the user to know more about variables in EPA API. 
+
+`epair` uses only two functions, `perform.call()` and `perform.call.raw()`, to obtain data from the EPA API. The former function provides results in a data frame format while the latter function gives results in JSON format. In each case, the user can use the `services` object to determine the appropriate endpoints and filters to apply to the query. `epair` provides documentation for each function, internal and external, as well as a PDF manual with usage examples for each function.
 
 # References
