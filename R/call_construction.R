@@ -81,7 +81,6 @@ add.variable <- function(query, variable, name = deparse(substitute(variable))) 
 #' call
 #' }
 add.variables <- function(query, variables) {
-  # TODO include catch for entries that have a space in them
   var.names <- names(variables)
   for (i in seq_along(variables)) {
     var.name <- var.names[i]
