@@ -65,6 +65,7 @@ add.variable <- function(query, variable, name = deparse(substitute(variable))) 
 #' @param query A URL containing authentication for the EPA API site.
 #' @param variables A list of variables. Each variable should be declareed with the approporiate name.
 #' Consult VARIABLE.TYPES for the right names.
+#' @param name A list containing names of API variables.
 #'
 #' @return A URL consisting of query + variables.
 #' @export
@@ -80,12 +81,27 @@ add.variable <- function(query, variable, name = deparse(substitute(variable))) 
 #' call <- add.variables(call, variable.list)
 #' call
 #' }
-add.variables <- function(query, variables) {
-  var.names <- names(variables)
-  for (i in seq_along(variables)) {
-    var.name <- var.names[i]
-    variable <- gsub(" ", "%20", fixed = TRUE, variables[[var.name]])
-    query <- paste(query, "&", var.name, "=", variable, sep = "")
+add.variables <- function(query, variables, name) {
+  # A list of names for API variables was not passed,
+  # extract names from variables
+  if(class(name) == "character") {
+    var.names <- names(variables)
+    for (i in seq_along(variables)) {
+      var.name <- var.names[i]
+      variable <- gsub(" ", "%20", fixed = TRUE, variables[[var.name]])
+      query <- paste(query, "&", var.name, "=", variable, sep = "")
+    }
   }
+  # A list of names for API variables got passed,
+  # extract names from list that got passed
+  else {
+    var.names <- name
+    for (i in seq_along(variables)) {
+      var.name <- var.names[i]
+      variable <- gsub(" ", "%20", fixed = TRUE, variables[i])
+      query <- paste(query, "&", var.name, "=", variable, sep = "")
+    }
+  }
+  
   return(query)
 }
