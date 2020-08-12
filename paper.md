@@ -53,17 +53,20 @@ Using RStudio's interactive features, we can determine the proper endpoint by st
 ```
 
 Note that we need to use the following variables in our API call to get our desired data.
-* bdate = July 6, 2016
-* edate = August 5, 2016
-* state = Connecticut (CT)
-* param = ozone
+1. bdate = July 6, 2016
+2. edate = August 5, 2016
+3. state = Connecticut (CT)
+4. param = ozone
 
 Here, we may use the `variables` object loaded in with `epair` to determine what format our dates need to be in.
 
 ```
 > variables[["bdate"]]
 [1] "bdate"                                                                                             
-[2] "The begin date of the data selection in YYYYMMDD format.  Only data on or after this date will be returned.  (Note, for annual data, only the year portion of the bdate and edate are used and only whole years of data are returned.  For example, bdate = 20171231 and edate = 20180101 will return full data for 2017 and 2018.)"
+[2] "The begin date of the data selection in YYYYMMDD format.  Only data on or after this date will be
+returned.  (Note, for annual data, only the year portion of the bdate and edate are used and only whole 
+years of data are returned.  For example, bdate = 20171231 and edate = 20180101 will return full data 
+for 2017 and 2018.)"
 [3] "20170101"  
 ```
 
@@ -101,12 +104,6 @@ Finally, to find the parameter code for ozone, we list the parameter codes assoc
 6 88101               PM2.5 - Local Conditions
 7 88502 Acceptable PM2.5 AQI & Speciation Mass
 ```
-
-We have thus found the variables and necessary encodings for the call.
-* bdate = `20160706` 
-* edate = `20160805`
-* state = `09`
-* param = `44201`
 
 ### Making the data call
 
