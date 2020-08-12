@@ -63,8 +63,7 @@ perform.call.raw <- function(endpoint, variables = list(), name = deparse(substi
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param name Specifies the name each variable should have when placed in the URL. User input
-#' is not necessary and should be left in default state.
+#' @param name Specifies the name each variable should have when placed in the URL. 
 #'
 #' @return A list containing requested data
 #' @export
@@ -93,7 +92,7 @@ perform.call <- function(endpoint, variables = list(), name = deparse(substitute
   
   # The user passed multiple variables as a list
   call <- create.base.call(endpoint)
-  call <- add.variables(call, variables)
+  call <- add.variables(call, variables, name)
   result <- place.call(call)
   return(result)
 }
