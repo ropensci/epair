@@ -15,6 +15,36 @@ test_that("Non-existant endpoints result in messages for call placements", {
   expect_equal(exp, response)
 })
 
+test_that("Spaces can be passed into calls", {
+  skip("Test uses API calling method")
+  endpoint <- "list/parametersByClass"
+  pc <- "AQI POLLUTANTS"       
+  result <- perform.call(endpoint, pc)
+  found <- result$Header$status
+  exp <- "Success"
+  expect_equal(exp, found)
+})
+
+test_that("A call with a single additional variable gets made correctly", {
+  skip("Test uses API calling method")
+  
+  # User goes with first method for passing in a single additional variable
+  endpoint <- services$List$Filters$`Counties by State`$Endpoint
+  state.code <- '37'
+  result <- perform.call(endpoint = endpoint, variables = state.code, name = "state")
+  found <- result$Header$status
+  exp <- "Success"
+  expect_equal(exp, found)
+  
+  # User goes with second method for passing in a single additional variable
+  endpoint <- services$List$Filters$`Counties by State`$Endpoint
+  state <- '37'
+  result <- perform.call(endpoint = endpoint, variables = state)
+  found <- result$Header$status
+  exp <- "Success"
+  expect_equal(exp, found)
+})
+
 test_that("A call with multiple variables gets made correctly", {
   skip("Test uses API calling method")
   # User must setup authentication before making call, see create.authentication()
