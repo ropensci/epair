@@ -67,9 +67,11 @@ Here, we may use the `variables` object loaded in with `epair` to determine what
 ```
 > variables[["bdate"]]
 [1] "bdate"                                                                                             
-[2] "The begin date of the data selection in YYYYMMDD format.  Only data on or after this date will be
-returned.  (Note, for annual data, only the year portion of the bdate and edate are used and only whole 
-years of data are returned.  For example, bdate = 20171231 and edate = 20180101 will return full data 
+[2] "The begin date of the data selection in YYYYMMDD format.  
+Only data on or after this date will be returned. 
+(Note, for annual data, only the year portion of the bdate and 
+edate are used and only whole years of data are returned. 
+For example, bdate = 20171231 and edate = 20180101 will return full data 
 for 2017 and 2018.)"
 [3] "20170101"  
 ```
