@@ -1,5 +1,8 @@
 # epair
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4309792.svg)](https://doi.org/10.5281/zenodo.4309792)
+
+
 A package designed to aid in getting data from the Environmental Protection Agency (EPA) API at
 https://aqs.epa.gov/aqsweb/documents/data_api.
 
