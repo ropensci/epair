@@ -108,4 +108,6 @@ Place your call without having to worry about string manipulations or JSON files
 * `perform.call()` will take an endpoint and variables and provided the user with metadata and desired data as a dataframe. 
 * `perform.call.raw()` will give the same results as `perform.call()` except for in JSON format.
 
+### Terms of Service
 
+Make sure you also see the Usage Tips and Terms of Service associated with using this API at https://aqs.epa.gov/aqsweb/documents/data_api.html. 
