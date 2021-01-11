@@ -55,8 +55,9 @@ create.base.call <- function(endpoint) {
 #' call     # Call requires more variables before being placed
 #' }
 add.variable <- function(query, variable, name = deparse(substitute(variable))) {
+  var.name <- name
   variable <- gsub(" ", "%20", fixed = TRUE, variable)
-  result <- paste(query, "&", name, "=", variable, sep = "")
+  result <- paste(query, "&", var.name, "=", variable, sep = "")
   return(result)
 }
 
@@ -81,10 +82,10 @@ add.variable <- function(query, variable, name = deparse(substitute(variable))) 
 #' call <- add.variables(call, variable.list)
 #' call
 #' }
-add.variables <- function(query, variables, name) {
+add.variables <- function(query, variables, name = NA) {
   # A list of names for API variables was not passed,
   # extract names from variables
-  if(class(name) == "character") {
+  if(is.na(name)) {
     var.names <- names(variables)
     for (i in seq_along(variables)) {
       var.name <- var.names[i]

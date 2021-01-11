@@ -12,8 +12,7 @@ perform.call(endpoint, variables = list(),
 
 \item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
 
-\item{name}{Specifies the name each variable should have when placed in the URL. User input
-is not necessary and should be left in default state.}
+\item{name}{Specifies the name each variable should have when placed in the URL.}
 }
 \value{
 A list containing requested data

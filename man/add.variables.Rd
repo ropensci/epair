@@ -4,13 +4,15 @@
 \alias{add.variables}
 \title{Add variables to a query}
 \usage{
-add.variables(query, variables)
+add.variables(query, variables, name = NA)
 }
 \arguments{
 \item{query}{A URL containing authentication for the EPA API site.}
 
 \item{variables}{A list of variables. Each variable should be declareed with the approporiate name.
 Consult VARIABLE.TYPES for the right names.}
+
+\item{name}{A list containing names of API variables.}
 }
 \value{
 A URL consisting of query + variables.
