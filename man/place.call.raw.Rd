@@ -2,7 +2,7 @@
 % Please edit documentation in R/call_placement.R
 \name{place.call.raw}
 \alias{place.call.raw}
-\title{Perform call and maintain jsonlite structure}
+\title{Perform call and maintain JSON Lite structure}
 \usage{
 place.call.raw(url)
 }
@@ -10,10 +10,10 @@ place.call.raw(url)
 \item{url}{URL following structure from EPA API}
 }
 \value{
-Results of data request in json format
+Results of data request in JSON format
 }
 \description{
-Perform call and maintain jsonlite structure
+Perform call and maintain JSON Lite structure
 }
 \examples{
 \dontrun{

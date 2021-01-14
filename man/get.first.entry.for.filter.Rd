@@ -12,7 +12,7 @@ get.first.entry.for.filter(filter.name, df)
 \item{df}{Data frame containing filter info.}
 }
 \value{
-The index for the first occurence of the filter in the data frame.
+The index for the first occurrence of the filter in the data frame.
 }
 \description{
 Get the first entry for a filter name

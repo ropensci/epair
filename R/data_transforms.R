@@ -1,6 +1,6 @@
 #### This module was built to hold data transformations on scraped tables from the EPA API
 
-#' Replace all characters entries in df
+#' Replace all characters entries in data frame
 #' 
 #' @param df Data frame containing character entries
 #' @param pattern Pattern to use for matching

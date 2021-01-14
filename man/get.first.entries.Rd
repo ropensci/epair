@@ -11,7 +11,7 @@ get.first.entries(df)
 }
 \value{
 A vector of indices. These indices are where the first entry for a filter 
-exists in df.
+exists in the data frame.
 }
 \description{
 Get first entries for filter names

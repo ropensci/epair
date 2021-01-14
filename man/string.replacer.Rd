@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_transforms.R
 \name{string.replacer}
 \alias{string.replacer}
-\title{Replace all characters entries in df}
+\title{Replace all characters entries in data frame}
 \usage{
 string.replacer(df, pattern, replacement)
 }
@@ -17,7 +17,7 @@ string.replacer(df, pattern, replacement)
 A data frame with entries following the pattern being replaced by replacement
 }
 \description{
-Replace all characters entries in df
+Replace all characters entries in data frame
 }
 \examples{
 df <- data.frame(c("1", "2", "3", "4"))

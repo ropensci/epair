@@ -122,7 +122,7 @@ assign.description.to.services <- function(services) {
 #' @param filter.name Name of the filter in API
 #' @param df Data frame containing filter info.
 #'
-#' @return The index for the first occurence of the filter in the data frame.
+#' @return The index for the first occurrence of the filter in the data frame.
 #'
 #' @examples
 #' \dontrun{
@@ -162,13 +162,13 @@ generate.filter.content <- function(i, df) {
 #' @param df Data frame with filters
 #'
 #' @return A vector of indices. These indices are where the first entry for a filter 
-#' exists in df. 
+#' exists in the data frame. 
 #'
 #' @examples
 #' \dontrun{
 #' tbls <- get.all.tables()
 #' single <- tbls[[10]]
-#' first.occurences <- get.first.entries(single)
+#' first.occurrences <- get.first.entries(single)
 #' }
 get.first.entries <- function(df) {
   true.filters <- get.unique.filters(df)

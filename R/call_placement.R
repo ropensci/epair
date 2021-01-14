@@ -116,11 +116,11 @@ place.call <- function(url) {
   return(converted)
 }
 
-#' Perform call and maintain jsonlite structure
+#' Perform call and maintain JSON Lite structure
 #'
 #' @param url URL following structure from EPA API
 #'
-#' @return Results of data request in json format
+#' @return Results of data request in JSON format
 #'
 #' @examples
 #' \dontrun{
