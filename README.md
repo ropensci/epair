@@ -108,6 +108,16 @@ Place your call without having to worry about string manipulations or JSON files
 * `perform.call()` will take an endpoint and variables and provided the user with metadata and desired data as a dataframe. 
 * `perform.call.raw()` will give the same results as `perform.call()` except for in JSON format.
 
+### ropenaq
+
+You may want to check out `ropenaq` instead depending on the goals behind your study. `ropenaq` is an R wrapper for accessing the OpenAQ API - see its website [here](https://docs.ropensci.org/ropenaq/). Here are a few differences:
+
+* `epair` will get data from a single source (EPA AQS API), while `ropenaq` will be more useful if you’re trying to compare data from different sources.
+
+* If you're interested in data for the US only, `epair` would be an appropriate choice. For more locations across the world, `ropenaq` would work better. 
+
+* `epair’s` data source does offer more granularity than OpenAQ for US data. The EPA AQS API can give over 500 parameters/pollutants of interest (as opposed to OpenAQ’s 5), county level coverage, and unaggregated raw data. By default, OpenAQ will give aggregated data so if you're only interested in aggregations, then OpenAQ is the way to go. 
+
 ### Terms of Service
 
 Make sure you also see the Usage Tips and Terms of Service associated with using this API at https://aqs.epa.gov/aqsweb/documents/data_api.html. 
