@@ -1,6 +1,3 @@
-context("Call constructions to API are accurate")
-library(epair)
-
 test_that("Authentication follows correct format", {
   email <- "user_email"
   key <- "user_key"

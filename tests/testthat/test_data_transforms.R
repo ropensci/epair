@@ -1,6 +1,3 @@
-context("Data transformations are accurate")
-library(epair)
-
 test_that("Characters get replaced correctly in a data frame", {
   df <- data.frame(c("1", "2", "3", "4"))
   found_df <- string.replacer(df, "1", "One")

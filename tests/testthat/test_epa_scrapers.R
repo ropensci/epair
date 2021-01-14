@@ -1,7 +1,3 @@
-context("Ensure EPA API site scrapers provide results loaded in package")
-library(epair)
-library(testthat)
-
 test_that("An endpoint is present in the string based on EPA table structure", {
   test_str <- "list/states?"
   exp <- FALSE
