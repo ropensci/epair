@@ -34,26 +34,15 @@ is.API.running <- function() {
 #' endpoint <- 'list/states'
 #' result <- perform.call.raw(endpoint)
 #' }
-perform.call.raw <- function(endpoint, variables = list(), name = deparse(substitute(variables))) {
-  
-  # The user passed no variables 
+perform.call.raw <- function(endpoint, variables = list()) {
   if(length(variables) == 0) {
     call <- create.base.call(endpoint)
     result <- place.call.raw(call)
     return(result)
   }
   
-  # The user passed a single variable
-  if(class(variables) == "character") {
-    call <- create.base.call(endpoint)
-    call <- add.variable(call, variables, name)
-    result <- place.call.raw(call)
-    return(result)
-  }
-  
-  # The user passed multiple variables as a list
   call <- create.base.call(endpoint)
-  call <- add.variables(call, variables)
+  call <- add.variables(call, variables, name)
   result <- place.call.raw(call)
   return(result)
 }
@@ -73,26 +62,16 @@ perform.call.raw <- function(endpoint, variables = list(), name = deparse(substi
 #' endpoint <- 'list/states'
 #' result <- perform.call(endpoint)
 #' }
-perform.call <- function(endpoint, variables = list(), name = deparse(substitute(variables))) {
+perform.call <- function(endpoint, variables = list()) {
   
-  # The user passed no variables 
   if(length(variables) == 0) {
     call <- create.base.call(endpoint)
     result <- place.call(call)
     return(result)
   }
   
-  # The user passed a single variable
-  if(class(variables) == "character") {
-    call <- create.base.call(endpoint)
-    call <- add.variable(call, variables, name)
-    result <- place.call(call)
-    return(result)
-  }
-  
-  # The user passed multiple variables as a list
   call <- create.base.call(endpoint)
-  call <- add.variables(call, variables, name)
+  call <- add.variables(call, variables)
   result <- place.call(call)
   return(result)
 }

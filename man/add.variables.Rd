@@ -4,7 +4,7 @@
 \alias{add.variables}
 \title{Add variables to a query}
 \usage{
-add.variables(query, variables, name = NA)
+add.variables(query, variables)
 }
 \arguments{
 \item{query}{A URL containing authentication for the EPA API site.}

@@ -4,8 +4,7 @@
 \alias{perform.call.raw}
 \title{Perform call and keep original result}
 \usage{
-perform.call.raw(endpoint, variables = list(),
-  name = deparse(substitute(variables)))
+perform.call.raw(endpoint, variables = list())
 }
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}

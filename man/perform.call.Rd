@@ -4,8 +4,7 @@
 \alias{perform.call}
 \title{Perform call and convert data into list}
 \usage{
-perform.call(endpoint, variables = list(),
-  name = deparse(substitute(variables)))
+perform.call(endpoint, variables = list())
 }
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}
