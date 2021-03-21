@@ -7,29 +7,28 @@ test_that("Authentication follows correct format", {
 })
 
 test_that("Basic call is setup correctly", {
-  options(epa_authentication = "user_option")
   endpoint <- "list/States"
-  exp_call <- "https://aqs.epa.gov/data/api/list/States?user_option"
-  found_call <- create.base.call(endpoint)
+  exp_call <- "https://aqs.epa.gov/data/api/list/States?&email=fake_aqs_email&key=fake_api_key_value"
+  found_call <- epair:::create.base.call(endpoint)
   expect_equal(found_call, exp_call)
 })
 
 test_that("Single variable added to query properly", {
-  state <- "37"
+  variables <- list("state" = "37")
   base <- "https://aqs.epa.gov/data/api/dailyData/byState?"
   exp_query <- "https://aqs.epa.gov/data/api/dailyData/byState?&state=37"
-  found_query <- add.variable(base, state)
+  found_query <- add.variables(base, variables)
   expect_equal(found_query, exp_query)
 })
 
 test_that("Multiple variables added to query properly", {
   endpoint <- "dailyData/byState?"
-  variable.list <- list("state" = '37', 
-                         "bdate" = '20200101', 
-                         "edate" = '20200102', 
-                         "param" = '44201')
+  variables <- list("state" = '37', 
+                    "bdate" = '20200101', 
+                    "edate" = '20200102', 
+                    "param" = '44201')
   exp_call <- "dailyData/byState?&state=37&bdate=20200101&edate=20200102&param=44201"
-  found_call <- add.variables(endpoint, variable.list)
+  found_call <- add.variables(endpoint, variables)
   expect_equal(found_call, exp_call)
 })
 
