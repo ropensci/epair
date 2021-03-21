@@ -28,36 +28,15 @@ create.authentication <- function(email, key) {
 #' call
 #' }
 create.base.call <- function(endpoint) {
-  if (length(getOption("epa_authentication")) == 0) {
-    stop("Make sure you've declared the option for epa_authentication.")
+  if (!nzchar(Sys.getenv('aqs_api_key'))) {
+    stop("Make sure you've declared aqs_api_key in your .Renviron!")
   }
+  if (!nzchar(Sys.getenv('aqs_email'))) {
+    stop("Make sure you've declared aqs_email in your .Renviron!")
+  }
+  authentication = create.authentication(Sys.getenv("aqs_email"), Sys.getenv("aqs_api_key"))
   base <- "https://aqs.epa.gov/data/api/"
-  result <- paste(base, endpoint, "?", getOption("epa_authentication"), sep = "")
-  return(result)
-}
-
-#' Add a variable to a call
-#'
-#' @param query A URL containing authentication for EPA API
-#' @param variable A variable for a call. Consult VARIABLE.TYPES for possible variables. 
-#' @param name Default argument should be left as is. Will take the name used for variable above
-#' to create the final URL.
-#'
-#' @return A URL containing query + variable.
-#' @export
-#'
-#' @examples
-#' \dontrun{
-#' endpoint <- 'dailyData/byState'
-#' state <- "37"
-#' call <- epair:::create.base.call(endpoint)
-#' call <- add.variable(call, state)
-#' call     # Call requires more variables before being placed
-#' }
-add.variable <- function(query, variable, name = deparse(substitute(variable))) {
-  var.name <- name
-  variable <- gsub(" ", "%20", fixed = TRUE, variable)
-  result <- paste(query, "&", var.name, "=", variable, sep = "")
+  result <- paste(base, endpoint, "?", authentication, sep = "")
   return(result)
 }
 
@@ -82,27 +61,12 @@ add.variable <- function(query, variable, name = deparse(substitute(variable))) 
 #' call <- add.variables(call, variable.list)
 #' call
 #' }
-add.variables <- function(query, variables, name = NA) {
-  # A list of names for API variables was not passed,
-  # extract names from variables
-  if(is.na(name)) {
+add.variables <- function(query, variables) {
     var.names <- names(variables)
     for (i in seq_along(variables)) {
       var.name <- var.names[i]
       variable <- gsub(" ", "%20", fixed = TRUE, variables[[var.name]])
       query <- paste(query, "&", var.name, "=", variable, sep = "")
     }
-  }
-  # A list of names for API variables got passed,
-  # extract names from list that got passed
-  else {
-    var.names <- name
-    for (i in seq_along(variables)) {
-      var.name <- var.names[i]
-      variable <- gsub(" ", "%20", fixed = TRUE, variables[i])
-      query <- paste(query, "&", var.name, "=", variable, sep = "")
-    }
-  }
-  
-  return(query)
+    return(query)
 }
