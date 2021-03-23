@@ -1,0 +1,412 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2021-03-22T21:23:21-04:00",
+            "url": "https://aqs.epa.gov/data/api/list/countiesByState?&email=aqs_email&key=aqs_api_key&state=37",
+            "rows": 100
+        }
+    ],
+    "Data": [
+        {
+            "code": "001",
+            "value_represented": "Alamance"
+        },
+        {
+            "code": "003",
+            "value_represented": "Alexander"
+        },
+        {
+            "code": "005",
+            "value_represented": "Alleghany"
+        },
+        {
+            "code": "007",
+            "value_represented": "Anson"
+        },
+        {
+            "code": "009",
+            "value_represented": "Ashe"
+        },
+        {
+            "code": "011",
+            "value_represented": "Avery"
+        },
+        {
+            "code": "013",
+            "value_represented": "Beaufort"
+        },
+        {
+            "code": "015",
+            "value_represented": "Bertie"
+        },
+        {
+            "code": "017",
+            "value_represented": "Bladen"
+        },
+        {
+            "code": "019",
+            "value_represented": "Brunswick"
+        },
+        {
+            "code": "021",
+            "value_represented": "Buncombe"
+        },
+        {
+            "code": "023",
+            "value_represented": "Burke"
+        },
+        {
+            "code": "025",
+            "value_represented": "Cabarrus"
+        },
+        {
+            "code": "027",
+            "value_represented": "Caldwell"
+        },
+        {
+            "code": "029",
+            "value_represented": "Camden"
+        },
+        {
+            "code": "031",
+            "value_represented": "Carteret"
+        },
+        {
+            "code": "033",
+            "value_represented": "Caswell"
+        },
+        {
+            "code": "035",
+            "value_represented": "Catawba"
+        },
+        {
+            "code": "037",
+            "value_represented": "Chatham"
+        },
+        {
+            "code": "039",
+            "value_represented": "Cherokee"
+        },
+        {
+            "code": "041",
+            "value_represented": "Chowan"
+        },
+        {
+            "code": "043",
+            "value_represented": "Clay"
+        },
+        {
+            "code": "045",
+            "value_represented": "Cleveland"
+        },
+        {
+            "code": "047",
+            "value_represented": "Columbus"
+        },
+        {
+            "code": "049",
+            "value_represented": "Craven"
+        },
+        {
+            "code": "051",
+            "value_represented": "Cumberland"
+        },
+        {
+            "code": "053",
+            "value_represented": "Currituck"
+        },
+        {
+            "code": "055",
+            "value_represented": "Dare"
+        },
+        {
+            "code": "057",
+            "value_represented": "Davidson"
+        },
+        {
+            "code": "059",
+            "value_represented": "Davie"
+        },
+        {
+            "code": "061",
+            "value_represented": "Duplin"
+        },
+        {
+            "code": "063",
+            "value_represented": "Durham"
+        },
+        {
+            "code": "065",
+            "value_represented": "Edgecombe"
+        },
+        {
+            "code": "067",
+            "value_represented": "Forsyth"
+        },
+        {
+            "code": "069",
+            "value_represented": "Franklin"
+        },
+        {
+            "code": "071",
+            "value_represented": "Gaston"
+        },
+        {
+            "code": "073",
+            "value_represented": "Gates"
+        },
+        {
+            "code": "075",
+            "value_represented": "Graham"
+        },
+        {
+            "code": "077",
+            "value_represented": "Granville"
+        },
+        {
+            "code": "079",
+            "value_represented": "Greene"
+        },
+        {
+            "code": "081",
+            "value_represented": "Guilford"
+        },
+        {
+            "code": "083",
+            "value_represented": "Halifax"
+        },
+        {
+            "code": "085",
+            "value_represented": "Harnett"
+        },
+        {
+            "code": "087",
+            "value_represented": "Haywood"
+        },
+        {
+            "code": "089",
+            "value_represented": "Henderson"
+        },
+        {
+            "code": "091",
+            "value_represented": "Hertford"
+        },
+        {
+            "code": "093",
+            "value_represented": "Hoke"
+        },
+        {
+            "code": "095",
+            "value_represented": "Hyde"
+        },
+        {
+            "code": "097",
+            "value_represented": "Iredell"
+        },
+        {
+            "code": "099",
+            "value_represented": "Jackson"
+        },
+        {
+            "code": "101",
+            "value_represented": "Johnston"
+        },
+        {
+            "code": "103",
+            "value_represented": "Jones"
+        },
+        {
+            "code": "105",
+            "value_represented": "Lee"
+        },
+        {
+            "code": "107",
+            "value_represented": "Lenoir"
+        },
+        {
+            "code": "109",
+            "value_represented": "Lincoln"
+        },
+        {
+            "code": "111",
+            "value_represented": "McDowell"
+        },
+        {
+            "code": "113",
+            "value_represented": "Macon"
+        },
+        {
+            "code": "115",
+            "value_represented": "Madison"
+        },
+        {
+            "code": "117",
+            "value_represented": "Martin"
+        },
+        {
+            "code": "119",
+            "value_represented": "Mecklenburg"
+        },
+        {
+            "code": "121",
+            "value_represented": "Mitchell"
+        },
+        {
+            "code": "123",
+            "value_represented": "Montgomery"
+        },
+        {
+            "code": "125",
+            "value_represented": "Moore"
+        },
+        {
+            "code": "127",
+            "value_represented": "Nash"
+        },
+        {
+            "code": "129",
+            "value_represented": "New Hanover"
+        },
+        {
+            "code": "131",
+            "value_represented": "Northampton"
+        },
+        {
+            "code": "133",
+            "value_represented": "Onslow"
+        },
+        {
+            "code": "135",
+            "value_represented": "Orange"
+        },
+        {
+            "code": "137",
+            "value_represented": "Pamlico"
+        },
+        {
+            "code": "139",
+            "value_represented": "Pasquotank"
+        },
+        {
+            "code": "141",
+            "value_represented": "Pender"
+        },
+        {
+            "code": "143",
+            "value_represented": "Perquimans"
+        },
+        {
+            "code": "145",
+            "value_represented": "Person"
+        },
+        {
+            "code": "147",
+            "value_represented": "Pitt"
+        },
+        {
+            "code": "149",
+            "value_represented": "Polk"
+        },
+        {
+            "code": "151",
+            "value_represented": "Randolph"
+        },
+        {
+            "code": "153",
+            "value_represented": "Richmond"
+        },
+        {
+            "code": "155",
+            "value_represented": "Robeson"
+        },
+        {
+            "code": "157",
+            "value_represented": "Rockingham"
+        },
+        {
+            "code": "159",
+            "value_represented": "Rowan"
+        },
+        {
+            "code": "161",
+            "value_represented": "Rutherford"
+        },
+        {
+            "code": "163",
+            "value_represented": "Sampson"
+        },
+        {
+            "code": "165",
+            "value_represented": "Scotland"
+        },
+        {
+            "code": "167",
+            "value_represented": "Stanly"
+        },
+        {
+            "code": "169",
+            "value_represented": "Stokes"
+        },
+        {
+            "code": "171",
+            "value_represented": "Surry"
+        },
+        {
+            "code": "173",
+            "value_represented": "Swain"
+        },
+        {
+            "code": "175",
+            "value_represented": "Transylvania"
+        },
+        {
+            "code": "177",
+            "value_represented": "Tyrrell"
+        },
+        {
+            "code": "179",
+            "value_represented": "Union"
+        },
+        {
+            "code": "181",
+            "value_represented": "Vance"
+        },
+        {
+            "code": "183",
+            "value_represented": "Wake"
+        },
+        {
+            "code": "185",
+            "value_represented": "Warren"
+        },
+        {
+            "code": "187",
+            "value_represented": "Washington"
+        },
+        {
+            "code": "189",
+            "value_represented": "Watauga"
+        },
+        {
+            "code": "191",
+            "value_represented": "Wayne"
+        },
+        {
+            "code": "193",
+            "value_represented": "Wilkes"
+        },
+        {
+            "code": "195",
+            "value_represented": "Wilson"
+        },
+        {
+            "code": "197",
+            "value_represented": "Yadkin"
+        },
+        {
+            "code": "199",
+            "value_represented": "Yancey"
+        }
+    ]
+}
