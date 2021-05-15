@@ -7,16 +7,17 @@ httptest::with_mock_dir("Non-existant endpoint", {
   })
 })
 
-httptest::with_mock_dir("Add single variable", {  
+httptest::with_mock_dir("Single variable call", {
   test_that("A call with a single additional variable gets made correctly", {
     endpoint <- services$List$Filters$`Counties by State`$Endpoint
     variables <- list("state" = '37')
-    result <- perform.call(endpoint = endpoint, variables)
+    result <- perform.call(endpoint = endpoint, variables)  
     found <- result$Header$status
     exp <- "Success"
     expect_equal(exp, found)
   })
 })
+
 
 httptest::with_mock_dir("Add multiple variables" , {  
   test_that("A call with multiple variables gets made correctly", {

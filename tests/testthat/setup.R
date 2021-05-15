@@ -5,5 +5,5 @@ if (!nzchar(Sys.getenv("aqs_email"))) {
 }
 
 if (!nzchar(Sys.getenv("aqs_api_key"))) {
-  Sys.setenv(aqs_api_key = "fake_api_key_value")
+  Sys.setenv(aqs_api_key = "fake_aqs_key")
 }
