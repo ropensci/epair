@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2021-05-15T18:03:56-04:00",
+            "url": "https://aqs.epa.gov/data/api/list/states?&email=aqs_email&key=aqs_api_key",
+            "rows": 56
+        }
+    ]
+}

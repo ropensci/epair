@@ -42,7 +42,7 @@ perform.call.raw <- function(endpoint, variables = list()) {
   }
   
   call <- create.base.call(endpoint)
-  call <- add.variables(call, variables, name)
+  call <- add.variables(call, variables)
   result <- place.call.raw(call)
   return(result)
 }
