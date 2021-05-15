@@ -22,7 +22,7 @@ Replace every string entry in a list
 \examples{
 \dontrun{
 services <- epair:::get.services()
-services <- epair:::list.string.replacer(services, "\\t", "")
+services <- epair:::list.string.replacer(services, "\t", "")
 services
 }
 }
