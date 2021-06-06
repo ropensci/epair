@@ -1,4 +1,4 @@
-#### This module was built to encapsulate the functions that scrape tables from the EPA API
+#### This module was built to encapsulate functions that scrape tables from the EPA API
 
 #' Get an HTML table at URL
 #'

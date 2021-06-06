@@ -2,7 +2,6 @@
 
 export(add.variables)
 export(create.authentication)
-export(get.variables)
 export(is.API.running)
 export(perform.call)
 export(perform.call.raw)
