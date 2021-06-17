@@ -1,0 +1,47 @@
+---
+title: 1. Setup
+author: George Orozco-Mulfinger
+date: '2020-05-29'
+slug: 1-setup
+categories: []
+tags: []
+---
+
+```{css, echo=FALSE}
+pre code {
+  white-space: pre-wrap;
+}
+```
+
+# Authentication setup
+
+```{r echo = FALSE, message = FALSE}
+library(epair)
+library(rvest)
+library(httr)
+library(jsonlite)
+```
+
+To use the API, we need to have a valid email and API key with the EPA website. Getting an API key is easy, and can be done following the instructions [here](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup). 
+Once we have the email and key, we can easily set these up to be in our requests. 
+
+```{r echo = FALSE}
+epa.authentication <- create.authentication(Sys.getenv('aqs_email'), Sys.getenv('aqs_api_key'))
+options( epa_authentication = epa.authentication )
+```
+
+```{r eval = FALSE}
+authentication <- create.authentication("youremail@domain.com", "yourAPIkey")
+options(epa_authentication = authentication)
+```
+This sets your authentication info to be in your .Rprofile options to make calls. All future data requests will now use these credentials.
+
+# Checking if the API is running
+
+All queries automatically check if the API is running. It might make sense, however, to check the API is up before making multiple queries. The package allows you to make this check easily. 
+
+```{r}
+is.API.running()
+```
+
+

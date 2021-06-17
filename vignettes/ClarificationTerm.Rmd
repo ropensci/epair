@@ -1,0 +1,67 @@
+---
+title: "Clarification on terminology"
+author: "Leonard Orozco"
+date: "2020年6月23日"
+output: html_document
+---
+
+# Terms 
+
+A number of terms crop up throughout this site that may lead to confusion if not addressed properly.
+
+## Code and functions
+
+Before diving into terms, we note how we will use fonts in the site. 
+Firstly, any command or object that could be considered code will be shown as 
+`code`. For example, typing "sum(a + b)" in the console will be shown as `sum(a + b)`. Likewise, 
+functions will always be denoted in this code format, but with the addition of 
+open and closed parentheses. For example, the function "foo" will be denoted
+as `foo()`. 
+
+## Variables and objects
+
+In R, a *variable* refers to the name of a stored value. For example:
+
+```{r eval = FALSE}
+my.vector <- c(9, 10, 11)
+```
+Here, `my.vector` holds the vector `c(9, 10, 11)` and will refer to it when we do operations with `my.vector`. Sometimes programmers also refer to `my.vector` as an *object* since it is a type of object within the syntax of R.
+
+In the EPA API, a *variable* refers to a desired data filtering characteristic in a URL request. For example, in the URL,
+
+> https://aqs.epa.gov/data/api/dailyData/byState?&email=youremail@domain.com&key=yourapikey&state=37
+
+`state` is considered a variable for the URL since data will be queried according to a particular state.
+
+To avoid confusion, we will always refer to variables referring to the API as an *API variable*. When dealing with R variables, we will call them an *object* or specifically call them by their R data type like an *R list*. For example, through out this tutorial, we will often times reference `services` or `variables`. These are both R objects (i.e. a list or dataframe) loaded in with `epair`, and they are each an R variable containing information about the EPA API.
+
+## Parameter codes
+
+In the wider world of mathematics, a *parameter* can mean a value passed into a function. 
+For example,
+
+```{r eval = FALSE}
+foo(a, b)
+```
+Here, `a` and  `b` are considered parameters of the function `foo()` since they are passed into 
+the function as inputs. 
+
+In the EPA API, there are *parameter codes*. These refer to the 
+particular way an API variable should be used. For instance, taking a look at the URL 
+we showed above, 
+
+> https://aqs.epa.gov/data/api/dailyData/byState?&email=youremail@domain.com&key=yourapikey&state=37
+
+we see that `state = 37`. Here, `37` is the *parameter code* for the `state` API variable, and 
+this code must be constructed in a particular way to match its API variable. Another example, 
+is with the following URL, 
+
+> https://aqs.epa.gov/data/api/dailyData/byState?&email=youremail@domain.com&key=yourapikey&state=37&bdate=20200101&edate=20200102&param=44201
+
+We note that `bdate` is an API variable referring to the beginning date desired for the data. Its *parameter code* is `20200101`. Likewise, the `param` API variable has a *parameter code* of `44201`. 
+
+In this site, we will refer to values passed into a function as *arguments* and *parameter codes* will refer to the encoding value needed in an API variable. 
+
+
+
+
