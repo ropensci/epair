@@ -130,19 +130,25 @@ place.call.raw <- function(url) {
 #' }
 
 perform.call.cached <- function(endpoint = endpoint, variables = variable.list, directory = "~/epair/cache"){
+    key = list(endpoint,variables)
+    new.path = paste(directory, "/", key[[2]][1]$state, key[[2]][2]$bdate, key[[2]][3]$edate, key[[2]][4]$param, sep = "")
+    
     if(file.exists(directory) == FALSE){
         dir.create(directory)
-    }
-    key = list(endpoint,variables)
-    new.path = paste(directory, "/", key[[2]][1]$state, key[[2]][2]$bdate, key[[2]][3]$edate, key[[2]][4]$param, sep = "") 
-    my.data = R.cache::loadCache(key, pathname = new.path)
-    if(is.null(my.data) == TRUE){
         my.data = perform.call(endpoint = endpoint, variables = variable.list)
         R.cache::saveCache(my.data, key=key, pathname = new.path, comment="param")
-        my.data
+        return(my.data)
     }
     else{
-        my.data  
+        if(file.exists(new.path)){
+            my.data = R.cache::loadCache(key, pathname = new.path)
+            return(my.data) 
+        }
+        else{
+            my.data = perform.call(endpoint = endpoint, variables = variable.list)
+            R.cache::saveCache(my.data, key=key, pathname = new.path, comment="param")
+            return(my.data)
+        }
     }
 }
 
