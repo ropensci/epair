@@ -2,15 +2,15 @@ pandoc: 1.19.2.1
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  ClarificationTerm: ClarificationTerm.html
-  Endpoints: Endpoints.html
-  Installation: Installation.html
-  Services: Services.html
-  ananomyEPARequest: ananomyEPARequest.html
+  01_ananomyEPARequest: 01_ananomyEPARequest.html
+  02_ClarificationTerm: 02_ClarificationTerm.html
+  03_Installation: 03_Installation.html
+  04_setup: 04_setup.html
+  05_making-your-first-call: 05_making-your-first-call.html
+  06_make-a-more-complex-call: 06_make-a-more-complex-call.html
+  07_wrap-up: 07_wrap-up.html
+  08_Endpoints: 08_Endpoints.html
+  09_Services: 09_Services.html
   epair: epair.html
-  make-a-more-complex-call: make-a-more-complex-call.html
-  making-your-first-call: making-your-first-call.html
-  setup: setup.html
-  wrap-up: wrap-up.html
-last_built: 2021-06-17T15:55Z
+last_built: 2021-06-25T20:04Z
 
