@@ -59,7 +59,19 @@ httptest::with_mock_dir("Single variable call", {
     })
 })
 
-
+httptest::with_mock_dir("Multiple variable call", {
+    test_that("A call with multiple variables gets made correctly", {
+        endpoint <- 'dailyData/byState'
+        variable.list <- list("state" = '37', 
+                              "bdate" = '20200101', 
+                              "edate" = '20200102', 
+                              "param" = '44201')
+        result <- epair:::perform.call(endpoint = endpoint, variables = variable.list)  
+        found <- result$Header$status
+        exp <- "Success"
+        expect_equal(exp, found)
+    })
+})
 
 httptest::with_mock_dir("Cached file is deleted",{
     test_that("A cached file that is chosen is deleted", {
@@ -88,22 +100,6 @@ httptest::with_mock_dir("List cached data error",{
     })
 })
 
-
-httptest::with_mock_dir("Multiple variable call", {
-    test_that("A call with multiple variables gets made correctly", {
-        endpoint <- 'dailyData/byState'
-        variable.list <- list("state" = '37', 
-                              "bdate" = '20200101', 
-                              "edate" = '20200102', 
-                              "param" = '44201')
-        result <- epair:::perform.call(endpoint = endpoint, variables = variable.list)  
-        found <- result$Header$status
-        exp <- "Success"
-        expect_equal(exp, found)
-    })
-})
-
-
 httptest::with_mock_dir("Multiple variable cached call elapsed time",{
     test_that("A cached call is faster the second time called", {
         endpoint <- 'dailyData/byState'
@@ -111,9 +107,8 @@ httptest::with_mock_dir("Multiple variable cached call elapsed time",{
                               "bdate" = '20200101', 
                               "edate" = '20200110', 
                               "param" = '44201')
-        directory = "~/epair/tests/testthat/cache"
-        first.time <- system.time(epair:::perform.call(endpoint = endpoint, variables = variable.list, directory = directory)) 
-        second.time <- system.time(epair:::perform.call(endpoint = endpoint, variables = variable.list, directory = directory))
+        first.time <- system.time(epair:::perform.call(endpoint = endpoint, variables = variable.list)) 
+        second.time <- system.time(epair:::perform.call(endpoint = endpoint, variables = variable.list))
         expect_lt(second.time[[3]][1], first.time[[3]][1])
         
     })
@@ -198,3 +193,4 @@ httptest::with_mock_dir("Save new cached call saves new call",{
         expect_equal("Success", response$Header$status)
     })
 })
+
