@@ -114,20 +114,6 @@ httptest::with_mock_dir("Multiple variable cached call elapsed time",{
     })
 })
 
-httptest::with_mock_dir("All cached files are deleted",{
-    test_that("All cached files are deleted from memory", {
-        endpoint <- 'dailyData/byState'
-        variable.list <- list("state" = '37', 
-                              "bdate" = '20200101', 
-                              "edate" = '20200102', 
-                              "param" = '44201')
-        result <- perform.call(endpoint = endpoint, variables = variable.list) 
-        found <- clear.all.cached()
-        
-        expect_equal("Done", found)
-    })
-})
-
 httptest::with_mock_dir("List cached data response",{
     test_that("List cached data produces a character vector reponse", {
         endpoint <- 'dailyData/byState'
@@ -194,3 +180,16 @@ httptest::with_mock_dir("Save new cached call saves new call",{
     })
 })
 
+httptest::with_mock_dir("All cached files are deleted",{
+    test_that("All cached files are deleted from memory", {
+        endpoint <- 'dailyData/byState'
+        variable.list <- list("state" = '37', 
+                              "bdate" = '20200101', 
+                              "edate" = '20200102', 
+                              "param" = '44201')
+        result <- perform.call(endpoint = endpoint, variables = variable.list) 
+        found <- clear.all.cached()
+        
+        expect_equal("Done", found)
+    })
+})
