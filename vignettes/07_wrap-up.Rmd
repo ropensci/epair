@@ -1,0 +1,55 @@
+---
+title: 4. Summary
+slug: 4-wrap-up
+categories: []
+tags: []
+---
+
+
+Now you know how to make calls! The general template for making a call (after making sure authentication is set up) is as follows.
+
+1. Determine an endpoint for your service (possibly with the `services` object).
+
+```{r eval = FALSE}
+endpoint <- 'APIEndpoint'
+```
+
+2. Make the call with `perform.call()`.
+
+```{r eval = FALSE}
+result <- perform.call(endpoint)
+```
+
+3. If the call requires a single variable, declare the variable with the API variable name and pass it in as a second argument 
+in `perform.call()`.
+
+```{r eval = FALSE}
+variable <- "value"
+result <- perform.call(endpoint, variable)
+```
+
+Or, specify the name of the API variable in the third argument.
+
+```{r eval = FALSE}
+variable.code <- "value"
+result <- perform.call(endpoint, variable.code, name = "API variable name")
+```
+
+4. If the call requires multiple variables, make a list and pass it in as a second argument
+in `perform.call()`.
+
+```{r eval = FALSE}
+variables <- list(variable.one = "value.one",
+                  variable.two = "value.two",
+                  variable.three = "value.three")
+result <- perform.call(endpoint, variables)
+```
+
+Or, specify the names of parameter codes in the second argument.
+
+```{r eval = FALSE}
+variables <- list("value.one", "value.two", "value.three")
+result <- perform.call(endpoint, 
+                       variables,
+                       name = list("variable.one", "variable.two", "variable.three"))
+```
