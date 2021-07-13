@@ -145,14 +145,14 @@ pre code {
 ## [12] "Quality Assurance - PEP Audits"</code></pre>
 <p>Alternatively, using RStudio's smart variable selection, you can type <code>services$</code> to see the available services.</p>
 <div class="figure">
-<img src="../../../../img/making_first_call/service_selection.png">
+<img src="img/making_first_call/service_selection.png">
 </div>
 <div id="what-service-to-use" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-service-to-use" class="anchor"></a>What service to use</h2>
 <p>You can also see a description for each service. This helps determine what service to use. For example, suppose you want to find hourly data in a particular state. Perhaps these data are contained in a daily summary so you can check the description.</p>
 <div class="figure">
-<img src="../../../../img/services/daily_description.png">
+<img src="img/services/daily_description.png">
 </div>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">services</span><span class="op">$</span><span class="va">`Daily Summary Data`</span><span class="op">$</span><span class="va">Description</span></code></pre></div>
@@ -160,7 +160,7 @@ pre code {
 <p>The description suggests hourly data may be used to produce the values, but we may not necessarily get hourly data.</p>
 <p>So we try a different service description.</p>
 <div class="figure">
-<img src="../../../../img/services/sample_description.png">
+<img src="img/services/sample_description.png">
 </div>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">services</span><span class="op">$</span><span class="va">`Sample Data`</span><span class="op">$</span><span class="va">Description</span></code></pre></div>
@@ -179,7 +179,7 @@ pre code {
 <pre><code>## [1] "By Site"   "By County" "By State"  "By Box"    "By CBSA"</code></pre>
 <p>Or, we can use <code>servics$Monitors$Filters$</code> to see available filters.</p>
 <div class="figure">
-<img src="../../../../img/services/monitor_filters.png">
+<img src="img/services/monitor_filters.png">
 </div>
 <p>The <code>Filters</code> component in the <code>services</code> object contains all information you might need to make a call. It has the endpoint, required API variables, optional API variables (if appropriate), and a URL example of a call.</p>
 <p>In general, to see available filters, you can type the following:</p>

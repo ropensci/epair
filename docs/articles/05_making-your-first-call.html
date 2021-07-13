@@ -155,7 +155,7 @@ pre code {
 <pre><code>## [1] "Returns information about the API.  Is it available/up?  What are the meanings of the fields in my returned data?Recent and planned changes, etc."</code></pre>
 <p>Using RStudio's smart variable selection, simply typing <code>services$</code> will open up a service to select along with any other useful information about that service.</p>
 <div class="figure">
-<img src="../../../../img/making_first_call/service_selection.png">
+<img src="img/making_first_call/service_selection.png">
 </div>
 <p>Becoming familiar with the <code>services</code> object can help you to make calls. In the <a href="../../Useful-Features/Services">Navigating services</a> page, we talk in depth about the <code>services</code> object.</p>
 </div>
@@ -179,14 +179,14 @@ pre code {
 <p>As mentioned above, we need to determine the appropriate endpoint for the type of query we wish to make. Recall that we're looking for all parameter codes associated with each state in the US.</p>
 <p>We first look at <code>services</code>, and select <code>List</code>'s description to see if this is the appropriate service to use.</p>
 <div class="figure">
-<img src="../../../../img/making_first_call/list_description.png">
+<img src="img/making_first_call/list_description.png">
 </div>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">services</span><span class="op">$</span><span class="va">List</span><span class="op">$</span><span class="va">Description</span></code></pre></div>
 <pre><code>## [1] "Provides information you need to construct other queries.  Valid values for the required variables: parameter code, state code, etc.  (See below.)"</code></pre>
 <p>This seems like the perfect service to use to find state parameter codes. We select <code>List</code>, and then see that there are multiple <code>Filters</code> available for listing.</p>
 <div class="figure">
-<img src="../../../../img/making_first_call/list_filters.png">
+<img src="img/making_first_call/list_filters.png">
 </div>
 <p>It looks like <code>States</code> would be the most appropriate option here.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
@@ -214,7 +214,7 @@ pre code {
 <pre><code>## [1] "Success"</code></pre>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result</span><span class="op">$</span><span class="va">Header</span><span class="op">$</span><span class="va">request_time</span></code></pre></div>
-<pre><code>## [1] "2021-06-25T12:30:52-04:00"</code></pre>
+<pre><code>## [1] "2021-07-13T17:55:43-04:00"</code></pre>
 <p>To get the actual data we called for (states and their parameter codes), we use the <code>Data</code> component of the result.</p>
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">result</span><span class="op">$</span><span class="va">Data</span></code></pre></div>
