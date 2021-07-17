@@ -16,7 +16,8 @@ Imports:
   xml2 (>= 1.1.1),
   rvest (>= 0.3.5), 
   httr (>= 1.4.1), 
-  jsonlite (>= 1.6.1)
+  jsonlite (>= 1.6.1),
+  R.cache (>= 0.15.0)
 Suggests: 
     httptest,
     testthat

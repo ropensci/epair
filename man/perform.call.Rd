@@ -2,22 +2,29 @@
 % Please edit documentation in R/call_placement.R
 \name{perform.call}
 \alias{perform.call}
-\title{Perform call and convert data into list}
+\title{Cached version of the perform.call function}
 \usage{
-perform.call(endpoint, variables = list())
+perform.call(
+  endpoint,
+  variables = list(),
+  directory = "~/epair/cache",
+  cached = TRUE
+)
 }
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}
 
 \item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
 
-\item{name}{Specifies the name each variable should have when placed in the URL.}
+\item{cached}{TRUE or FALSE specifying if the data from the call is to be cached. Default: TRUE.}
+
+\item{cache_directory}{Place inside user-level cache directory to store the cached data. Default: "~/epair/cache".}
 }
 \value{
 A list containing requested data
 }
 \description{
-Perform call and convert data into list
+Cached version of the perform.call function
 }
 \examples{
 \dontrun{
