@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2021-07-12T17:01:37-04:00",
+            "url": "https://aqs.epa.gov/data/api/dailyData/byState?&email=fake_email&key=fake_key&state=39&bdate=20200101&edate=20200110&param=44201",
+            "rows": 240
+        }
+    ]
+}

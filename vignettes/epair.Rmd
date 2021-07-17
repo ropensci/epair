@@ -1,0 +1,19 @@
+---
+title: "epair"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{epair}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(epair)
+```
