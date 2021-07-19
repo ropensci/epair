@@ -125,24 +125,24 @@ place.call.raw <- function(url) {
 #' endpoint <- 'list/states'
 #' result <- perform.call(endpoint)
 #' }
-perform.call <- function(endpoint, variables = list(), directory = "~/epair/cache", cached = TRUE) {
+perform.call <- function(endpoint, variables = list(), cached = TRUE, directory = "~/epair/cache") {
     
     if(cached == FALSE) {
-        non.cached.perform.call(endpoint, variables)
+        return(non.cached.perform.call(endpoint, variables))
     }
     else {
-        user.path <- paste(directory, "/", paste(unlist(variables), collapse = "_"), sep = "")
         if(file.exists(directory)) {
+            user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
             if(file.exists(user.path)) {
-                retrieve.cached.call(endpoint, variables, user.path)
+                return(retrieve.cached.call(endpoint, variables, directory))
             }
             else {
-                save.new.cached.call(endpoint, variables, user.path)
+                return(save.new.cached.call(endpoint, variables, directory))
             }
         }
         else {
             dir.create(directory)
-            save.new.cached.call(endpoint, variables, user.path)
+            return(save.new.cached.call(endpoint, variables, directory))
         }
     }
 }
@@ -163,7 +163,7 @@ perform.call <- function(endpoint, variables = list(), directory = "~/epair/cach
 #' }
 clear.cached <- function(endpoint, variables = list(), directory = "~/epair/cache") {
     
-    user.path <- paste(directory, "/", paste(unlist(variables), collapse = "_"), sep = "")
+    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
     
     if(file.exists(user.path) == FALSE) {
         stop("Cached data not found for parameters.")
@@ -233,7 +233,9 @@ list.cached.data <- function(directory = "~/epair/cache") {
 #' endpoint <- 'list/states'
 #' save.new.cached.call(endpoint)
 #' }
-save.new.cached.call <- function(endpoint, variables = list(), user.path) {
+save.new.cached.call <- function(endpoint, variables = list(), directory = "~/epair/cache") {
+    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+    
     user.data <- non.cached.perform.call(endpoint, variables)
     R.cache::saveCache(user.data, pathname = user.path)
     return(user.data)
@@ -253,7 +255,9 @@ save.new.cached.call <- function(endpoint, variables = list(), user.path) {
 #' endpoint <- 'list/states'
 #' retrieve.cached.call(endpoint)
 #' }
-retrieve.cached.call <- function(endpoint, variables = list(), user.path) {
+retrieve.cached.call <- function(endpoint, variables = list(), directory = "~/epair/cache") {
+    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
     user.data <- R.cache::loadCache(pathname = user.path)
     return(user.data) 
 }
+
