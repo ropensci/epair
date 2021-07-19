@@ -114,7 +114,7 @@ place.call.raw <- function(url) {
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param cache_directory Place inside user-level cache directory to store the cached data. Default: "~/epair/cache".
+#' @param cache_directory Place inside user-level cache directory to store the cached data. Default: "/cache".
 #' @param cached TRUE or FALSE specifying if the data from the call is to be cached. Default: TRUE.
 #'
 #' @return A list containing requested data
@@ -125,24 +125,24 @@ place.call.raw <- function(url) {
 #' endpoint <- 'list/states'
 #' result <- perform.call(endpoint)
 #' }
-perform.call <- function(endpoint, variables = list(), directory = "~/epair/cache", cached = TRUE) {
+perform.call <- function(endpoint, variables = list(), cached = TRUE, directory = "/cache") {
     
     if(cached == FALSE) {
-        non.cached.perform.call(endpoint, variables)
+        return(non.cached.perform.call(endpoint, variables))
     }
     else {
-        user.path <- paste(directory, "/", paste(unlist(variables), collapse = "_"), sep = "")
         if(file.exists(directory)) {
+            user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
             if(file.exists(user.path)) {
-                retrieve.cached.call(endpoint, variables, user.path)
+                return(retrieve.cached.call(endpoint, variables, directory))
             }
             else {
-                save.new.cached.call(endpoint, variables, user.path)
+                return(save.new.cached.call(endpoint, variables, directory))
             }
         }
         else {
             dir.create(directory)
-            save.new.cached.call(endpoint, variables, user.path)
+            return(save.new.cached.call(endpoint, variables, directory))
         }
     }
 }
@@ -151,7 +151,7 @@ perform.call <- function(endpoint, variables = list(), directory = "~/epair/cach
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".
+#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
 #'
 #' @return TRUE if data was successfully forgotten, error message if cached data was not found
 #' @export
@@ -161,9 +161,9 @@ perform.call <- function(endpoint, variables = list(), directory = "~/epair/cach
 #' endpoint <- 'list/states'
 #' clear.cache(endpoint)
 #' }
-clear.cached <- function(endpoint, variables = list(), directory = "~/epair/cache") {
+clear.cached <- function(endpoint, variables = list(), directory = "/cache") {
     
-    user.path <- paste(directory, "/", paste(unlist(variables), collapse = "_"), sep = "")
+    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
     
     if(file.exists(user.path) == FALSE) {
         stop("Cached data not found for parameters.")
@@ -176,7 +176,7 @@ clear.cached <- function(endpoint, variables = list(), directory = "~/epair/cach
 
 #' Removes all cached memory of perform.call
 #'
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".
+#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
 #'
 #' @return 'Done' if data was successfully forgotten, error message if cache directory was not found
 #' @export
@@ -185,7 +185,7 @@ clear.cached <- function(endpoint, variables = list(), directory = "~/epair/cach
 #' \dontrun{
 #' clear.all.data() 
 #' }
-clear.all.cached <- function(directory = "~/epair/cache") {
+clear.all.cached <- function(directory = "/cache") {
     if(file.exists(directory) == FALSE) {
         stop("Cache directory not found.")
     }
@@ -197,7 +197,7 @@ clear.all.cached <- function(directory = "~/epair/cache") {
 
 #' Shows contents of cache directory
 #'
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".
+#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
 #'
 #' @return Character vector of file names currently in cache directory.
 #' @export
@@ -207,7 +207,7 @@ clear.all.cached <- function(directory = "~/epair/cache") {
 #' my.files <- list.cached.data()
 #' my.files 
 #' }
-list.cached.data <- function(directory = "~/epair/cache") {
+list.cached.data <- function(directory = "/cache") {
     
     user.files <- list.files(path = directory)
     
@@ -223,7 +223,7 @@ list.cached.data <- function(directory = "~/epair/cache") {
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".
+#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
 #'
 #' @return A list containing requested data
 #' @export
@@ -233,7 +233,9 @@ list.cached.data <- function(directory = "~/epair/cache") {
 #' endpoint <- 'list/states'
 #' save.new.cached.call(endpoint)
 #' }
-save.new.cached.call <- function(endpoint, variables = list(), user.path) {
+save.new.cached.call <- function(endpoint, variables = list(), directory = "/cache") {
+    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+    
     user.data <- non.cached.perform.call(endpoint, variables)
     R.cache::saveCache(user.data, pathname = user.path)
     return(user.data)
@@ -243,7 +245,7 @@ save.new.cached.call <- function(endpoint, variables = list(), user.path) {
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".
+#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
 #'
 #' @return A list containing requested data
 #' @export
@@ -253,7 +255,8 @@ save.new.cached.call <- function(endpoint, variables = list(), user.path) {
 #' endpoint <- 'list/states'
 #' retrieve.cached.call(endpoint)
 #' }
-retrieve.cached.call <- function(endpoint, variables = list(), user.path) {
+retrieve.cached.call <- function(endpoint, variables = list(), directory = "/cache") {
+    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
     user.data <- R.cache::loadCache(pathname = user.path)
     return(user.data) 
 }
