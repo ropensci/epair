@@ -25,15 +25,6 @@ httptest::with_mock_dir("Non-variable call made correctly", {
     })
 })
 
-httptest::with_mock_dir("Non-existant endpoint", { 
-    test_that("Non-existant endpoint results in messages for call placements", {
-        endpoint <- "list/countries"
-        response <- epair:::perform.call.raw(endpoint)
-        status <- response$status_code
-        testthat::expect_equal(422, status)
-    })
-})
-
 httptest::with_mock_dir("Raw call for multiple variables returns expected result",{
     test_that("Raw call returns a response object", {
         endpoint <- 'dailyData/byState'
