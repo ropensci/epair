@@ -126,23 +126,23 @@ place.call.raw <- function(url) {
 #' result <- perform.call(endpoint)
 #' }
 perform.call <- function(endpoint, variables = list(), cached = TRUE, directory = "/cache") {
-    
+    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
     if(cached == FALSE) {
         return(non.cached.perform.call(endpoint, variables))
     }
     else {
-        if(file.exists(directory)) {
-            user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+        if(file.exists(full.directory)) {
+            user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
             if(file.exists(user.path)) {
-                return(retrieve.cached.call(endpoint, variables, directory))
+                return(retrieve.cached.call(endpoint, variables, full.directory))
             }
             else {
-                return(save.new.cached.call(endpoint, variables, directory))
+                return(save.new.cached.call(endpoint, variables, full.directory))
             }
         }
         else {
-            dir.create(directory)
-            return(save.new.cached.call(endpoint, variables, directory))
+            dir.create(full.directory)
+            return(save.new.cached.call(endpoint, variables, full.directory))
         }
     }
 }
@@ -159,11 +159,11 @@ perform.call <- function(endpoint, variables = list(), cached = TRUE, directory 
 #' @examples
 #' \dontrun{
 #' endpoint <- 'list/states'
-#' clear.cache(endpoint)
+#' clear.cached(endpoint)
 #' }
 clear.cached <- function(endpoint, variables = list(), directory = "/cache") {
-    
-    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+    user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
     
     if(file.exists(user.path) == FALSE) {
         stop("Cached data not found for parameters.")
@@ -186,11 +186,12 @@ clear.cached <- function(endpoint, variables = list(), directory = "/cache") {
 #' clear.all.data() 
 #' }
 clear.all.cached <- function(directory = "/cache") {
-    if(file.exists(directory) == FALSE) {
+    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+    if(file.exists(full.directory) == FALSE) {
         stop("Cache directory not found.")
     }
     else{
-        unlink(directory, recursive = TRUE)
+        unlink(full.directory, recursive = TRUE)
         return("Done")
     }
 }
@@ -208,8 +209,8 @@ clear.all.cached <- function(directory = "/cache") {
 #' my.files 
 #' }
 list.cached.data <- function(directory = "/cache") {
-    
-    user.files <- list.files(path = directory)
+    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+    user.files <- list.files(path = full.directory)
     
     if(identical(user.files, character(0)) == FALSE) {
         return(user.files)
@@ -234,7 +235,9 @@ list.cached.data <- function(directory = "/cache") {
 #' save.new.cached.call(endpoint)
 #' }
 save.new.cached.call <- function(endpoint, variables = list(), directory = "/cache") {
-    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+
+    user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
     
     user.data <- non.cached.perform.call(endpoint, variables)
     R.cache::saveCache(user.data, pathname = user.path)
@@ -256,7 +259,8 @@ save.new.cached.call <- function(endpoint, variables = list(), directory = "/cac
 #' retrieve.cached.call(endpoint)
 #' }
 retrieve.cached.call <- function(endpoint, variables = list(), directory = "/cache") {
-    user.path <- paste(directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+    user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
     user.data <- R.cache::loadCache(pathname = user.path)
     return(user.data) 
 }
