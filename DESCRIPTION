@@ -7,7 +7,7 @@ Authors@R:
              email = "glo003@bucknell.edu", role = c("aut", "cre")),
       person(given = "Madyline",
              family = "Lawrence",
-             role = c("aut", "cre")),
+             role = c("aut")),
       person(given = "Owais",
              family = "Gilani",
              role = c("aut"),
