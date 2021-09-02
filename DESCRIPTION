@@ -1,7 +1,17 @@
 Package: epair
-Title: Grabs data from EPA API, simplifies getting pollutant data
+Title: EPA Data Helper for R
 Version: 0.1.0
-Authors@R: person("G.L.", "Orozco-Mulfinger", email = "glo003@bucknell.edu", role = c("aut", "cre"))
+Authors@R: 
+    c(person(given = "G.L.",
+             family = "Orozco-Mulfinger",
+             email = "glo003@bucknell.edu", role = c("aut", "cre")),
+      person(given = "Madyline",
+             family = "Lawrence",
+             role = c("aut", "cre")),
+      person(given = "Owais",
+             family = "Gilani",
+             role = c("aut"),
+             email = "og005@bucknell.edu"))
 Description: 
   A package to aid the user in making queries to the EPA API site found at https://aqs.epa.gov/aqsweb/documents/data_api.
   It combines API calling methods from various web scraping packages with specific strings to retrieve data from the EPA API. It also contains
