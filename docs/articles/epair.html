@@ -85,9 +85,6 @@
     </li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -121,6 +118,99 @@
     
 <div class="sourceCode"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/GLOrozcoM/epair">epair</a></span><span class="op">)</span></code></pre></div>
+<div id="installation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h3>
+<p>You can download the latest release from this repo using <code>devtools</code>.</p>
+<pre><code>devtools::install.github("GLOrozcoM/epair")</code></pre>
+<p>Or, download these files and in your working directory run</p>
+<pre><code><a href="https://devtools.r-lib.org//reference/install.html">devtools::install("GLOrozcoM/epair")</a></code></pre>
+<p><code>epair</code> depends on <code>httr</code> for making its data calls and <code>rvest</code> for creating the variables loaded in with the package. We recommend having <code>httr</code> installed (automatically taken care of through package dependencies), and only installing <code>rvest</code> if you're curious about how package variables were made.</p>
+</div>
+<div id="getting-started" class="section level3">
+<h3 class="hasAnchor">
+<a href="#getting-started" class="anchor"></a>Getting Started</h3>
+<p>Easily find the endpoint you need.</p>
+<pre><code>&gt; services$`Daily Summary Data`$Filters$`By State`$Endpoint
+[1] "dailyData/byState"</code></pre>
+<p>Place the call.</p>
+<pre><code>&gt; endpoint &lt;- "dailyData/byState"
+&gt; vars &lt;-  list(bdate = "20190101",
+                edate = "20190131",
+                param = "44201",    # Ozone
+                state = "02")       # Alaska
+&gt; result &lt;- perform.call(endpoint, vars)
+&gt; alaska &lt;- result$Data
+##   state_code county_code site_number parameter_code poc latitude longitude
+## 1         02         068        0003          44201   1  63.7232 -148.9676
+## 2         02         068        0003          44201   1  63.7232 -148.9676
+## 3         02         068        0003          44201   1  63.7232 -148.9676
+## 4         02         068        0003          44201   1  63.7232 -148.9676
+## 5         02         068        0003          44201   1  63.7232 -148.9676
+## 6         02         068        0003          44201   1  63.7232 -148.9676
+##   datum parameter         sample_duration pollutant_standard date_local
+## 1 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979 2019-01-01
+## 2 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997 2019-01-01
+## 3 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008 2019-01-01
+## 4 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015 2019-01-01
+## 5 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979 2019-01-02
+## 6 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997 2019-01-02
+##    units_of_measure event_type observation_count observation_percent
+## 1 Parts per million       None                24                 100
+## 2 Parts per million       None                24                 100
+## 3 Parts per million       None                24                 100
+## 4 Parts per million       None                17                 100
+## 5 Parts per million       None                24                 100
+## 6 Parts per million       None                24                 100
+##   validity_indicator arithmetic_mean first_max_value first_max_hour aqi
+## 1                  Y        0.042667           0.045              9  NA
+## 2                  Y        0.041917           0.044              5  41
+## 3                  Y        0.041917           0.044              5  41
+## 4                  Y        0.041588           0.044              7  41
+## 5                  Y        0.036708           0.040              1  NA
+## 6                  Y        0.035708           0.039              0  36
+##   method_code                      method                 local_site_name
+## 1         047 INSTRUMENTAL - ULTRA VIOLET Denali NP &amp; PRES - Headquarters
+## 2         047 INSTRUMENTAL - ULTRA VIOLET Denali NP &amp; PRES - Headquarters
+## 3         047 INSTRUMENTAL - ULTRA VIOLET Denali NP &amp; PRES - Headquarters
+## 4         047 INSTRUMENTAL - ULTRA VIOLET Denali NP &amp; PRES - Headquarters
+## 5         047 INSTRUMENTAL - ULTRA VIOLET Denali NP &amp; PRES - Headquarters
+## 6         047 INSTRUMENTAL - ULTRA VIOLET Denali NP &amp; PRES - Headquarters
+##           site_address  state  county          city cbsa_code cbsa
+## 1 DENALI NATIONAL PARK Alaska Denali  Not in a city      &lt;NA&gt; &lt;NA&gt;
+## 2 DENALI NATIONAL PARK Alaska Denali  Not in a city      &lt;NA&gt; &lt;NA&gt;
+## 3 DENALI NATIONAL PARK Alaska Denali  Not in a city      &lt;NA&gt; &lt;NA&gt;
+## 4 DENALI NATIONAL PARK Alaska Denali  Not in a city      &lt;NA&gt; &lt;NA&gt;
+## 5 DENALI NATIONAL PARK Alaska Denali  Not in a city      &lt;NA&gt; &lt;NA&gt;
+## 6 DENALI NATIONAL PARK Alaska Denali  Not in a city      &lt;NA&gt; &lt;NA&gt;
+##   date_of_last_change
+## 1          2020-02-26
+## 2          2020-02-26
+## 3          2020-02-26
+## 4          2020-02-26
+## 5          2020-02-26
+## 6          2020-02-26</code></pre>
+</div>
+<div id="key-features" class="section level3">
+<h3 class="hasAnchor">
+<a href="#key-features" class="anchor"></a>Key features</h3>
+<p>Look at variables to glean more information on the kind of data call you want to make.</p>
+<ul>
+<li>
+<code>services</code> provides an easy to use container for all services and required calling variables for the API.</li>
+<li>
+<code>variables</code> gives you information on all required calling variables.</li>
+<li>
+<code>endpoints</code> offers a comprehensive list of every endpoint used in the API.</li>
+</ul>
+<p>Place your call without having to worry about string manipulations or JSON files.</p>
+<ul>
+<li>
+<code><a href="../reference/perform.call.html">perform.call()</a></code> will take an endpoint and variables and provided the user with metadata and desired data as a dataframe.</li>
+<li>
+<code><a href="../reference/perform.call.raw.html">perform.call.raw()</a></code> will give the same results as <code><a href="../reference/perform.call.html">perform.call()</a></code> except for in JSON format.</li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -132,7 +222,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by G.L. Orozco-Mulfinger.</p>
+  <p>Developed by G.L. Orozco-Mulfinger, Madyline Lawrence, Owais Gilani.</p>
 </div>
 
 <div class="pkgdown">
