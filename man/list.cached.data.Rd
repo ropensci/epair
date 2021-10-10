@@ -4,10 +4,10 @@
 \alias{list.cached.data}
 \title{Shows contents of cache directory}
 \usage{
-list.cached.data(directory = "~/epair/cache")
+list.cached.data(directory = "/cache")
 }
 \arguments{
-\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".}
+\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".}
 }
 \value{
 Character vector of file names currently in cache directory.

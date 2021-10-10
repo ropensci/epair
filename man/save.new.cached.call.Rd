@@ -4,14 +4,14 @@
 \alias{save.new.cached.call}
 \title{Saves a new call that has not been previously cached yet.}
 \usage{
-save.new.cached.call(endpoint, variables = list(), user.path)
+save.new.cached.call(endpoint, variables = list(), directory = "/cache")
 }
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}
 
 \item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
 
-\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".}
+\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".}
 }
 \value{
 A list containing requested data
