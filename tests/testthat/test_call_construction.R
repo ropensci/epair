@@ -8,7 +8,10 @@ test_that("Authentication follows correct format", {
 
 test_that("Basic call is setup correctly", {
   endpoint <- "list/States"
-  exp_call <- "https://aqs.epa.gov/data/api/list/States?&email=fake_aqs_email&key=fake_aqs_key"
+  exp_call <- paste0("https://aqs.epa.gov/data/api/list/States?&email=", 
+                     Sys.getenv("aqs_email"),
+                     "&key=", 
+                     Sys.getenv("aqs_api_key"))
   found_call <- epair:::create.base.call(endpoint)
   expect_equal(found_call, exp_call)
 })
