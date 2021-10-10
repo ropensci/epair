@@ -6,7 +6,7 @@
 <!-- badges: end -->
 
 A package designed to aid in getting data from the Environmental Protection Agency (EPA) API at
-https://aqs.epa.gov/aqsweb/documents/data_api.
+https://aqs.epa.gov/aqsweb/documents/data_api.html.
 
 ### Overview
 
