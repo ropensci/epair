@@ -1,4 +1,19 @@
-#### This module was built to encapsulate call placement functions to the EPA API
+#' Get an API key from the AQS API. 
+#'  
+#' @param user.email Email provided by the user to get an API key for.
+#' @export
+#' @examples
+#' \dontrun{
+#' email <- "an.example.email@domain.com"
+#' get.aqs.key(email)
+#' }
+get.aqs.key <- function(user.email) {
+  url.for.call <- paste0("https://aqs.epa.gov/data/api/signup?email=", user.email)
+  raw <- httr::GET(url.for.call)
+  message(raw)
+}
+
+
 #' Check if the API is up and running 
 #'
 #' 
@@ -14,8 +29,11 @@ is.API.running <- function() {
   raw <- httr::GET(url)
   text.content <- httr::content(raw, "text")
   converted <- jsonlite::fromJSON(text.content, flatten = TRUE)
-  print(converted$Header$status)
-  print(converted$Header$request_time)
+  message(converted$Header$status)
+  message(converted$Header$request_time)
+  
+  is.up <- 200 == raw$status_code
+  return(is.up)
 }
 
 #' Perform call and keep original result

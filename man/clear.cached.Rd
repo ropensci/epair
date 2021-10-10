@@ -4,14 +4,14 @@
 \alias{clear.cached}
 \title{Removes memory of cached perform.call data for specific parameters}
 \usage{
-clear.cached(endpoint, variables = list(), directory = "~/epair/cache")
+clear.cached(endpoint, variables = list(), directory = "/cache")
 }
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}
 
 \item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
 
-\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".}
+\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".}
 }
 \value{
 TRUE if data was successfully forgotten, error message if cached data was not found
@@ -22,6 +22,6 @@ Removes memory of cached perform.call data for specific parameters
 \examples{
 \dontrun{
 endpoint <- 'list/states'
-clear.cache(endpoint)
+clear.cached(endpoint)
 }
 }

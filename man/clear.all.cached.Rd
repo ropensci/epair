@@ -4,10 +4,10 @@
 \alias{clear.all.cached}
 \title{Removes all cached memory of perform.call}
 \usage{
-clear.all.cached(directory = "~/epair/cache")
+clear.all.cached(directory = "/cache")
 }
 \arguments{
-\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".}
+\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".}
 }
 \value{
 'Done' if data was successfully forgotten, error message if cache directory was not found
