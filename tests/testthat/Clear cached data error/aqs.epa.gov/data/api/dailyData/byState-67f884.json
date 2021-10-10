@@ -1,2 +1,0 @@
-structure(list(url = "https://aqs.epa.gov/data/api/dailyData/byState?&email=fake_aqs_email&key=fake_api_key&state=37&bdate=20200101&edate=20200102&param=44201", 
-    status_code = 400L, class = "response")
