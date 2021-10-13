@@ -1,8 +1,14 @@
 ---
 title: "The Anatomy of an EPA API request"
-output: html_document
+output: rmarkdown::html_vignette
+description: >
+  Learn how pkgdown's automatic linking works, and how you can 
+  customise it.
+vignette: >
+  %\VignetteIndexEntry{The Anatomy of an EPA API request}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
 
 Although we do not need to write out an entire API url request, knowing how API requests are built helps when using this package.
 
