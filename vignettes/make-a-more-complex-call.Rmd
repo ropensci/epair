@@ -1,8 +1,12 @@
 ---
-title: 3. Make a more complex call
-slug: 3-make-a-more-complex-call
-categories: []
-tags: []
+title: "Make a more complex call"
+output: rmarkdown::html_vignette
+description: >
+  Make a more complex call
+vignette: >
+  %\VignetteIndexEntry{Make a more complex call}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r echo = FALSE}
@@ -27,7 +31,7 @@ Some calls require additional API variables like the state or county of interest
 For example, suppose we want to find out what counties and respective parameter codes exist for North Carolina. 
 We can again use the `services` object, and check its `List` service as in [Making your first call](../../docs/Tutorial/making-your-first-call).
 
-![](/Users/madylawrence/epair/vignettes/img/complex_call/counties_by_state.png)
+![](img/complex_call/counties_by_state.png)
 
 It looks like the `Counties by state` filter would be appropriate since we're trying to determine the county parameter codes for North Carolina.
 
