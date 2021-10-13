@@ -140,8 +140,8 @@ place.call.raw <- function(url) {
 #' endpoint <- 'list/states'
 #' result <- perform.call(endpoint)
 #' }
-perform.call <- function(endpoint, variables = list(), cached = TRUE, directory = "/cache") {
-    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+perform.call <- function(endpoint, variables = list(), cached = TRUE, cache_directory = "/cache") {
+    full.directory <- ifelse(cache_directory == "/cache", paste(getwd(),cache_directory, sep = ""), cache_directory)
     if(cached == FALSE) {
         return(non.cached.perform.call(endpoint, variables))
     }
