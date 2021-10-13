@@ -1,10 +1,13 @@
 ---
-title: 4. Summary
-slug: 4-wrap-up
-categories: []
-tags: []
+title: "Summary"
+output: rmarkdown::html_vignette
+description: >
+  Wrap up
+vignette: >
+  %\VignetteIndexEntry{Summary}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
 
 Now you know how to make calls! The general template for making a call (after making sure authentication is set up) is as follows.
 
