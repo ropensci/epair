@@ -27,9 +27,13 @@ Imports:
   rvest (>= 0.3.5), 
   httr (>= 1.4.1), 
   jsonlite (>= 1.6.1),
-  R.cache (>= 0.15.0)
+  R.cache (>= 0.15.0),
+  stringr
 Suggests: 
     httptest,
+    knitr,
     testthat
 BugReports: https://github.com/GLOrozcoM/epair/issues
 URL: https://github.com/GLOrozcoM/epair
+VignetteBuilder: 
+    knitr
