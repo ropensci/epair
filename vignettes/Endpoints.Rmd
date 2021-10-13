@@ -1,6 +1,12 @@
 ---
-title: "Finding Endpoints"
-output: html_document
+title: "Finding endpoints"
+output: rmarkdown::html_vignette
+description: >
+  Finding endpoints
+vignette: >
+  %\VignetteIndexEntry{Finding endpoints}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r echo = FALSE, message = FALSE}
@@ -33,15 +39,16 @@ For example, let's suppose you want to get daily summary data for a particular c
 
 Select `Daily Summary Data` from `services`.
 
-![](/Users/madylawrence/epair/vignettes/img/endpoints/daily.png)
+![](img/endpoints/daily.png)
 
 Then select the appropriate filter, in this case, `By County`.
 
-![](/Users/madylawrence/epair/vignettes/img/endpoints/filter.png)
+![](img/endpoints/filter.png)
 
 Then, select `Endpoint`.
 
-![](/Users/madylawrence/epair/vignettes/img/endpoints/endpoint.png)
+![](img/endpoints/endpoint.png)
+
 
 ```{r}
 services$`Daily Summary Data`$Filters$`By County`$Endpoint
@@ -51,5 +58,4 @@ In fact, all endpoints for a service can be found using this general template.
 ```{r eval = FALSE}
  services$ServiceName$Filters$SpecificFilter$Endpoint
 ```
-
 
