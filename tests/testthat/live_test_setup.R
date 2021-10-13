@@ -9,13 +9,4 @@ source("R/data_transforms.R")
 source("R/Datasets.R")
 load("data/services.RData")
 
-
-library(testthat)
-library(stringr)
-library(memoise)
-library(R.cache)
-library(httr)
-library(remotes)
-library(stringi)
-
 testthat::test_file("tests/testthat/live_test_calls.R", "fail")
