@@ -45,7 +45,6 @@ create.base.call <- function(endpoint) {
 #' @param query A URL containing authentication for the EPA API site.
 #' @param variables A list of variables. Each variable should be declared with the appropriate name.
 #' Consult VARIABLE.TYPES for the right names.
-#' @param name A list containing names of API variables.
 #'
 #' @return A URL consisting of query + variables.
 #' @export
