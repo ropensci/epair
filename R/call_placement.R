@@ -40,8 +40,6 @@ is.API.running <- function() {
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param name Specifies the name each variable should have when placed in the URL. User input
-#' is not necessary and should be left in default state.
 #' 
 #' @return A list containing result from query to EPA API
 #' @export
@@ -68,7 +66,6 @@ perform.call.raw <- function(endpoint, variables = list()) {
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param name Specifies the name each variable should have when placed in the URL. 
 #'
 #' @return A list containing requested data
 #' @export
