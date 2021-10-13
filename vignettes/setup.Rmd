@@ -1,8 +1,12 @@
 ---
-title: 1. Setup
-slug: 1-setup
-categories: []
-tags: []
+title: "Setup"
+output: rmarkdown::html_vignette
+description: >
+  Setup
+vignette: >
+  %\VignetteIndexEntry{Setup}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{css, echo=FALSE}
