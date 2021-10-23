@@ -1,6 +1,12 @@
 ---
 title: "Navigating API Services"
-output: html_document
+output: rmarkdown::html_vignette
+description: >
+  Navigating API services
+vignette: >
+  %\VignetteIndexEntry{Navigating API Services}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{css, echo=FALSE}
@@ -34,13 +40,13 @@ names(services)
 Alternatively, using RStudio's smart variable selection, you can type `services$`
 to see the available services. 
 
-![](/Users/madylawrence/epair/vignettes/img/making_first_call/service_selection.png)
+![](img/making_first_call/service_selection.png)
 
 ## What service to use
 
 You can also see a description for each service. This helps determine what service to use. For example, suppose you want to find hourly data in a particular state. Perhaps these data are contained in a daily summary so you can check the description. 
 
-![](/Users/madylawrence/epair/vignettes/img/services/daily_description.png)
+![](img/services/daily_description.png)
 
 ```{r}
 services$`Daily Summary Data`$Description
@@ -49,7 +55,7 @@ The description suggests hourly data may be used to produce the values, but we m
 
 So we try a different service description. 
 
-![](/Users/madylawrence/epair/vignettes/img/services/sample_description.png)
+![](img/services/sample_description.png)
 
 ```{r}
 services$`Sample Data`$Description
@@ -73,7 +79,7 @@ names(services$Monitors$Filters)
 
 Or, we can use `servics$Monitors$Filters$` to see available filters.
 
-![](/Users/madylawrence/epair/vignettes/img/services/monitor_filters.png)
+![](img/services/monitor_filters.png)
 
 The `Filters` component in the `services` object contains all information you might need to make a call. It has the endpoint, required API variables, optional API variables (if appropriate), and a URL example of a call. 
 

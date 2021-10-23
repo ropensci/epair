@@ -1,8 +1,12 @@
 ---
-title: 2. Making your first call
-slug: 2-making-your-first-call
-categories: []
-tags: []
+title: "Making your first call"
+output: rmarkdown::html_vignette
+description: >
+  Making your first call
+vignette: >
+  %\VignetteIndexEntry{Making your first call}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{css, echo=FALSE}
@@ -40,7 +44,7 @@ services[["MetaData"]]$Description
 ```
 Using RStudio's smart variable selection, simply typing `services$` will open up a service to select along with any other useful information about that service. 
 
-![](/Users/madylawrence/epair/vignettes/img/making_first_call/service_selection.png)
+![](img/making_first_call/service_selection.png)
 
 Becoming familiar with the `services` object can help you to make calls.
 In the [Navigating services](../../Useful-Features/Services) page, we talk in depth about the `services` object.  
@@ -74,14 +78,16 @@ Recall that we're looking for all parameter codes associated with each state in 
 
 We first look at `services`, and select `List`'s description to see if this is the appropriate service to use. 
 
-![](/Users/madylawrence/epair/vignettes/img/making_first_call/list_description.png)
+![](img/making_first_call/list_description.png)
 
 ```{r}
 services$List$Description
 ```
 This seems like the perfect service to use to find state parameter codes. We select `List`, and then see that there are multiple `Filters` available for listing. 
 
-![](/Users/madylawrence/epair/vignettes/img/making_first_call/list_filters.png)
+![](img/making_first_call/list_filters.png)
+
+
 
 It looks like `States` would be the most appropriate option here.
 
@@ -117,6 +123,3 @@ Alternatively, if you want the original output from the API, `perform.call.raw()
 ```{r}
 raw.result <- perform.call.raw(endpoint = endpoint)
 ```
-
-
-

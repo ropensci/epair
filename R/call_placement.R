@@ -40,8 +40,6 @@ is.API.running <- function() {
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param name Specifies the name each variable should have when placed in the URL. User input
-#' is not necessary and should be left in default state.
 #' 
 #' @return A list containing result from query to EPA API
 #' @export
@@ -68,7 +66,6 @@ perform.call.raw <- function(endpoint, variables = list()) {
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
 #' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param name Specifies the name each variable should have when placed in the URL. 
 #'
 #' @return A list containing requested data
 #' @export
@@ -143,8 +140,8 @@ place.call.raw <- function(url) {
 #' endpoint <- 'list/states'
 #' result <- perform.call(endpoint)
 #' }
-perform.call <- function(endpoint, variables = list(), cached = TRUE, directory = "/cache") {
-    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+perform.call <- function(endpoint, variables = list(), cached = TRUE, cache_directory = "/cache") {
+    full.directory <- ifelse(cache_directory == "/cache", paste(getwd(),cache_directory, sep = ""), cache_directory)
     if(cached == FALSE) {
         return(non.cached.perform.call(endpoint, variables))
     }

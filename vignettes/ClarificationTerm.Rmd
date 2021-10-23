@@ -1,8 +1,13 @@
 ---
 title: "Clarification on terminology"
-output: html_document
+output: rmarkdown::html_vignette
+description: >
+  Terminology
+vignette: >
+  %\VignetteIndexEntry{Clarification on terminology}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
-
 # Terms 
 
 A number of terms crop up throughout this site that may lead to confusion if not addressed properly.

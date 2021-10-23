@@ -1,8 +1,12 @@
 ---
-title: 0. Installation
-slug: 0-installation
-categories: []
-tags: []
+title: "Installation"
+output: rmarkdown::html_vignette
+description: >
+  Installation
+vignette: >
+  %\VignetteIndexEntry{Installation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 # How to install and load epair

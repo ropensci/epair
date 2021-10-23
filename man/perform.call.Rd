@@ -4,7 +4,12 @@
 \alias{perform.call}
 \title{Cached version of the perform.call function}
 \usage{
-perform.call(endpoint, variables = list(), cached = TRUE, directory = "/cache")
+perform.call(
+  endpoint,
+  variables = list(),
+  cached = TRUE,
+  cache_directory = "/cache"
+)
 }
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}

@@ -11,8 +11,6 @@ add.variables(query, variables)
 
 \item{variables}{A list of variables. Each variable should be declared with the appropriate name.
 Consult VARIABLE.TYPES for the right names.}
-
-\item{name}{A list containing names of API variables.}
 }
 \value{
 A URL consisting of query + variables.

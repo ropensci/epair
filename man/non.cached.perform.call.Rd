@@ -10,8 +10,6 @@ non.cached.perform.call(endpoint, variables = list())
 \item{endpoint}{An endpoint from the available EPA API endpoints}
 
 \item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
-
-\item{name}{Specifies the name each variable should have when placed in the URL.}
 }
 \value{
 A list containing requested data
