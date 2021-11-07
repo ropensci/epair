@@ -32,6 +32,7 @@ Imports:
 Suggests: 
     httptest,
     knitr,
+    rmarkdown,
     testthat
 BugReports: https://github.com/GLOrozcoM/epair/issues
 URL: https://github.com/GLOrozcoM/epair
