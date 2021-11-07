@@ -28,6 +28,11 @@ To use the API, we need to have a valid email and API key with the EPA website. 
 Once we have the email and key, we can easily set these up to be in our requests. 
 
 ```{r echo = FALSE}
+aqs_email = Sys.getenv("API_EMAIL")
+aqs_api_key = Sys.getenv("API_KEY")
+Sys.setenv('aqs_email' = aqs_email)
+Sys.setenv('aqs_api_key' = aqs_api_key)
+
 epa.authentication <- create.authentication(Sys.getenv('aqs_email'), Sys.getenv('aqs_api_key'))
 options( epa_authentication = epa.authentication )
 ```
