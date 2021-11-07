@@ -28,7 +28,8 @@ Imports:
   httr (>= 1.4.1), 
   jsonlite (>= 1.6.1),
   R.cache (>= 0.15.0),
-  stringr
+  stringr,
+  rmarkdown
 Suggests: 
     httptest,
     knitr,
