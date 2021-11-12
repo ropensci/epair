@@ -22,6 +22,11 @@ library(epair)
 library(rvest)
 library(httr)
 library(jsonlite)
+
+aqs_email = Sys.getenv("API_EMAIL")
+aqs_api_key = Sys.getenv("API_KEY")
+Sys.setenv('aqs_email' = aqs_email)
+Sys.setenv('aqs_api_key' = aqs_api_key)
 ```
 
 To use the API, we need to have a valid email and API key with the EPA website. Getting an API key is easy, and can be done following the instructions [here](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup). 
