@@ -27,6 +27,11 @@ library(epair)
 library(httr)
 library(rvest)
 library(jsonlite)
+
+aqs_email = Sys.getenv("API_EMAIL")
+aqs_api_key = Sys.getenv("API_KEY")
+Sys.setenv('aqs_email' = aqs_email)
+Sys.setenv('aqs_api_key' = aqs_api_key)
 ```
 
 At the outset, we may not know exactly what we want from the API. We can start by taking a look at the `services` object included with the package. The `services` object is an R list that contains information about each service offered by the EPA API and how to use it.
@@ -65,6 +70,11 @@ options(epa_authentication = epa.authentication)
 ```
 
 ```{r echo = FALSE}
+aqs_email = Sys.getenv("API_EMAIL")
+aqs_api_key = Sys.getenv("API_KEY")
+Sys.setenv('aqs_email' = aqs_email)
+Sys.setenv('aqs_api_key' = aqs_api_key)
+
 epa.authentication <- create.authentication(Sys.getenv('aqs_email'), Sys.getenv('aqs_api_key'))
 options(epa_authentication = epa.authentication)
 ```
