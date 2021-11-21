@@ -15,13 +15,7 @@ library(epair)
 
 ```{r echo = FALSE, message = FALSE}
 library(httr)
-library(rvest)
 library(jsonlite)
-```
-
-```{r echo = FALSE}
-epa.authentication <- create.authentication(Sys.getenv('aqs_email'), Sys.getenv('aqs_api_key'))
-options( epa_authentication = epa.authentication)
 ```
 
 Some calls require additional API variables like the state or county of interest. For these calls, we can easily add variables to the base call by passing them in as a second argument to `perform.call()`.
@@ -62,17 +56,7 @@ In the case of multiple variables, we can make a list of variables and pass the 
 
 Suppose, for instance, we're interested in finding daily ozone data for North Carolina, starting January 1, 2020 and ending on January 2, 2020, and we have determined the correct parameter codes for each API variable (please see [Navigating API services](../Useful-Features/Services) or [Figuring out API variables](../../docs/Useful-Features/Variables) to understand how we could go about determining proper parameter codes for each of these variables).
 
-Our first option is to make a list of the parameter codes and a list of API variable names that correspond
-to the parameter codes.
-
-```{r eval = FALSE}
-endpoint <- 'dailyData/byState'
-variable.list <- list('37','20200101','20200102','44201')
-result <- perform.call(endpoint = endpoint, 
-                       variables = variable.list, 
-                       name = list("state", "bdate", "edate", "param"))
-```
-Our second option is to create a list that has the appropriate API variable names declared for parameter codes.
+For this, we create a list that has the appropriate API variable names declared for parameter codes.
 ```{r eval = FALSE}
 endpoint <- 'dailyData/byState'
 variable.list <- list("state" = '37', 

@@ -10,15 +10,9 @@ vignette: >
 ---
 
 ```{r echo = FALSE, message = FALSE}
-library(rvest)
 library(jsonlite)
 library(httr)
 library(epair)
-```
-
-```{r echo = FALSE}
-authentication <- create.authentication(Sys.getenv('aqs_email'), Sys.getenv('aqs_api_key'))
-options(epa_authentication = authentication)
 ```
 
 Let's take a look at how to find endpoints for making queries (see [Anatomy of an EPA API request](../../Tutorial/anatomyEPArequest) if you don't know what an endpoint is). 

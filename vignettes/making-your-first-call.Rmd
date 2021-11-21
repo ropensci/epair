@@ -25,13 +25,7 @@ library(epair)
 
 ```{r echo = FALSE, message = FALSE}
 library(httr)
-library(rvest)
 library(jsonlite)
-
-aqs_email = Sys.getenv("API_EMAIL")
-aqs_api_key = Sys.getenv("API_KEY")
-Sys.setenv('aqs_email' = aqs_email)
-Sys.setenv('aqs_api_key' = aqs_api_key)
 ```
 
 At the outset, we may not know exactly what we want from the API. We can start by taking a look at the `services` object included with the package. The `services` object is an R list that contains information about each service offered by the EPA API and how to use it.
@@ -63,21 +57,6 @@ In this example, we will attempt to list all parameter codes associated with sta
 If you haven't already read the Anatomy of an API request, we recommend you do. The post explains how a call is made and may help you in making your own calls. 
 
 Remember to set up your authentication first!
-
-```{r eval = FALSE}
-epa.authentication <- create.authentication("youremail", "yourAPIkey")
-options(epa_authentication = epa.authentication)
-```
-
-```{r echo = FALSE}
-aqs_email = Sys.getenv("API_EMAIL")
-aqs_api_key = Sys.getenv("API_KEY")
-Sys.setenv('aqs_email' = aqs_email)
-Sys.setenv('aqs_api_key' = aqs_api_key)
-
-epa.authentication <- create.authentication(Sys.getenv('aqs_email'), Sys.getenv('aqs_api_key'))
-options(epa_authentication = epa.authentication)
-```
 
 The package automatically includes the base of the call (the base API site and authentication). To query, we need only provide an endpoint (to see how you can determine an endpoint see the [Finding endpoints](../../Useful-Features/Endpoints) page). 
 
@@ -112,24 +91,24 @@ endpoint <- services$List$Filters$States$Endpoint
 
 After determining the endpoint, we can make the call using `perform.call()`.
 
-```{r}
+```{r, eval=FALSE}
 result <- perform.call(endpoint = endpoint)
 ```
 The `perform.call()` function will provide an R list with a `Header` and `Data` component. The `Header` contains information about the call and is useful for determining how the call went through. 
 
-```{r}
+```{r, eval=FALSE}
 result$Header$status
 result$Header$request_time
 ```
 
 To get the actual data we called for (states and their parameter codes), we use the `Data` component of the result.
 
-```{r}
+```{r, eval=FALSE}
 result$Data
 ```
 
 Alternatively, if you want the original output from the API, `perform.call.raw()` will make a request, and provide the request results raw in JSON format. 
 
-```{r}
+```{r, eval=FALSE}
 raw.result <- perform.call.raw(endpoint = endpoint)
 ```
