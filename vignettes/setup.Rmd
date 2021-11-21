@@ -19,40 +19,25 @@ pre code {
 
 ```{r echo = FALSE, message = FALSE}
 library(epair)
-library(rvest)
 library(httr)
 library(jsonlite)
-
-aqs_email = Sys.getenv("API_EMAIL")
-aqs_api_key = Sys.getenv("API_KEY")
-Sys.setenv('aqs_email' = aqs_email)
-Sys.setenv('aqs_api_key' = aqs_api_key)
 ```
 
-To use the API, we need to have a valid email and API key with the EPA website. Getting an API key is easy, and can be done following the instructions [here](https://aqs.epa.gov/aqsweb/documents/data_api.html#signup). 
-Once we have the email and key, we can easily set these up to be in our requests. 
+You'll need to acquire an API key from AQS. To do so, `epair` provides the function `get.aqs.key()` with your email as its parameter. After calling `get.aqs.key()` check your email to obtain your key. `epair` uses `.Renviron` to access your email and key when making calls. A simple way to setup your key and email is through the `usethis` package with the following command. 
 
-```{r echo = FALSE}
-aqs_email = Sys.getenv("API_EMAIL")
-aqs_api_key = Sys.getenv("API_KEY")
-Sys.setenv('aqs_email' = aqs_email)
-Sys.setenv('aqs_api_key' = aqs_api_key)
+`usethis::edit_r_environ()` 
 
-epa.authentication <- create.authentication(Sys.getenv('aqs_email'), Sys.getenv('aqs_api_key'))
-options( epa_authentication = epa.authentication )
-```
+This will open up the .Renviron file where you can store your email and key. You MUST store your key and email using the exactformat `aqs_api_key=‘received_key’` and `aqs_email=‘youremail@domain.com’`. Otherwise, the package will assume you haven’t declared your credentials. 
 
-```{r eval = FALSE}
-authentication <- create.authentication("youremail@domain.com", "yourAPIkey")
-options(epa_authentication = authentication)
-```
-This sets your authentication info to be in your .Rprofile options to make calls. All future data requests will now use these credentials.
+Note you also need to restart R to ensure that changes take effect. 
+
+If even after restarting R, `Sys.getenv(‘aqs_email’)` is returning a null string, you can also try setting the variables with the `Sys.setenv()` command as follows `Sys.setenv(aqs_email = “youremail@domain.com”)` and `Sys.setenv(aqs_api_key = “received_key”)`. 
 
 # Checking if the API is running
 
 All queries automatically check if the API is running. It might make sense, however, to check the API is up before making multiple queries. The package allows you to make this check easily. 
 
-```{r}
+```{r, eval=FALSE}
 is.API.running()
 ```
 

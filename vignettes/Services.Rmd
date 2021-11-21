@@ -16,7 +16,6 @@ pre code {
 ```
 
 ```{r echo = FALSE, message = FALSE}
-library(rvest)
 library(jsonlite)
 library(httr)
 library(epair)

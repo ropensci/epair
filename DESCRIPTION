@@ -13,8 +13,8 @@ Authors@R:
              role = c("aut"),
              email = "og005@bucknell.edu"))
 Description: 
-  A package to aid the user in making queries to the EPA API site found at https://aqs.epa.gov/aqsweb/documents/data_api.
-  It combines API calling methods from various web scraping packages with specific strings to retrieve data from the EPA API. It also contains
+  Aid the user in making queries to the EPA API site found at https://aqs.epa.gov/aqsweb/documents/data_api.
+  This package combines API calling methods from various web scraping packages with specific strings to retrieve data from the EPA API. It also contains
   easy to use loaded variables that help a user navigate services offered by the API and aid the user in 
   determining the appropriate way to make a an API call.
 Depends: R (>= 3.3.3)
@@ -22,18 +22,16 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1.9001
-Imports: 
-  xml2 (>= 1.1.1),
-  rvest (>= 0.3.5), 
+Imports:
   httr (>= 1.4.1), 
   jsonlite (>= 1.6.1),
   R.cache (>= 0.15.0),
   stringr
 Suggests: 
-    httptest,
-    knitr,
-    rmarkdown,
-    testthat
+    httptest (>= 4.1.0),
+    knitr (>= 1.33),
+    rmarkdown (>= 2.8),
+    testthat (>= 3.0.2)
 BugReports: https://github.com/GLOrozcoM/epair/issues
 URL: https://github.com/GLOrozcoM/epair
 VignetteBuilder: 

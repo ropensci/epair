@@ -110,6 +110,12 @@ Place your call without having to worry about string manipulations or JSON files
 * `perform.call()` will take an endpoint and variables and provided the user with metadata and desired data as a dataframe. 
 * `perform.call.raw()` will give the same results as `perform.call()` except for in JSON format.
 
+Caching is automatically supported through internal use of `R.cache`. 
+
+## Usage notes
+
+Note that currently a single call to AQS allows for at maximum a single year's worth of data. You'll need to create separate calls to get multiple year's worth of data.
+
 ### ropenaq
 
 You may want to check out `ropenaq` instead depending on the goals behind your study. `ropenaq` is an R wrapper for accessing the OpenAQ API - see its website [here](https://docs.ropensci.org/ropenaq/). Here are a few differences:
