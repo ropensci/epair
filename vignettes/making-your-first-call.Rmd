@@ -109,6 +109,6 @@ result$Data
 
 Alternatively, if you want the original output from the API, `perform.call.raw()` will make a request, and provide the request results raw in JSON format. 
 
-```{r}
+```{r, eval=FALSE}
 raw.result <- perform.call.raw(endpoint = endpoint)
 ```
