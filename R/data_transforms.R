@@ -26,11 +26,9 @@ string.replacer <- function(df, pattern, replacement) {
 #' @return A list with entries matching the pattern replaced by replacement
 #'
 #' @examples
-#' \dontrun{
-#' services <- epair:::get.services()
+#' services <- "\t Some text from the table"
 #' services <- epair:::list.string.replacer(services, "\t", "")
 #' services
-#' }
 list.string.replacer <- function(entry.list, pattern, replacement) {
   new.list <- rapply(entry.list, 
                      gsub, 
@@ -48,15 +46,11 @@ list.string.replacer <- function(entry.list, pattern, replacement) {
 #' @return Data frame without tabs, new lines, and empty spaces
 #'
 #' @examples
-#' \dontrun{
-#' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
-#' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-#' df <- epair:::get.table(url, table.path)
-#' df
-#' 
-#' clean.df <- epair:::remove.escapes.spaces(df)
+#' service <- c("Sign up")
+#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered address from aqsdatamart@epa.gov.")
+#' og.df <- data.frame(service, description)
+#' clean.df <- remove.escapes.spaces(og_table)
 #' clean.df
-#' }
 remove.escapes.spaces <- function(df) {
   clean.df <- string.replacer(df, "\t", "")
   clean.df <- string.replacer(clean.df, "\r\n", "")
@@ -71,11 +65,11 @@ remove.escapes.spaces <- function(df) {
 #' @return A list without tabs, new lines, and empty spaces
 #'
 #' @examples
-#' \dontrun{
-#' services <- epair:::get.services()
-#' services <- epair:::list.remove.escapes.spaces(services)
-#' services
-#' }
+#' service <- c("Sign up")
+#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered address from aqsdatamart@epa.gov.")
+#' og_list <- list("service" = service, "description" = description)
+#' clean <- epair:::remove.escapes.spaces(og_list)
+#' clean
 list.remove.escapes.spaces <- function(a.list) {
   new.list <- list.string.replacer(a.list, "\t", "")
   new.list <- list.string.replacer(new.list, "\r\n", "")
@@ -90,13 +84,11 @@ list.remove.escapes.spaces <- function(a.list) {
 #' @return The transposed data frame. First variable entries become column names.
 #'
 #' @examples
-#' \dontrun{
-#' url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
-#' table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-#' df <- epair:::get.table(url, table.path)
+#' service <- c("Sign up")
+#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered address from aqsdatamart@epa.gov.")
+#' df <- data.frame(service, description)
 #' t.df <- epair:::get.transpose(df)
 #' t.df
-#' }
 get.transpose <- function(df) {
   t.df <-  t(df)
   t.names <- c()
