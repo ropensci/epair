@@ -22,11 +22,9 @@ create.authentication <- function(email, key) {
 #' @return A URL string containing authentication for the call.
 #'
 #' @examples
-#' \dontrun{
 #' endpoint <- "list/states"
 #' call <- epair:::create.base.call(endpoint)
 #' call
-#' }
 create.base.call <- function(endpoint) {
   if (!nzchar(Sys.getenv('aqs_api_key'))) {
     stop("Make sure you've declared aqs_api_key in your .Renviron!")
@@ -50,7 +48,6 @@ create.base.call <- function(endpoint) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' endpoint <- "dailyData/byState"
 #' variable.list <- list("state" = '37', 
 #'                       "bdate" = '20200101', 
@@ -59,7 +56,6 @@ create.base.call <- function(endpoint) {
 #' call <- epair:::create.base.call(endpoint)
 #' call <- add.variables(call, variable.list)
 #' call
-#' }
 add.variables <- function(query, variables) {
     var.names <- names(variables)
     for (i in seq_along(variables)) {

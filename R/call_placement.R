@@ -197,9 +197,7 @@ clear.cached <- function(endpoint, variables = list(), directory = "/cache") {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' clear.all.data() 
-#' }
 clear.all.cached <- function(directory = "/cache") {
     full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
     if(file.exists(full.directory) == FALSE) {
@@ -219,10 +217,8 @@ clear.all.cached <- function(directory = "/cache") {
 #' @export
 #'
 #' @examples 
-#' \dontrun{
 #' my.files <- list.cached.data()
 #' my.files 
-#' }
 list.cached.data <- function(directory = "/cache") {
     full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
     user.files <- list.files(path = full.directory)
@@ -245,10 +241,8 @@ list.cached.data <- function(directory = "/cache") {
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' endpoint <- 'list/states'
 #' save.new.cached.call(endpoint)
-#' }
 save.new.cached.call <- function(endpoint, variables = list(), directory = "/cache") {
     full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
 
@@ -269,10 +263,8 @@ save.new.cached.call <- function(endpoint, variables = list(), directory = "/cac
 #' @export
 #'
 #' @examples
-#' \dontrun{
 #' endpoint <- 'list/states'
 #' retrieve.cached.call(endpoint)
-#' }
 retrieve.cached.call <- function(endpoint, variables = list(), directory = "/cache") {
     full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
     user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
