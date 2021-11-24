@@ -22,8 +22,8 @@ NULL
 
 #' Variables used for querying in EPA API
 #'
-#' The variables data frame contains information about what variables can be used
-#' to build queries in the EPA API.
+#' The variables data frame contains information about what variables 
+#' can be used to build queries in the EPA API.
 #' 
 #' @name variables
 #' @docType data
@@ -32,8 +32,8 @@ NULL
 
 #' Services offered by the EPA API
 #'
-#' The services list contains comprehensive information about all services provided
-#' by the EPA API site. 
+#' The services list contains comprehensive information about all 
+#' services provided by the EPA API site. 
 #' 
 #' @name services
 #' @docType data

@@ -90,8 +90,10 @@ test_that("A cached call is faster the second time called", {
                           "bdate" = '20200101', 
                           "edate" = '20200110', 
                           "param" = '44201')
-    first.time <- system.time(perform.call(endpoint = endpoint, variables = variable.list)) 
-    second.time <- system.time(perform.call(endpoint = endpoint, variables = variable.list))
+    first.time <- system.time(perform.call(endpoint = endpoint,
+                                           variables = variable.list)) 
+    second.time <- system.time(perform.call(endpoint = endpoint,
+                                            variables = variable.list))
     expect_lt(second.time[[3]][1], first.time[[3]][1])
     
 })

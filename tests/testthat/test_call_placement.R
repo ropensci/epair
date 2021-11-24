@@ -32,7 +32,8 @@ httptest::with_mock_dir("Raw multi-variate call returns",{
                               "bdate" = '20200101',
                               "edate" = '20200102',
                               "param" = '44201')
-        result <- perform.call.raw(endpoint = endpoint, variables = variable.list)
+        result <- perform.call.raw(endpoint = endpoint,
+                                   variables = variable.list)
         found <- result
         exp <- "response"
         expect_equal(exp, class(result))
@@ -98,8 +99,10 @@ httptest::with_mock_dir("Multi-variate cached call, time",{
                               "bdate" = '20200101',
                               "edate" = '20200110',
                               "param" = '44201')
-        first.time <- system.time(epair:::perform.call(endpoint = endpoint, variables = variable.list))
-        second.time <- system.time(epair:::perform.call(endpoint = endpoint, variables = variable.list))
+        first.time <- system.time(epair:::perform.call(endpoint = endpoint,
+                                                       variables = variable.list))
+        second.time <- system.time(epair:::perform.call(endpoint = endpoint,
+                                                        variables = variable.list))
         expect_lt(second.time[[3]][1], first.time[[3]][1])
 
     })
@@ -128,7 +131,8 @@ httptest::with_mock_dir("Clear cached data error",{
                               "param" = '44201')
         result <- perform.call(endpoint = endpoint, variables = variable.list)
         clear.cached(endpoint = endpoint, variables = variable.list)
-        expect_error(clear.cached(endpoint = endpoint, variables = variable.list))
+        expect_error(clear.cached(endpoint = endpoint,
+                                  variables = variable.list))
     })
 })
 

@@ -6,14 +6,19 @@
 #' @param pattern Pattern to use for matching
 #' @param replacement Replacement of entries matching pattern
 #'
-#' @return A data frame with entries following the pattern being replaced by replacement
+#' @return A data frame with entries following the pattern being replaced
+#' by replacement
 #'
 #' @examples
 #' df <- data.frame(c("1", "2", "3", "4"))
 #' modified.df <- epair:::string.replacer(df, "1", "One")
 #' modified.df
 string.replacer <- function(df, pattern, replacement) {
-  modified.df <- lapply(df, gsub, pattern = pattern, replacement = replacement, fixed = TRUE)
+  modified.df <- lapply(df,
+                        gsub,
+                        pattern = pattern,
+                        replacement = replacement,
+                        fixed = TRUE)
   return(as.data.frame(modified.df))
 }
 
@@ -47,7 +52,9 @@ list.string.replacer <- function(entry.list, pattern, replacement) {
 #'
 #' @examples
 #' service <- c("Sign up")
-#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered address from aqsdatamart@epa.gov.")
+#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered
+#' address from aqsdatamart@epa.gov.")
+#' 
 #' og.df <- data.frame(service, description)
 #' clean.df <- remove.escapes.spaces(og_table)
 #' clean.df
@@ -66,7 +73,9 @@ remove.escapes.spaces <- function(df) {
 #'
 #' @examples
 #' service <- c("Sign up")
-#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered address from aqsdatamart@epa.gov.")
+#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered
+#' address from aqsdatamart@epa.gov.")
+#' 
 #' og_list <- list("service" = service, "description" = description)
 #' clean <- epair:::remove.escapes.spaces(og_list)
 #' clean
@@ -81,18 +90,20 @@ list.remove.escapes.spaces <- function(a.list) {
 #'
 #' @param df Data frame to be transposed
 #'
-#' @return The transposed data frame. First variable entries become column names.
+#' @return The transposed data frame. First variable entries become 
+#' column names.
 #'
 #' @examples
 #' service <- c("Sign up")
-#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered address from aqsdatamart@epa.gov.")
+#' description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered 
+#' address from aqsdatamart@epa.gov.")
 #' df <- data.frame(service, description)
 #' t.df <- epair:::get.transpose(df)
 #' t.df
 get.transpose <- function(df) {
   t.df <-  t(df)
   t.names <- c()
-  for(i in 1:nrow(df)) {
+  for(i in seq_len(nrow(df))) {
     t.names <- c(t.names, df[i, 1])
   }
   colnames(t.df) <- t.names
