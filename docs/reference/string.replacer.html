@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,31 +98,31 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/01_ananomyEPARequest.html">The Anatomy of an EPA API request</a>
+      <a href="../articles/a01_ananomyEPARequest.html">The Anatomy of an EPA API request</a>
     </li>
     <li>
-      <a href="../articles/02_ClarificationTerm.html">Clarification on terminology</a>
+      <a href="../articles/a02_ClarificationTerm.html">Clarification on terminology</a>
     </li>
     <li>
-      <a href="../articles/03_Installation.html">0. Installation</a>
+      <a href="../articles/a03_Installation.html">Installation</a>
     </li>
     <li>
-      <a href="../articles/04_setup.html">1. Setup</a>
+      <a href="../articles/a04_setup.html">Setup</a>
     </li>
     <li>
-      <a href="../articles/05_making-your-first-call.html">2. Making your first call</a>
+      <a href="../articles/a05_making-your-first-call.html">Making your first call</a>
     </li>
     <li>
-      <a href="../articles/06_make-a-more-complex-call.html">3. Make a more complex call</a>
+      <a href="../articles/a06_make-a-more-complex-call.html">Make a more complex call</a>
     </li>
     <li>
-      <a href="../articles/07_wrap-up.html">4. Summary</a>
+      <a href="../articles/a07_wrap-up.html">Summary</a>
     </li>
     <li>
-      <a href="../articles/08_Endpoints.html">Finding Endpoints</a>
+      <a href="../articles/a08_Endpoints.html">Finding endpoints</a>
     </li>
     <li>
-      <a href="../articles/09_Services.html">Navigating API Services</a>
+      <a href="../articles/a09_Services.html">Navigating API Services</a>
     </li>
   </ul>
 </li>
@@ -130,7 +130,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/GLOrozcoM/epair/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -180,14 +180,15 @@
     <p>A data frame with entries following the pattern being replaced by replacement</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"4"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>modified.df</span> <span class='op'>&lt;-</span> <span class='fu'>epair</span><span class='fu'>:::</span><span class='fu'>string.replacer</span><span class='op'>(</span><span class='va'>df</span>, <span class='st'>"1"</span>, <span class='st'>"One"</span><span class='op'>)</span>
-<span class='va'>modified.df</span>
-</div><div class='output co'>#&gt;   c..1....2....3....4..
-#&gt; 1                   One
-#&gt; 2                     2
-#&gt; 3                     3
-#&gt; 4                     4</div></pre>
+    <pre class="examples"><span class='r-in'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>, <span class='st'>"4"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>modified.df</span> <span class='op'>&lt;-</span> <span class='fu'>epair</span><span class='fu'>:::</span><span class='fu'>string.replacer</span><span class='op'>(</span><span class='va'>df</span>, <span class='st'>"1"</span>, <span class='st'>"One"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>modified.df</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>   c..1....2....3....4..</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 1                   One</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 2                     2</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 3                     3</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> 4                     4</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
