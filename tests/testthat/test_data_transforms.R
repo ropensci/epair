@@ -16,20 +16,24 @@ test_that("Char gets replaced in a list", {
 
 test_that("Extra chars in data frames get removed", {
   service <- c("Sign up")
-  description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered address from aqsdatamart@epa.gov.")
+  description <- c(paste("Email will\r\n\t\t\t\t\t\t\t be sent to the",
+                         "registered address from aqsdatamart@epa.gov."))
   og_table <- data.frame(service, description)
   found_df <- remove.escapes.spaces(og_table)
-  description <- c("Email will be sent to the registered address from aqsdatamart@epa.gov.") 
+  description <- c(paste("Email will be sent to the registered address",
+                         "from aqsdatamart@epa.gov.")) 
   exp_df <- data.frame(service, description)
   expect_equal(found_df, exp_df)
 })
 
 test_that("Extra char in list get removed", {
   service <- c("Sign up")
-  description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered address from aqsdatamart@epa.gov.")
+  description <- c(paste("Email will\r\n\t\t\t\t\t\t\t be sent to the",
+                         "registered address from aqsdatamart@epa.gov."))
   og_list <- list("service" = service, "description" = description)
   found_list <- list.remove.escapes.spaces(og_list)
-  description <- c("Email will be sent to the registered address from aqsdatamart@epa.gov.") 
+  description <- c(paste("Email will be sent to the registered address", 
+                         "from aqsdatamart@epa.gov.")) 
   exp_list <- list("service" = service, "description" = description)
   expect_equal(found_list, exp_list)
 })

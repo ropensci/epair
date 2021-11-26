@@ -1,5 +1,5 @@
-aqs_email = Sys.getenv("API_EMAIL")
-aqs_api_key = Sys.getenv("API_KEY")
+aqs_email <- Sys.getenv("API_EMAIL")
+aqs_api_key <- Sys.getenv("API_KEY")
 Sys.setenv('aqs_email' = aqs_email)
 Sys.setenv('aqs_api_key' = aqs_api_key)
 

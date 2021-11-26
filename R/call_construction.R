@@ -1,9 +1,11 @@
 #' Generate the string authentication needed for EPA API
 #'
 #' @param email Email registered with EPA API
-#' @param key Key obtained from EPA API. Register your email for a key here https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
+#' @param key Key obtained from EPA API. Register your email for a key here
+#' https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.
 #'
-#' @return A string with authentication info. It looks like '&email=user_email&key=user_key'.
+#' @return A string with authentication info. It looks 
+#' like '&email=user_email&key=user_key'.
 #' @export
 #'
 #' @examples
@@ -16,7 +18,8 @@ create.authentication <- function(email, key) {
 
 #' Make the first call when forming a query.
 #'
-#' @param endpoint Endpoint for forming a query. See ENDPOINTS for all available endpoints. See 
+#' @param endpoint Endpoint for forming a query. See ENDPOINTS for all
+#' available endpoints. See 
 #' SERVICES if you know the service but not the endpoint.
 #'
 #' @return A URL string containing authentication for the call.
@@ -30,18 +33,25 @@ create.base.call <- function(endpoint) {
     stop("Make sure you've declared aqs_api_key in your .Renviron!")
   }
   if (!nzchar(Sys.getenv('aqs_email'))) {
+      
     stop("Make sure you've declared aqs_email in your .Renviron!")
+      
   }
-  authentication = create.authentication(Sys.getenv("aqs_email"), Sys.getenv("aqs_api_key"))
+    
+  authentication <- create.authentication(Sys.getenv("aqs_email"),
+                                         Sys.getenv("aqs_api_key"))
   base <- "https://aqs.epa.gov/data/api/"
   result <- paste(base, endpoint, "?", authentication, sep = "")
+  
   return(result)
+  
 }
 
 #' Add variables to a query
 #'
 #' @param query A URL containing authentication for the EPA API site.
-#' @param variables A list of variables. Each variable should be declared with the appropriate name.
+#' @param variables A list of variables. Each variable should be declared 
+#' with the appropriate name.
 #' Consult VARIABLE.TYPES for the right names.
 #'
 #' @return A URL consisting of query + variables.

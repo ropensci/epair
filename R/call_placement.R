@@ -8,7 +8,8 @@
 #' get.aqs.key(email)
 #' }
 get.aqs.key <- function(user.email) {
-  url.for.call <- paste0("https://aqs.epa.gov/data/api/signup?email=", user.email)
+  url.for.call <- paste0("https://aqs.epa.gov/data/api/signup?email=",
+                         user.email)
   raw <- httr::GET(url.for.call)
   message(raw)
 }
@@ -39,7 +40,8 @@ is.API.running <- function() {
 #' Perform call and keep original result
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
-#' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
+#' @param variables A list of variables or a single variable to filter
+#' the EPA API endpoint. 
 #' 
 #' @return A list containing result from query to EPA API
 #' @export
@@ -65,7 +67,8 @@ perform.call.raw <- function(endpoint, variables = list()) {
 #' Perform call and convert data into list
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
-#' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
+#' @param variables A list of variables or a single variable to filter the
+#' EPA API endpoint. 
 #'
 #' @return A list containing requested data
 #' @export
@@ -128,9 +131,12 @@ place.call.raw <- function(url) {
 #' Cached version of the perform.call function
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
-#' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param cache_directory Place inside user-level cache directory to store the cached data. Default: "/cache".
-#' @param cached TRUE or FALSE specifying if the data from the call is to be cached. Default: TRUE.
+#' @param variables A list of variables or a single variable to filter 
+#' the EPA API endpoint. 
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache".
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE.
 #'
 #' @return A list containing requested data
 #' @export
@@ -140,24 +146,39 @@ place.call.raw <- function(url) {
 #' endpoint <- 'list/states'
 #' result <- perform.call(endpoint)
 #' }
-perform.call <- function(endpoint, variables = list(), cached = TRUE, cache_directory = "/cache") {
-    full.directory <- ifelse(cache_directory == "/cache", paste(getwd(),cache_directory, sep = ""), cache_directory)
+perform.call <- function(endpoint, variables = list(),
+                         cached = TRUE,
+                         cache_directory = "/cache") {
+    full.directory <- ifelse(cache_directory == "/cache", 
+                             paste(getwd(),cache_directory, sep = ""), 
+                             cache_directory)
     if(cached == FALSE) {
         return(non.cached.perform.call(endpoint, variables))
     }
     else {
         if(file.exists(full.directory)) {
-            user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+            user.path <- paste(full.directory,
+                               "/",
+                               stringr::str_remove_all(endpoint, "/"),
+                               paste(unlist(variables),
+                                     collapse = "_"),
+                               sep = "")
             if(file.exists(user.path)) {
-                return(retrieve.cached.call(endpoint, variables, full.directory))
+                return(retrieve.cached.call(endpoint,
+                                            variables,
+                                            full.directory))
             }
             else {
-                return(save.new.cached.call(endpoint, variables, full.directory))
+                return(save.new.cached.call(endpoint,
+                                            variables,
+                                            full.directory))
             }
         }
         else {
             dir.create(full.directory)
-            return(save.new.cached.call(endpoint, variables, full.directory))
+            return(save.new.cached.call(endpoint,
+                                        variables,
+                                        full.directory))
         }
     }
 }
@@ -165,10 +186,13 @@ perform.call <- function(endpoint, variables = list(), cached = TRUE, cache_dire
 #' Removes memory of cached perform.call data for specific parameters
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
-#' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
+#' @param variables A list of variables or a single variable to filter the 
+#' EPA API endpoint. 
+#' @param directory Place inside user-level cache directory that was used to 
+#' store the cached data previously. Default: "/cache".
 #'
-#' @return TRUE if data was successfully forgotten, error message if cached data was not found
+#' @return TRUE if data was successfully forgotten, error message if cached 
+#' data was not found
 #' @export
 #'
 #' @examples
@@ -176,13 +200,22 @@ perform.call <- function(endpoint, variables = list(), cached = TRUE, cache_dire
 #' endpoint <- 'list/states'
 #' clear.cached(endpoint)
 #' }
-clear.cached <- function(endpoint, variables = list(), directory = "/cache") {
-    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
-    user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+clear.cached <- function(endpoint,
+                         variables = list(), 
+                         directory = "/cache") {
+    full.directory <- ifelse(directory == "/cache", 
+                             paste(getwd(),directory, sep = ""), 
+                             directory)
+    user.path <- paste(full.directory,
+                       "/", 
+                       stringr::str_remove_all(endpoint, "/"),
+                       paste(unlist(variables), collapse = "_"), 
+                       sep = "")
     
     if(file.exists(user.path) == FALSE) {
         stop("Cached data not found for parameters.")
     }
+    
     else {
         file.remove(user.path)
         return("Done")
@@ -191,15 +224,19 @@ clear.cached <- function(endpoint, variables = list(), directory = "/cache") {
 
 #' Removes all cached memory of perform.call
 #'
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
+#' @param directory Place inside user-level cache directory that was used
+#' to store the cached data previously. Default: "/cache".
 #'
-#' @return 'Done' if data was successfully forgotten, error message if cache directory was not found
+#' @return 'Done' if data was successfully forgotten, error message if 
+#' cache directory was not found
 #' @export
 #'
 #' @examples
 #' clear.all.data() 
 clear.all.cached <- function(directory = "/cache") {
-    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+    full.directory <- ifelse(directory == "/cache",
+                             paste(getwd(),directory, sep = ""),
+                             directory)
     if(file.exists(full.directory) == FALSE) {
         stop("Cache directory not found.")
     }
@@ -211,7 +248,8 @@ clear.all.cached <- function(directory = "/cache") {
 
 #' Shows contents of cache directory
 #'
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
+#' @param directory Place inside user-level cache directory that was used to 
+#' store the cached data previously. Default: "/cache".
 #'
 #' @return Character vector of file names currently in cache directory.
 #' @export
@@ -220,7 +258,9 @@ clear.all.cached <- function(directory = "/cache") {
 #' my.files <- list.cached.data()
 #' my.files 
 list.cached.data <- function(directory = "/cache") {
-    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+    full.directory <- ifelse(directory == "/cache",
+                             paste(getwd(),directory, sep = ""),
+                             directory)
     user.files <- list.files(path = full.directory)
     
     if(identical(user.files, character(0)) == FALSE) {
@@ -234,8 +274,10 @@ list.cached.data <- function(directory = "/cache") {
 #' Saves a new call that has not been previously cached yet.
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
-#' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
+#' @param variables A list of variables or a single variable to filter 
+#' the EPA API endpoint. 
+#' @param directory Place inside user-level cache directory that was used 
+#' to store the cached data previously. Default: "/cache".
 #'
 #' @return A list containing requested data
 #' @export
@@ -243,10 +285,18 @@ list.cached.data <- function(directory = "/cache") {
 #' @examples
 #' endpoint <- 'list/states'
 #' save.new.cached.call(endpoint)
-save.new.cached.call <- function(endpoint, variables = list(), directory = "/cache") {
-    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
+save.new.cached.call <- function(endpoint,
+                                 variables = list(),
+                                 directory = "/cache") {
+    full.directory <- ifelse(directory == "/cache",
+                             paste(getwd(),directory, sep = ""),
+                             directory)
 
-    user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+    user.path <- paste(full.directory,
+                       "/",
+                       stringr::str_remove_all(endpoint, "/"), 
+                       paste(unlist(variables), collapse = "_"),
+                       sep = "")
     
     user.data <- non.cached.perform.call(endpoint, variables)
     R.cache::saveCache(user.data, pathname = user.path)
@@ -256,8 +306,10 @@ save.new.cached.call <- function(endpoint, variables = list(), directory = "/cac
 #' Retrieves memory of previously cached call.
 #'
 #' @param endpoint An endpoint from the available EPA API endpoints
-#' @param variables A list of variables or a single variable to filter the EPA API endpoint. 
-#' @param directory Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".
+#' @param variables A list of variables or a single variable to filter
+#' the EPA API endpoint. 
+#' @param directory Place inside user-level cache directory that was used
+#' to store the cached data previously. Default: "/cache".
 #'
 #' @return A list containing requested data
 #' @export
@@ -265,9 +317,17 @@ save.new.cached.call <- function(endpoint, variables = list(), directory = "/cac
 #' @examples
 #' endpoint <- 'list/states'
 #' retrieve.cached.call(endpoint)
-retrieve.cached.call <- function(endpoint, variables = list(), directory = "/cache") {
-    full.directory <- ifelse(directory == "/cache", paste(getwd(),directory, sep = ""), directory)
-    user.path <- paste(full.directory, "/", stringr::str_remove_all(endpoint, "/"), paste(unlist(variables), collapse = "_"), sep = "")
+retrieve.cached.call <- function(endpoint,
+                                 variables = list(),
+                                 directory = "/cache") {
+    full.directory <- ifelse(directory == "/cache",
+                             paste(getwd(),directory, sep = ""),
+                             directory)
+    user.path <- paste(full.directory,
+                       "/",
+                       stringr::str_remove_all(endpoint, "/"),
+                       paste(unlist(variables), collapse = "_"),
+                       sep = "")
     user.data <- R.cache::loadCache(pathname = user.path)
     return(user.data) 
 }

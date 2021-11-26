@@ -72,7 +72,9 @@ test_that("A cached file that is chosen is deleted", {
     
 })
 
-test_that("List cached data produces an error when there are no cached files found in the directory or no directory found", {
+test_that(paste("List cached data produces an error",
+                "when there are no cached files found",
+                "in the directory or no directory found"), {
     endpoint <- 'dailyData/byState'
     variable.list <- list("state" = '37', 
                           "bdate" = '20200101', 
@@ -90,8 +92,10 @@ test_that("A cached call is faster the second time called", {
                           "bdate" = '20200101', 
                           "edate" = '20200110', 
                           "param" = '44201')
-    first.time <- system.time(perform.call(endpoint = endpoint, variables = variable.list)) 
-    second.time <- system.time(perform.call(endpoint = endpoint, variables = variable.list))
+    first.time <- system.time(perform.call(endpoint = endpoint,
+                                           variables = variable.list)) 
+    second.time <- system.time(perform.call(endpoint = endpoint,
+                                            variables = variable.list))
     expect_lt(second.time[[3]][1], first.time[[3]][1])
     
 })
@@ -109,7 +113,8 @@ test_that("List cached data produces a character vector reponse", {
     
 })
 
-test_that("Clear cached produces an error when the file or directory is not found", {
+test_that(paste("Clear cached produces an error",
+                "when the file or directory is not found"), {
     endpoint <- 'dailyData/byState'
     variable.list <- list("state" = '37', 
                           "bdate" = '20200101', 
@@ -121,7 +126,9 @@ test_that("Clear cached produces an error when the file or directory is not foun
     
 })
 
-test_that("Clear all cached produces an error when there are no cached files or the directory is not found", {
+test_that(paste("Clear all cached produces an error when",
+                "there are no cached files or the directory",
+                "is not found"), {
     endpoint <- 'dailyData/byState'
     variable.list <- list("state" = '37', 
                           "bdate" = '20200101', 
