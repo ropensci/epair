@@ -11,7 +11,7 @@ https://aqs.epa.gov/aqsweb/documents/data_api.html.
 ### Overview
 
 The `epair` package helps you determine what data you want and how to get that data from the EPA API.
-It provides loaded in variables that help you navigate services in the API, and a simple way to query the data. A comprehensive tutorial for using `epair` can be found at https://epair.netlify.app/. 
+It provides loaded in variables that help you navigate services in the API, and a simple way to query the data. A comprehensive tutorial for using `epair` can be found at https://glorozcom.github.io/epair/. 
 
 Easily find the endpoint you need. 
 ```

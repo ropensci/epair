@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -98,31 +98,31 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/01_ananomyEPARequest.html">The Anatomy of an EPA API request</a>
+      <a href="../articles/a01_ananomyEPARequest.html">The Anatomy of an EPA API request</a>
     </li>
     <li>
-      <a href="../articles/02_ClarificationTerm.html">Clarification on terminology</a>
+      <a href="../articles/a02_ClarificationTerm.html">Clarification on terminology</a>
     </li>
     <li>
-      <a href="../articles/03_Installation.html">0. Installation</a>
+      <a href="../articles/a03_Installation.html">Installation</a>
     </li>
     <li>
-      <a href="../articles/04_setup.html">1. Setup</a>
+      <a href="../articles/a04_setup.html">Setup</a>
     </li>
     <li>
-      <a href="../articles/05_making-your-first-call.html">2. Making your first call</a>
+      <a href="../articles/a05_making-your-first-call.html">Making your first call</a>
     </li>
     <li>
-      <a href="../articles/06_make-a-more-complex-call.html">3. Make a more complex call</a>
+      <a href="../articles/a06_make-a-more-complex-call.html">Make a more complex call</a>
     </li>
     <li>
-      <a href="../articles/07_wrap-up.html">4. Summary</a>
+      <a href="../articles/a07_wrap-up.html">Summary</a>
     </li>
     <li>
-      <a href="../articles/08_Endpoints.html">Finding Endpoints</a>
+      <a href="../articles/a08_Endpoints.html">Finding endpoints</a>
     </li>
     <li>
-      <a href="../articles/09_Services.html">Navigating API Services</a>
+      <a href="../articles/a09_Services.html">Navigating API Services</a>
     </li>
   </ul>
 </li>
@@ -130,7 +130,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/GLOrozcoM/epair/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -156,7 +156,7 @@
     <p>Retrieves memory of previously cached call.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>retrieve.cached.call</span><span class='op'>(</span><span class='va'>endpoint</span>, variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>user.path</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>retrieve.cached.call</span><span class='op'>(</span><span class='va'>endpoint</span>, variables <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>, directory <span class='op'>=</span> <span class='st'>"/cache"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -171,7 +171,7 @@
     </tr>
     <tr>
       <th>directory</th>
-      <td><p>Place inside user-level cache directory that was used to store the cached data previously. Default: "~/epair/cache".</p></td>
+      <td><p>Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".</p></td>
     </tr>
     </table>
 
@@ -180,11 +180,11 @@
     <p>A list containing requested data</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>endpoint</span> <span class='op'>&lt;-</span> <span class='st'>'list/states'</span>
-<span class='fu'>retrieve.cached.call</span><span class='op'>(</span><span class='va'>endpoint</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='va'>endpoint</span> <span class='op'>&lt;-</span> <span class='st'>'list/states'</span></span>
+<span class='r-in'><span class='fu'>retrieve.cached.call</span><span class='op'>(</span><span class='va'>endpoint</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

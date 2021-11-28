@@ -23,7 +23,9 @@ library(httr)
 library(jsonlite)
 ```
 
-You'll need to acquire an API key from AQS. To do so, `epair` provides the function `get.aqs.key()` with your email as its parameter. After calling `get.aqs.key()` check your email to obtain your key. `epair` uses `.Renviron` to access your email and key when making calls. A simple way to setup your key and email is through the `usethis` package with the following command. 
+You'll need to acquire an API key from AQS. To do so, `epair` provides the function `get.aqs.key()` with your email as its parameter. After calling `get.aqs.key()` check your email to obtain your key. Be sure to confirm your account by clicking on the link in the email if acquiring a key for the first time.
+
+`epair` uses `.Renviron` to access your email and key when making calls. A simple way to setup your key and email is through the `usethis` package with the following command. 
 
 `usethis::edit_r_environ()` 
 
