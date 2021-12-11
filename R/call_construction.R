@@ -25,17 +25,17 @@ create.authentication <- function(email, key) {
 #' @return A URL string containing authentication for the call.
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- "list/states"
 #' call <- epair:::create.base.call(endpoint)
 #' call
+#' }
 create.base.call <- function(endpoint) {
   if (!nzchar(Sys.getenv('aqs_api_key'))) {
     stop("Make sure you've declared aqs_api_key in your .Renviron!")
   }
   if (!nzchar(Sys.getenv('aqs_email'))) {
-      
     stop("Make sure you've declared aqs_email in your .Renviron!")
-      
   }
     
   authentication <- create.authentication(Sys.getenv("aqs_email"),
