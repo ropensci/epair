@@ -6,6 +6,9 @@
 \usage{
 get_fields_by_service(service)
 }
+\arguments{
+\item{service}{A service provided by EPA's AQS system.}
+}
 \description{
 Get fields required per service.
 }

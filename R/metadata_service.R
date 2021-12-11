@@ -29,6 +29,8 @@ get_known_issues <- function(){
 
 #' Get fields required per service.
 #' 
+#' @param service A service provided by EPA's AQS system.
+#' 
 #' @export
 #' \dontrun{
 #' result <- get_fields_by_service()
