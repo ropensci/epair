@@ -1,0 +1,5 @@
+META_DATA <- "metaData"
+IS_AVAILABLE <- "isAvailable"
+REVISION_HISTORY <- "revisionHistory"
+FIELDS_BY_SERVICE <- "fieldsByService"
+ISSUES <- "issues"

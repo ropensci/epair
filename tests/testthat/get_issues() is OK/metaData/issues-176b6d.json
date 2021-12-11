@@ -1,0 +1,17 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2021-12-11T11:11:51-05:00",
+            "url": "metaData/issues?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key",
+            "rows": 1
+        }
+    ],
+    "Data": [
+        {
+            "title": "None",
+            "affected_services": "None",
+            "description": "There are no known issues at this time."
+        }
+    ]
+}
