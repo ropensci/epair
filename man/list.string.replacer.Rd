@@ -20,7 +20,7 @@ A list with entries matching the pattern replaced by replacement
 Replace every string entry in a list
 }
 \examples{
-services <- "\t Some text from the table"
+services <- list("\t Some text from the table")
 services <- epair:::list.string.replacer(services, "\t", "")
 services
 }

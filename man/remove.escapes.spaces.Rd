@@ -21,6 +21,6 @@ description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered
 address from aqsdatamart@epa.gov.")
 
 og.df <- data.frame(service, description)
-clean.df <- remove.escapes.spaces(og_table)
+clean.df <- epair:::remove.escapes.spaces(og.df)
 clean.df
 }

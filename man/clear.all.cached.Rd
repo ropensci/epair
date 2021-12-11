@@ -18,5 +18,7 @@ cache directory was not found
 Removes all cached memory of perform.call
 }
 \examples{
-clear.all.data() 
+\dontrun{
+clear.all.cached() 
+}
 }

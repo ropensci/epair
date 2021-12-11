@@ -22,6 +22,8 @@ A list containing requested data
 Saves a new call that has not been previously cached yet.
 }
 \examples{
+\dontrun{
 endpoint <- 'list/states'
 save.new.cached.call(endpoint)
+}
 }

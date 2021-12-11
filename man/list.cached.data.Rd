@@ -17,6 +17,8 @@ Character vector of file names currently in cache directory.
 Shows contents of cache directory
 }
 \examples{
+\dontrun{ 
 my.files <- list.cached.data()
 my.files 
+}
 }
