@@ -10,17 +10,17 @@ get.transpose(df)
 \item{df}{Data frame to be transposed}
 }
 \value{
-The transposed data frame. First variable entries become column names.
+The transposed data frame. First variable entries become 
+column names.
 }
 \description{
 Transpose a data frame
 }
 \examples{
-\dontrun{
-url <- "https://aqs.epa.gov/aqsweb/documents/data_api.html"
-table.path <- '//*[@id="main-content"]/div[2]/div[1]/div/div/table[1]'
-df <- epair:::get.table(url, table.path)
+service <- c("Sign up")
+description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered 
+address from aqsdatamart@epa.gov.")
+df <- data.frame(service, description)
 t.df <- epair:::get.transpose(df)
 t.df
-}
 }

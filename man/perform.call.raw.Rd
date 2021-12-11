@@ -9,7 +9,8 @@ perform.call.raw(endpoint, variables = list())
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}
 
-\item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
+\item{variables}{A list of variables or a single variable to filter
+the EPA API endpoint.}
 }
 \value{
 A list containing result from query to EPA API

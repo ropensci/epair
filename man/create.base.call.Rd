@@ -7,7 +7,8 @@
 create.base.call(endpoint)
 }
 \arguments{
-\item{endpoint}{Endpoint for forming a query. See ENDPOINTS for all available endpoints. See 
+\item{endpoint}{Endpoint for forming a query. See ENDPOINTS for all
+available endpoints. See 
 SERVICES if you know the service but not the endpoint.}
 }
 \value{
@@ -17,9 +18,7 @@ A URL string containing authentication for the call.
 Make the first call when forming a query.
 }
 \examples{
-\dontrun{
 endpoint <- "list/states"
 call <- epair:::create.base.call(endpoint)
 call
-}
 }

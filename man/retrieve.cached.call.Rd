@@ -9,9 +9,11 @@ retrieve.cached.call(endpoint, variables = list(), directory = "/cache")
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}
 
-\item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
+\item{variables}{A list of variables or a single variable to filter
+the EPA API endpoint.}
 
-\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".}
+\item{directory}{Place inside user-level cache directory that was used
+to store the cached data previously. Default: "/cache".}
 }
 \value{
 A list containing requested data
@@ -20,8 +22,6 @@ A list containing requested data
 Retrieves memory of previously cached call.
 }
 \examples{
-\dontrun{
 endpoint <- 'list/states'
 retrieve.cached.call(endpoint)
-}
 }

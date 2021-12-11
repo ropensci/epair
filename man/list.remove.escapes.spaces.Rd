@@ -16,9 +16,11 @@ A list without tabs, new lines, and empty spaces
 Remove tabs, new lines, and empty spaces from entries in a list
 }
 \examples{
-\dontrun{
-services <- epair:::get.services()
-services <- epair:::list.remove.escapes.spaces(services)
-services
-}
+service <- c("Sign up")
+description <- c("Email will\r\n\t\t\t\t\t\t\t be sent to the registered
+address from aqsdatamart@epa.gov.")
+
+og_list <- list("service" = service, "description" = description)
+clean <- epair:::remove.escapes.spaces(og_list)
+clean
 }

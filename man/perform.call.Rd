@@ -14,11 +14,14 @@ perform.call(
 \arguments{
 \item{endpoint}{An endpoint from the available EPA API endpoints}
 
-\item{variables}{A list of variables or a single variable to filter the EPA API endpoint.}
+\item{variables}{A list of variables or a single variable to filter 
+the EPA API endpoint.}
 
-\item{cached}{TRUE or FALSE specifying if the data from the call is to be cached. Default: TRUE.}
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE.}
 
-\item{cache_directory}{Place inside user-level cache directory to store the cached data. Default: "/cache".}
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache".}
 }
 \value{
 A list containing requested data
