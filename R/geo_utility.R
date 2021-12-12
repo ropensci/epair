@@ -10,6 +10,9 @@ source("R/endpoints.R")
 #' @param cbsa An encoding for a Core Base Statiscal Area.
 #' If unsure, use get_cbsas().
 #' @param param Pollutant parameter that site is measuring.
+#' @param duration The 1-character AQS sample duration code. (Optional)
+#' @param cbdate Beginning date of last change to DB. (Optional)
+#' @param cedate Ending date of last change to DB. (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' @examples 
@@ -21,13 +24,28 @@ source("R/endpoints.R")
 #' result <- lookup_by_cbsa(MONITORS, bdate, edate, param, cbsa)
 #' result$Data
 #' }
-lookup_by_cbsa <- function(endpoint, bdate, edate, param, cbsa){
+lookup_by_cbsa <- function(endpoint, 
+                           bdate, 
+                           edate, 
+                           param, 
+                           cbsa,
+                           duration = NULL,
+                           cbdate = NULL,
+                           cedate = NULL){
   base.url <- paste(endpoint, BY_CBSA, sep="/")
+  base.params <- list("bdate" = bdate,
+                      "edate" = edate,
+                      "param" = param,
+                      "cbsa" = cbsa)
+  if(!is.null(duration)){
+    base.params[["duration"]] <- duration
+  }
+  if(!is.null(cbdate) & !is.null(cedate)){
+    base.params[["cbdate"]] <- cbdate
+    base.params[["cedate"]] <- cedate
+  }
   result <- perform.call(base.url,
-                         variables = list("bdate" = bdate,
-                                          "edate" = edate,
-                                          "param" = param,
-                                          "cbsa" = cbsa))
+                         variables = base.params)
   return(result)
 }
 
@@ -43,6 +61,9 @@ lookup_by_cbsa <- function(endpoint, bdate, edate, param, cbsa){
 #' @param minlong Minimum longitude coordinate.
 #' @param maxlong Maximum longitude coordinate.
 #' @param param Pollutant parameter that site is measuring.
+#' @param duration The 1-character AQS sample duration code. (Optional)
+#' @param cbdate Beginning date of last change to DB. (Optional)
+#' @param cedate Ending date of last change to DB. (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' @examples 
@@ -70,16 +91,27 @@ lookup_by_bbox <- function(endpoint,
                            minlat,
                            maxlat,
                            minlong,
-                           maxlong){
+                           maxlong,
+                           duration = NULL,
+                           cbdate = NULL,
+                           cedate = NULL){
   base.url <- paste(endpoint, BY_BBOX, sep="/")
-  result <- perform.call(base.url, 
-                         variables = list("bdate" = bdate,
-                                          "edate" = edate,
-                                          "param" = param,
-                                          "minlat" = minlat,
-                                          "maxlat" = maxlat,
-                                          "minlon" = minlong,
-                                          "maxlon" = maxlong))
+  base.params <- list("bdate" = bdate,
+                      "edate" = edate,
+                      "param" = param,
+                      "minlat" = minlat,
+                      "maxlat" = maxlat,
+                      "minlon" = minlong,
+                      "maxlon" = maxlong)
+  if(!is.null(duration)){
+    base.params[["duration"]] <- duration
+  }
+  if(!is.null(cbdate) & !is.null(cedate)){
+    base.params[["cbdate"]] <- cbdate
+    base.params[["cedate"]] <- cedate
+  }
+  result <- perform.call(base.url,
+                         variables = base.params)
   return(result)
 }
  
@@ -93,6 +125,9 @@ lookup_by_bbox <- function(endpoint,
 #' @param state.fips State FIPS code.
 #' Use get_state_fips() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param duration The 1-character AQS sample duration code. (Optional)
+#' @param cbdate Beginning date of last change to DB. (Optional)
+#' @param cedate Ending date of last change to DB. (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' 
@@ -109,14 +144,25 @@ lookup_by_state <- function(endpoint,
                            bdate, 
                            edate, 
                            state.fips,
-                           param){
+                           param,
+                           duration = NULL,
+                           cbdate = NULL,
+                           cedate = NULL){
   base.url <- paste(endpoint, BY_STATE, sep="/")
-  result <- perform.call(base.url, 
-                         variables = list("bdate" = bdate,
-                                          "edate" = edate,
-                                          "state" = state.fips,
-                                          "param" = param))
-return(result)
+  base.params <- list("bdate" = bdate,
+                      "edate" = edate,
+                      "param" = param,
+                      "state" = state.fips)
+  if(!is.null(duration)){
+    base.params[["duration"]] <- duration
+  }
+  if(!is.null(cbdate) & !is.null(cedate)){
+    base.params[["cbdate"]] <- cbdate
+    base.params[["cedate"]] <- cedate
+  }
+  result <- perform.call(base.url,
+                         variables = base.params)
+  return(result)
 }
 
 #' Internal function to perform geospatial lookup by site.
@@ -133,6 +179,9 @@ return(result)
 #' @param param Pollutant parameter that site is measuring.
 #' @param site Measurement site code.
 #' Use get_sites_by_county() if unsure.
+#' @param duration The 1-character AQS sample duration code. (Optional)
+#' @param cbdate Beginning date of last change to DB. (Optional)
+#' @param cedate Ending date of last change to DB. (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' 
@@ -153,15 +202,26 @@ lookup_by_site <- function(endpoint,
                            state.fips, 
                            county, 
                            param,
-                           site){
+                           site,
+                           duration = NULL,
+                           cbdate = NULL,
+                           cedate = NULL){
   base.url <- paste(endpoint, BY_SITE, sep="/")
-  result <- perform.call(base.url, 
-                         variables = list("bdate" = bdate,
-                                          "edate" = edate,
-                                          "state" = state.fips,
-                                          "county" = county,
-                                          "param" = param,
-                                          "site" = site))
+  base.params <- list("bdate" = bdate,
+                      "edate" = edate,
+                      "param" = param,
+                      "state" = state.fips,
+                      "county" = county,
+                      "site" = site)
+  if(!is.null(duration)){
+    base.params[["duration"]] <- duration
+  }
+  if(!is.null(cbdate) & !is.null(cedate)){
+    base.params[["cbdate"]] <- cbdate
+    base.params[["cedate"]] <- cedate
+  }
+  result <- perform.call(base.url,
+                         variables = base.params)
   return(result)
 }
 
@@ -177,6 +237,9 @@ lookup_by_site <- function(endpoint,
 #' @param county County code. 
 #' Use get_counties_in_state() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param duration The 1-character AQS sample duration code. (Optional)
+#' @param cbdate Beginning date of last change to DB. (Optional)
+#' @param cedate Ending date of last change to DB. (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' 
@@ -195,13 +258,24 @@ lookup_by_county <- function(endpoint,
                              edate, 
                              state.fips, 
                              county, 
-                             param){
+                             param,
+                             duration = NULL,
+                             cbdate = NULL,
+                             cedate = NULL){
   base.url <- paste(endpoint, BY_COUNTY, sep="/")
-  result <- perform.call(base.url, 
-                         variables = list("bdate" = bdate,
-                                          "edate" = edate,
-                                          "state" = state.fips,
-                                          "county" = county,
-                                          "param" = param))
+  base.params <- list("bdate" = bdate,
+                      "edate" = edate,
+                      "param" = param,
+                      "state" = state.fips,
+                      "county" = county)
+  if(!is.null(duration)){
+    base.params[["duration"]] <- duration
+  }
+  if(!is.null(cbdate) & !is.null(cedate)){
+    base.params[["cbdate"]] <- cbdate
+    base.params[["cedate"]] <- cedate
+  }
+  result <- perform.call(base.url,
+                         variables = base.params)
   return(result)
 }

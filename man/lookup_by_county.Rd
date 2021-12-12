@@ -4,7 +4,17 @@
 \alias{lookup_by_county}
 \title{Internal function to perform geospatial lookup by county.}
 \usage{
-lookup_by_county(endpoint, bdate, edate, state.fips, county, param)
+lookup_by_county(
+  endpoint,
+  bdate,
+  edate,
+  state.fips,
+  county,
+  param,
+  duration = NULL,
+  cbdate = NULL,
+  cedate = NULL
+)
 }
 \arguments{
 \item{endpoint}{Base url to make call.}
@@ -22,6 +32,12 @@ Use get_state_fips() if unsure.}
 Use get_counties_in_state() if unsure.}
 
 \item{param}{Pollutant parameter that site is measuring.}
+
+\item{duration}{The 1-character AQS sample duration code. (Optional)}
+
+\item{cbdate}{Beginning date of last change to DB. (Optional)}
+
+\item{cedate}{Ending date of last change to DB. (Optional)}
 }
 \value{
 API response containing operational information

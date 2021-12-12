@@ -4,7 +4,18 @@
 \alias{lookup_by_site}
 \title{Internal function to perform geospatial lookup by site.}
 \usage{
-lookup_by_site(endpoint, bdate, edate, state.fips, county, param, site)
+lookup_by_site(
+  endpoint,
+  bdate,
+  edate,
+  state.fips,
+  county,
+  param,
+  site,
+  duration = NULL,
+  cbdate = NULL,
+  cedate = NULL
+)
 }
 \arguments{
 \item{endpoint}{Base url to make call.}
@@ -25,6 +36,12 @@ Use get_counties_in_state() if unsure.}
 
 \item{site}{Measurement site code.
 Use get_sites_by_county() if unsure.}
+
+\item{duration}{The 1-character AQS sample duration code. (Optional)}
+
+\item{cbdate}{Beginning date of last change to DB. (Optional)}
+
+\item{cedate}{Ending date of last change to DB. (Optional)}
 }
 \value{
 API response containing operational information

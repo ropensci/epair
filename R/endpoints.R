@@ -17,8 +17,12 @@ PQAOS <- "pqaos"
 MAS <- "mas"
 
 MONITORS <- "monitors"
+
+SAMPLE <- "sampleData"
+
 BY_SITE <- "bySite"
 BY_COUNTY <- "byCounty"
 BY_STATE <- "byState"
 BY_CBSA <- "byCBSA"
 BY_BBOX <- "byBox"
+

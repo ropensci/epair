@@ -42,7 +42,10 @@ httptest::with_mock_dir("get_monitors_in_state() is OK", {
     edate <- "20200102"
     state.fips <- "37"
     param <- "42401"
-    result <- get_monitors_in_state(bdate, edate, state.fips, param)
+    result <- get_monitors_in_state(bdate = bdate, 
+                                    edate = edate, 
+                                    state.fips = state.fips, 
+                                    param = param)
     found.status <- result$Header$status
     exp.status <- "Success"
     expect_equal(exp.status, found.status)

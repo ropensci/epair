@@ -4,7 +4,16 @@
 \alias{lookup_by_cbsa}
 \title{Internal function to perform geospatial lookup by Core Based Statistical Area.}
 \usage{
-lookup_by_cbsa(endpoint, bdate, edate, param, cbsa)
+lookup_by_cbsa(
+  endpoint,
+  bdate,
+  edate,
+  param,
+  cbsa,
+  duration = NULL,
+  cbdate = NULL,
+  cedate = NULL
+)
 }
 \arguments{
 \item{endpoint}{Base url to make call.}
@@ -19,6 +28,12 @@ Year, month, day format.}
 
 \item{cbsa}{An encoding for a Core Base Statiscal Area.
 If unsure, use get_cbsas().}
+
+\item{duration}{The 1-character AQS sample duration code. (Optional)}
+
+\item{cbdate}{Beginning date of last change to DB. (Optional)}
+
+\item{cedate}{Ending date of last change to DB. (Optional)}
 }
 \value{
 API response containing operational information

@@ -4,7 +4,16 @@
 \alias{lookup_by_state}
 \title{Internal function to perform geospatial lookup by state.}
 \usage{
-lookup_by_state(endpoint, bdate, edate, state.fips, param)
+lookup_by_state(
+  endpoint,
+  bdate,
+  edate,
+  state.fips,
+  param,
+  duration = NULL,
+  cbdate = NULL,
+  cedate = NULL
+)
 }
 \arguments{
 \item{endpoint}{Base url to make call.}
@@ -19,6 +28,12 @@ Year, month, day format.}
 Use get_state_fips() if unsure.}
 
 \item{param}{Pollutant parameter that site is measuring.}
+
+\item{duration}{The 1-character AQS sample duration code. (Optional)}
+
+\item{cbdate}{Beginning date of last change to DB. (Optional)}
+
+\item{cedate}{Ending date of last change to DB. (Optional)}
 }
 \value{
 API response containing operational information

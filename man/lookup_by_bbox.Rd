@@ -4,7 +4,19 @@
 \alias{lookup_by_bbox}
 \title{Internal function to perform geospatial lookup by bounding box (lat, long).}
 \usage{
-lookup_by_bbox(endpoint, bdate, edate, param, minlat, maxlat, minlong, maxlong)
+lookup_by_bbox(
+  endpoint,
+  bdate,
+  edate,
+  param,
+  minlat,
+  maxlat,
+  minlong,
+  maxlong,
+  duration = NULL,
+  cbdate = NULL,
+  cedate = NULL
+)
 }
 \arguments{
 \item{endpoint}{Base url to make call.}
@@ -24,6 +36,12 @@ Year, month, day format.}
 \item{minlong}{Minimum longitude coordinate.}
 
 \item{maxlong}{Maximum longitude coordinate.}
+
+\item{duration}{The 1-character AQS sample duration code. (Optional)}
+
+\item{cbdate}{Beginning date of last change to DB. (Optional)}
+
+\item{cedate}{Ending date of last change to DB. (Optional)}
 }
 \value{
 API response containing operational information
