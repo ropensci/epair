@@ -47,10 +47,10 @@ get_counties_in_state <- function(state.fips){
 #' \dontrun{
 #' state <- "37"
 #' county.code <- "001"
-#' measurement.sites <- get_sites_by_county(state, county.code)
+#' measurement.sites <- get_sites_in_county(state, county.code)
 #' measurement.sites$Data 
 #' }
-get_sites_by_county <- function(state.fips, county.code){
+get_sites_in_county <- function(state.fips, county.code){
   full.endpoint <- paste(LIST, SITES_BY_COUNTY, sep="/")
   result <- perform.call(full.endpoint, 
                          variables = list("state" = state.fips, 

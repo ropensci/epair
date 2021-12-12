@@ -1,3 +1,5 @@
+BASE <- "https://aqs.epa.gov/data/api/"
+
 META_DATA <- "metaData"
 IS_AVAILABLE <- "isAvailable"
 REVISION_HISTORY <- "revisionHistory"
@@ -13,3 +15,10 @@ PARAMETER_CLASSES <- "classes"
 PARAMETERS_WITHIN_CLASS <- "parametersByClass"
 PQAOS <- "pqaos"
 MAS <- "mas"
+
+MONITORS <- "monitors"
+BY_SITE <- "bySite"
+BY_COUNTY <- "byCounty"
+BY_STATE <- "byState"
+BY_CBSA <- "byCBSA"
+BY_BBOX <- "byBox"

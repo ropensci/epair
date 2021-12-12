@@ -17,11 +17,11 @@ httptest::with_mock_dir("get_counties_in_state() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_sites_by_county() is OK", {
+httptest::with_mock_dir("get_sites_in_county() is OK", {
   test_that("Successful status returned", {
     state.fips <- "37"
     county.code <- "001"
-    result <- get_sites_by_county(state.fips, county.code)
+    result <- get_sites_in_county(state.fips, county.code)
     found.status <- result$Header$status
     exp.status <- "Success"
     expect_equal(exp.status, found.status)

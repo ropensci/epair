@@ -1,3 +1,5 @@
+source("R/endpoints.R")
+
 #' Generate the string authentication needed for EPA API
 #'
 #' @param email Email registered with EPA API
@@ -40,8 +42,7 @@ create.base.call <- function(endpoint) {
     
   authentication <- create.authentication(Sys.getenv("aqs_email"),
                                          Sys.getenv("aqs_api_key"))
-  base <- "https://aqs.epa.gov/data/api/"
-  result <- paste(base, endpoint, "?", authentication, sep = "")
+  result <- paste(BASE, endpoint, "?", authentication, sep = "")
   
   return(result)
   
