@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2021-12-12T13:11:37-05:00",
+            "url": "monitors/byState?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&bdate=20160101&edate=20160102&state=15&param=42401",
+            "rows": 23
+        }
+    ]
+}

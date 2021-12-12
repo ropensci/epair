@@ -6,12 +6,12 @@ httptest::with_mock_dir("get_monitors_in_site() is OK", {
     county <- "001"
     param <- "42401"
     site <- "0007"
-    result <- get_monitors_in_site(bdate, 
-                                   edate, 
-                                   state.fips, 
-                                   county, 
-                                   param, 
-                                   site)
+    result <- get_monitors_in_site(bdate = bdate, 
+                                   edate = edate, 
+                                   state.fips = state.fips, 
+                                   county = county, 
+                                   param = param, 
+                                   site = site)
     found.status <- result$Header$status
     exp.status <- "Success"
     expect_equal(exp.status, found.status)
@@ -25,7 +25,11 @@ httptest::with_mock_dir("get_monitors_in_county() is OK", {
     state.fips <- "15"
     county <- "001"
     param <- "42401"
-    result <- get_monitors_in_county(bdate, edate, param, state.fips, county)
+    result <- get_monitors_in_county(bdate = bdate, 
+                                     edate = edate, 
+                                     state.fips = state.fips, 
+                                     county = county,
+                                     param = param)
     found.status <- result$Header$status
     exp.status <- "Success"
     expect_equal(exp.status, found.status)
@@ -74,5 +78,8 @@ httptest::with_mock_dir("get_monitors_in_bbox() is OK", {
                                    maxlat, 
                                    minlong, 
                                    maxlong)
+    found.status <- result$Header$status
+    exp.status <- "Success"
+    expect_equal(exp.status, found.status)
   })
 })

@@ -4,7 +4,7 @@
 \alias{get_monitors_in_county}
 \title{Get all monitors in a county.}
 \usage{
-get_monitors_in_county(bdate, edate, param, state.fips, county)
+get_monitors_in_county(bdate, edate, state.fips, county, param)
 }
 \arguments{
 \item{bdate}{Beginning date to check.
@@ -13,13 +13,13 @@ Year, month, day format.}
 \item{edate}{Ending date to check.
 Year, month, day format.}
 
-\item{param}{Pollutant parameter that site is measuring.}
-
 \item{state.fips}{State FIPS code.
 Use get_state_fips() if unsure.}
 
 \item{county}{County code. 
 Use get_counties_in_state() if unsure.}
+
+\item{param}{Pollutant parameter that site is measuring.}
 }
 \value{
 API response containing operational information
@@ -35,7 +35,7 @@ edate <- "20200102"
 state.fips <- "37"
 county <- "001"
 param <- "42401"
-result <- get_monitors_by_site(bdate, edate, state.fips, county, param)
+result <- get_monitors_in_county(bdate, edate, state.fips, county, param)
 result$Data
 }
 }

@@ -24,18 +24,17 @@ source("R/endpoints.R")
 #' county <- "001"
 #' param <- "42401"
 #' site <- "001"
-#' result <- get_monitors_by_site(bdate, edate, state.fips, county, param, site)
+#' result <- get_monitors_in_site(bdate, edate, state.fips, county, param, site)
 #' result$Data
 #' } 
 get_monitors_in_site <- function(bdate, edate, state.fips, county, param, site){
-  base.endpoint <- paste(MONITORS, BY_SITE, sep="/")
-  result <- perform.call(base.endpoint,
-                         variables = list("bdate" = bdate,
-                                          "edate" = edate,
-                                          "state" = state.fips,
-                                          "county" = county,
-                                          "param" = param,
-                                          "site" = site))
+  result <- lookup_by_site(endpoint = MONITORS,
+                           bdate = bdate,
+                           edate = edate,
+                           state.fips = state.fips,
+                           county = county,
+                           param = param,
+                           site = site)
   return(result)
 }
 
@@ -60,16 +59,16 @@ get_monitors_in_site <- function(bdate, edate, state.fips, county, param, site){
 #' state.fips <- "37"
 #' county <- "001"
 #' param <- "42401"
-#' result <- get_monitors_by_site(bdate, edate, state.fips, county, param)
+#' result <- get_monitors_in_county(bdate, edate, state.fips, county, param)
 #' result$Data
 #' }
-get_monitors_in_county <- function(bdate, edate, param, state.fips, county){
-  base.endpoint <- paste(MONITORS, BY_COUNTY, sep="/")
-  result <- perform.call(base.endpoint, variables = list("bdate" = bdate,
-                                                         "edate" = edate,
-                                                         "param" = param,
-                                                         "state" = state.fips,
-                                                         "county" = county))
+get_monitors_in_county <- function(bdate, edate, state.fips, county, param){
+  result <- lookup_by_county(endpoint = MONITORS, 
+                             bdate = bdate, 
+                             edate = edate, 
+                             state.fips = state.fips, 
+                             county = county, 
+                             param = param)
   return(result)
 }
 
@@ -95,11 +94,11 @@ get_monitors_in_county <- function(bdate, edate, param, state.fips, county){
 #' result$Data
 #' }
 get_monitors_in_state <- function(bdate, edate, state.fips, param){
-  base.endpoint <- paste(MONITORS, BY_STATE, sep="/")
-  result <- perform.call(base.endpoint, variables = list("bdate" = bdate,
-                                                         "edate" = edate,
-                                                         "state" = state.fips,
-                                                         "param" = param))
+  result <- lookup_by_state(endpoint = MONITORS,
+                            bdate = bdate,
+                            edate = edate,
+                            state.fips = state.fips,
+                            param = param)
   return(result)
 }
 
@@ -124,11 +123,11 @@ get_monitors_in_state <- function(bdate, edate, state.fips, param){
 #' result$Data
 #' }
 get_monitors_in_cbsa <- function(bdate, edate, param, cbsa){
-  base.endpoint <- paste(MONITORS, BY_CBSA, sep="/")
-  result <- perform.call(base.endpoint, variables = list("bdate" = bdate,
-                                                         "edate" = edate,
-                                                         "param" = param,
-                                                         "cbsa" = cbsa))
+  result <- lookup_by_cbsa(endpoint = MONITORS,
+                           bdate = bdate,
+                           edate = edate,
+                           param = param,
+                           cbsa = cbsa)
   return(result)
 }
 
@@ -171,13 +170,13 @@ get_monitors_in_bbox <-  function(bdate,
                                   maxlat, 
                                   minlong, 
                                   maxlong){
-  base.endpoint <- paste(MONITORS, BY_BBOX, sep="/")
-  result <- perform.call(base.endpoint, variables = list("bdate" = bdate,
-                                                         "edate" = edate,
-                                                         "param" = param,
-                                                         "minlat" = minlat,
-                                                         "maxlat" = maxlat,
-                                                         "minlon" = minlong,
-                                                         "maxlon" = maxlong))
+  result <- lookup_by_bbox(endpoint = MONITORS,
+                           bdate = bdate,
+                           edate = edate,
+                           param = param,
+                           minlat = minlat,
+                           maxlat = maxlat,
+                           minlong = minlong,
+                           maxlong = maxlong)
   return(result)
 }
