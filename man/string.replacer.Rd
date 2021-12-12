@@ -14,7 +14,8 @@ string.replacer(df, pattern, replacement)
 \item{replacement}{Replacement of entries matching pattern}
 }
 \value{
-A data frame with entries following the pattern being replaced by replacement
+A data frame with entries following the pattern being replaced
+by replacement
 }
 \description{
 Replace all characters entries in data frame

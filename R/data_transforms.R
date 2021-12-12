@@ -29,7 +29,7 @@ string.replacer <- function(df, pattern, replacement) {
 #' @return A list with entries matching the pattern replaced by replacement
 #'
 #' @examples
-#' services <- "\t Some text from the table"
+#' services <- list("\t Some text from the table")
 #' services <- epair:::list.string.replacer(services, "\t", "")
 #' services
 list.string.replacer <- function(entry.list, pattern, replacement) {
@@ -54,7 +54,7 @@ list.string.replacer <- function(entry.list, pattern, replacement) {
 #' address from aqsdatamart@epa.gov.")
 #' 
 #' og.df <- data.frame(service, description)
-#' clean.df <- remove.escapes.spaces(og_table)
+#' clean.df <- epair:::remove.escapes.spaces(og.df)
 #' clean.df
 remove.escapes.spaces <- function(df) {
   clean.df <- string.replacer(df, "\t", "")

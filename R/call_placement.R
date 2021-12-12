@@ -232,7 +232,9 @@ clear.cached <- function(endpoint,
 #' @export
 #'
 #' @examples
-#' clear.all.data() 
+#' \dontrun{
+#' clear.all.cached() 
+#' }
 clear.all.cached <- function(directory = "/cache") {
     full.directory <- ifelse(directory == "/cache",
                              paste(getwd(),directory, sep = ""),
@@ -254,9 +256,11 @@ clear.all.cached <- function(directory = "/cache") {
 #' @return Character vector of file names currently in cache directory.
 #' @export
 #'
-#' @examples 
+#' @examples
+#' \dontrun{ 
 #' my.files <- list.cached.data()
 #' my.files 
+#' }
 list.cached.data <- function(directory = "/cache") {
     full.directory <- ifelse(directory == "/cache",
                              paste(getwd(),directory, sep = ""),
@@ -283,8 +287,10 @@ list.cached.data <- function(directory = "/cache") {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- 'list/states'
 #' save.new.cached.call(endpoint)
+#' }
 save.new.cached.call <- function(endpoint,
                                  variables = list(),
                                  directory = "/cache") {

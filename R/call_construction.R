@@ -1,3 +1,5 @@
+source("R/endpoints.R")
+
 #' Generate the string authentication needed for EPA API
 #'
 #' @param email Email registered with EPA API
@@ -25,23 +27,22 @@ create.authentication <- function(email, key) {
 #' @return A URL string containing authentication for the call.
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- "list/states"
 #' call <- epair:::create.base.call(endpoint)
 #' call
+#' }
 create.base.call <- function(endpoint) {
   if (!nzchar(Sys.getenv('aqs_api_key'))) {
     stop("Make sure you've declared aqs_api_key in your .Renviron!")
   }
   if (!nzchar(Sys.getenv('aqs_email'))) {
-      
     stop("Make sure you've declared aqs_email in your .Renviron!")
-      
   }
     
   authentication <- create.authentication(Sys.getenv("aqs_email"),
                                          Sys.getenv("aqs_api_key"))
-  base <- "https://aqs.epa.gov/data/api/"
-  result <- paste(base, endpoint, "?", authentication, sep = "")
+  result <- paste(BASE, endpoint, "?", authentication, sep = "")
   
   return(result)
   
@@ -58,14 +59,16 @@ create.base.call <- function(endpoint) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' endpoint <- "dailyData/byState"
 #' variable.list <- list("state" = '37', 
 #'                       "bdate" = '20200101', 
 #'                       "edate" = '20200102', 
 #'                       "param" = '44201')
-#' call <- epair:::create.base.call(endpoint)
+#' call <- epair::create.base.call(endpoint)
 #' call <- add.variables(call, variable.list)
 #' call
+#' }
 add.variables <- function(query, variables) {
     var.names <- names(variables)
     for (i in seq_along(variables)) {

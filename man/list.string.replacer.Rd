@@ -20,9 +20,7 @@ A list with entries matching the pattern replaced by replacement
 Replace every string entry in a list
 }
 \examples{
-\dontrun{
-services <- epair:::get.services()
+services <- list("\t Some text from the table")
 services <- epair:::list.string.replacer(services, "\t", "")
 services
-}
 }

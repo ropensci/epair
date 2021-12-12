@@ -7,16 +7,18 @@
 clear.all.cached(directory = "/cache")
 }
 \arguments{
-\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".}
+\item{directory}{Place inside user-level cache directory that was used
+to store the cached data previously. Default: "/cache".}
 }
 \value{
-'Done' if data was successfully forgotten, error message if cache directory was not found
+'Done' if data was successfully forgotten, error message if 
+cache directory was not found
 }
 \description{
 Removes all cached memory of perform.call
 }
 \examples{
 \dontrun{
-clear.all.data() 
+clear.all.cached() 
 }
 }

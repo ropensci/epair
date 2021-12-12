@@ -7,7 +7,8 @@
 list.cached.data(directory = "/cache")
 }
 \arguments{
-\item{directory}{Place inside user-level cache directory that was used to store the cached data previously. Default: "/cache".}
+\item{directory}{Place inside user-level cache directory that was used to 
+store the cached data previously. Default: "/cache".}
 }
 \value{
 Character vector of file names currently in cache directory.
@@ -16,7 +17,7 @@ Character vector of file names currently in cache directory.
 Shows contents of cache directory
 }
 \examples{
-\dontrun{
+\dontrun{ 
 my.files <- list.cached.data()
 my.files 
 }

@@ -9,10 +9,12 @@ create.authentication(email, key)
 \arguments{
 \item{email}{Email registered with EPA API}
 
-\item{key}{Key obtained from EPA API. Register your email for a key here https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.}
+\item{key}{Key obtained from EPA API. Register your email for a key here
+https://aqs.epa.gov/aqsweb/documents/data_api.html#signup.}
 }
 \value{
-A string with authentication info. It looks like '&email=user_email&key=user_key'.
+A string with authentication info. It looks 
+like '&email=user_email&key=user_key'.
 }
 \description{
 Generate the string authentication needed for EPA API

@@ -21,7 +21,7 @@ httptest::with_mock_dir("Simple call does return", {
         endpoint <- "list/states"
         response <- perform.call(endpoint)
         status <- response$Header$status
-        testthat::expect_equal('Success', status)
+        expect_equal('Success', status)
     })
 })
 

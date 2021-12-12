@@ -9,7 +9,8 @@ add.variables(query, variables)
 \arguments{
 \item{query}{A URL containing authentication for the EPA API site.}
 
-\item{variables}{A list of variables. Each variable should be declared with the appropriate name.
+\item{variables}{A list of variables. Each variable should be declared 
+with the appropriate name.
 Consult VARIABLE.TYPES for the right names.}
 }
 \value{
@@ -25,7 +26,7 @@ variable.list <- list("state" = '37',
                       "bdate" = '20200101', 
                       "edate" = '20200102', 
                       "param" = '44201')
-call <- epair:::create.base.call(endpoint)
+call <- epair::create.base.call(endpoint)
 call <- add.variables(call, variable.list)
 call
 }
