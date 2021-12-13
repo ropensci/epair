@@ -1,0 +1,9 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2021-12-12T19:45:11-05:00",
+            "url": "sampleData/byCounty?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&bdate=20160101&edate=20160102&param=42401&state=15&county=001",
+            "rows": 4992
+        }
+    ]}

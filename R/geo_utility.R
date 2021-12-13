@@ -1,6 +1,5 @@
-source("R/endpoints.R")
-
-#' Internal function to perform geospatial lookup by Core Based Statistical Area.
+#' Internal function to perform geospatial 
+#' lookup by Core Based Statistical Area.
 #' 
 #' @param endpoint Base url to make call.
 #' @param bdate Beginning date to check.
@@ -141,13 +140,13 @@ lookup_by_bbox <- function(endpoint,
 #' result$Data
 #' }
 lookup_by_state <- function(endpoint, 
-                           bdate, 
-                           edate, 
-                           state.fips,
-                           param,
-                           duration = NULL,
-                           cbdate = NULL,
-                           cedate = NULL){
+                            bdate, 
+                            edate, 
+                            state.fips,
+                            param,
+                            duration = NULL,
+                            cbdate = NULL,
+                            cedate = NULL){
   base.url <- paste(endpoint, BY_STATE, sep="/")
   base.params <- list("bdate" = bdate,
                       "edate" = edate,
@@ -193,7 +192,13 @@ lookup_by_state <- function(endpoint,
 #' county <- "001"
 #' site <- "001"
 #' param <- "42401"
-#' result <- lookup_by_site(MONITORS, bdate, edate, state.fips, county, param, site)
+#' result <- lookup_by_site(MONITORS, 
+#'                          bdate, 
+#'                          edate, 
+#'                          state.fips, 
+#'                          county, 
+#'                          param, 
+#'                          site)
 #' result$Data
 #' }
 lookup_by_site <- function(endpoint, 
