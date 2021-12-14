@@ -284,3 +284,77 @@ lookup_by_county <- function(endpoint,
                          variables = base.params)
   return(result)
 }
+
+#' Internal function to perform geospatial 
+#' lookup by primary quality assurance organization.
+#' 
+#' @param endpoint Base url to make call.
+#' @param bdate Beginning date to check.
+#' Year, month, day format.
+#' @param edate Ending date to check.
+#' Year, month, day format.
+#' @param pqao An encoding for a Primary Quality Assurance Organization.
+#' If unsure, use get_all_pqaos().
+#' @param param Pollutant parameter that site is measuring.
+#' @examples 
+#' \dontrun{
+#' bdate <- "20200101"
+#' edate <- "20201231"
+#' param <- "44201"
+#' pqao <- "0013"
+#' result <- lookup_by_pqao(QA_APE, bdate, edate, param, pqao)
+#' result$Data
+#' }
+lookup_by_pqao <- function(endpoint, 
+                           bdate, 
+                           edate, 
+                           param, 
+                           pqao){
+    base.url <- paste(endpoint, BY_PQAO, sep="/")
+    base.params <- list("bdate" = bdate,
+                        "edate" = edate,
+                        "param" = param,
+                        "pqao" = pqao)
+    
+    result <- perform.call(base.url,
+                           variables = base.params)
+    return(result)
+}
+
+
+
+#' Internal function to perform geospatial 
+#' lookup by monitoring agency.
+#' 
+#' @param endpoint Base url to make call.
+#' @param bdate Beginning date to check.
+#' Year, month, day format.
+#' @param edate Ending date to check.
+#' Year, month, day format.
+#' @param ma An encoding for a Monitoring Agency.
+#' If unsure, use get_all_mas().
+#' @param param Pollutant parameter that site is measuring.
+#' @examples 
+#' \dontrun{
+#' bdate <- "20200101"
+#' edate <- "20201231"
+#' param <- "44201"
+#' agency <- "0013"
+#' result <- lookup_by_ma(QA_APE, bdate, edate, param, agency)
+#' result$Data
+#' }
+lookup_by_ma <- function(endpoint, 
+                           bdate, 
+                           edate, 
+                           param, 
+                           agency){
+    base.url <- paste(endpoint, BY_MA, sep="/")
+    base.params <- list("bdate" = bdate,
+                        "edate" = edate,
+                        "param" = param,
+                        "agency" = agency)
+    
+    result <- perform.call(base.url,
+                           variables = base.params)
+    return(result)
+}
