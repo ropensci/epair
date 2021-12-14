@@ -1,5 +1,3 @@
-source("R/endpoints.R")
-
 #' Get all monitors at a site.
 #' 
 #' @export
