@@ -20,9 +20,24 @@ MONITORS <- "monitors"
 
 SAMPLE <- "sampleData"
 
+QA_APE <- "qaAnnualPerformanceEvaluations"
+
+QA_BLANKS <- "qaBlanks"
+
+QA_CA <- "qaCollocatedAssessments"
+
+QA_FRV <- "qaFlowRateVerifications"
+    
+QA_FRA <- "qaFlowRateAudits"
+
+QA_QC <- "qaOnePointQcRawData"
+
+QA_PEP <- "qaPepAudits"
+
 BY_SITE <- "bySite"
 BY_COUNTY <- "byCounty"
 BY_STATE <- "byState"
 BY_CBSA <- "byCBSA"
 BY_BBOX <- "byBox"
-
+BY_PQAO <- "byPQAO"
+BY_MA <- "byMA"

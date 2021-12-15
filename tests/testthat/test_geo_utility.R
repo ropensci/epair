@@ -316,3 +316,37 @@ httptest::with_mock_dir("regular lookup_by_site() is OK", {
     expect_equal(exp.status, found.status)
   })
 })
+
+httptest::with_mock_dir("regular lookup_by_pqao() is OK", {
+    test_that("Status returns successful", {
+        bdate <- "20200101"
+        edate <- "20201231"
+        param <- "44201"
+        pqao <- "0013"
+        result <- lookup_by_pqao(endpoint = QA_APE, 
+                                 bdate = bdate, 
+                                 edate = edate, 
+                                 param = param,
+                                 pqao = pqao)
+        found.status <- result$Header$status
+        exp.status <- "Success"
+        expect_equal(exp.status, found.status)
+    })
+})
+
+httptest::with_mock_dir("regular lookup_by_ma() is OK", {
+    test_that("Status returns successful", {
+        bdate <- "20200101"
+        edate <- "20201231"
+        param <- "44201"
+        agency <- "0013"
+            result <- lookup_by_ma(endpoint = QA_APE, 
+                                 bdate = bdate, 
+                                 edate = edate, 
+                                 param = param,
+                                 agency = agency)
+        found.status <- result$Header$status
+        exp.status <- "Success"
+        expect_equal(exp.status, found.status)
+    })
+})
