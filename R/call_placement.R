@@ -5,9 +5,9 @@
 #' @examples
 #' \dontrun{
 #' email <- "an.example.email@domain.com"
-#' get.aqs.key(email)
+#' get_aqs_key(email)
 #' }
-get.aqs.key <- function(user.email) {
+get_aqs_key <- function(user.email) {
   url.for.call <- paste0("https://aqs.epa.gov/data/api/signup?email=",
                          user.email)
   raw <- httr::GET(url.for.call)
@@ -22,9 +22,9 @@ get.aqs.key <- function(user.email) {
 #'
 #' @examples
 #' \dontrun{
-#' is.API.running()
+#' is_API_running()
 #' }
-is.API.running <- function() {
+is_API_running <- function() {
   endpoint <-  "metaData/isAvailable"
   url <- create.base.call(endpoint)
   raw <- httr::GET(url)

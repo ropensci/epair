@@ -2,7 +2,8 @@
 % Please edit documentation in R/geo_utility.R
 \name{lookup_by_cbsa}
 \alias{lookup_by_cbsa}
-\title{Internal function to perform geospatial lookup by Core Based Statistical Area.}
+\title{Internal function to perform geospatial 
+lookup by Core Based Statistical Area.}
 \usage{
 lookup_by_cbsa(
   endpoint,
@@ -40,7 +41,8 @@ API response containing operational information
 about the monitor.
 }
 \description{
-Internal function to perform geospatial lookup by Core Based Statistical Area.
+Internal function to perform geospatial 
+lookup by Core Based Statistical Area.
 }
 \examples{
 \dontrun{
