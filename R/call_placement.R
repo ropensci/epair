@@ -24,7 +24,7 @@ get_aqs_key <- function(user.email) {
 #' \dontrun{
 #' is_API_running()
 #' }
-is.API.running <- function() {
+is_API_running <- function() {
   endpoint <-  "metaData/isAvailable"
   url <- create.base.call(endpoint)
   raw <- httr::GET(url)

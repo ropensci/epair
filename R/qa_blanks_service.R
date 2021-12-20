@@ -144,8 +144,7 @@ get_qa_blanks_in_pqao <- function(bdate, edate, param, pqao){
 #' @param edate Ending date to check.
 #' Year, month, day format.
 #' @param param Pollutant parameter that site is measuring.
-#' @param mas An encoding for a monitoring agency. 
-#' If unsure, use get_all_mas().
+#' @param agency The monitoring agency.
 #' @return API response containing operational information
 #' about the quality assurance blank data.
 #' @examples 

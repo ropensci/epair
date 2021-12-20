@@ -331,8 +331,7 @@ lookup_by_pqao <- function(endpoint,
 #' Year, month, day format.
 #' @param edate Ending date to check.
 #' Year, month, day format.
-#' @param ma An encoding for a Monitoring Agency.
-#' If unsure, use get_all_mas().
+#' @param agency The monitoring agency.
 #' @param param Pollutant parameter that site is measuring.
 #' @examples 
 #' \dontrun{
