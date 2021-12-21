@@ -22,6 +22,8 @@ SAMPLE <- "sampleData"
 
 DAILY <- "dailyData"
 
+QUARTERLY <- "quarterlyData"
+
 QA_APE <- "qaAnnualPerformanceEvaluations"
 
 QA_BLANKS <- "qaBlanks"
