@@ -155,7 +155,8 @@ get_daily_summary_in_state <- function(bdate,
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
 #' 
-#' @return API response containing daily summary data bounded by lat long coords.
+#' @return API response containing daily summary data 
+#' bounded by lat long coords.
 #' 
 #' @examples 
 #' \dontrun{

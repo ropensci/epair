@@ -1,4 +1,4 @@
-#' Returns data summaries by yearly quarter. 
+#' Get annual summary data at a measurement site.
 #' 
 #' @param bdate Beginning date to check.
 #' Year, month, day format.
@@ -14,33 +14,32 @@
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
 #' 
-#' @return API response containing quarterly summary data at a site.
-#' 
+#' @return API response containing annual summary data for a site.
 #' @examples 
 #' \dontrun{
-#' bdate <- "20200101"
-#' edate <- "20200102"
+#' bdate <- "20170618"
+#' edate <- "20170618"
 #' state.fips <- "37"
-#' county <- "001"
-#' site <- "001"
-#' param <- "42401"
-#' result <- get_quarterly_summary_in_site(bdate, 
-#'                                         edate, 
-#'                                         state.fips, 
-#'                                         county, 
-#'                                         param, 
-#'                                         site)
+#' county <- "183"
+#' site <- "0014"
+#' param <- "44201"
+#' result <- get_annual_summary_in_site(bdate,
+#'                                      edate,
+#'                                      param,
+#'                                      state.fips,
+#'                                      county,
+#'                                      site)
 #' result$Data
 #' }
-get_quarterly_summary_in_site <- function(bdate,
-                                          edate,
-                                          state.fips,
-                                          county,
-                                          param,
-                                          site,
-                                          cbdate = NULL,
-                                          cedate = NULL){
-  result <- lookup_by_site(endpoint = QUARTERLY,
+get_annual_summary_in_site <- function(bdate,
+                               edate,
+                               param,
+                               state.fips,
+                               county,
+                               site,
+                               cbdate = NULL,
+                               cedate = NULL){
+  result <- lookup_by_site(endpoint = ANNUAL,
                            bdate = bdate,
                            edate = edate,
                            state.fips = state.fips,
@@ -52,7 +51,7 @@ get_quarterly_summary_in_site <- function(bdate,
   return(result)
 }
 
-#' Get quarterly summary data in a county.
+#' Get annual summary data in a county.
 #' 
 #' @param bdate Beginning date to check.
 #' Year, month, day format.
@@ -66,7 +65,7 @@ get_quarterly_summary_in_site <- function(bdate,
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
 #' 
-#' @return API response containing quarterly summary data in a county. 
+#' @return API response containing annual summary data in a county. 
 #' 
 #' @examples 
 #' \dontrun{
@@ -75,21 +74,21 @@ get_quarterly_summary_in_site <- function(bdate,
 #' state.fips <- "37"
 #' county <- "001"
 #' param <- "42401"
-#' result <- get_quarterly_summary_in_county(bdate,
-#'                                           edate,
-#'                                           state.fips,
-#'                                           county,
-#'                                           param)
+#' result <- get_annual_summary_in_county(bdate,
+#'                                        edate,
+#'                                        state.fips,
+#'                                        county,
+#'                                        param)
 #' result$Data
 #' }
-get_quarterly_summary_in_county <- function(bdate,
-                                            edate,
-                                            state.fips,
-                                            county,
-                                            param,
-                                            cbdate = NULL,
-                                            cedate = NULL){
-  result <- lookup_by_county(endpoint = QUARTERLY,
+get_annual_summary_in_county <- function(bdate,
+                                         edate,
+                                         state.fips,
+                                         county,
+                                         param,
+                                         cbdate = NULL,
+                                         cedate = NULL){
+  result <- lookup_by_county(endpoint = ANNUAL,
                              bdate = bdate,
                              edate = edate,
                              state.fips = state.fips,
@@ -100,7 +99,7 @@ get_quarterly_summary_in_county <- function(bdate,
   return(result)
 }
 
-#' Get quarterly summary data in a state.
+#' Get annual summary data in a state.
 #' 
 #' @param bdate Beginning date to check.
 #' Year, month, day format.
@@ -112,7 +111,7 @@ get_quarterly_summary_in_county <- function(bdate,
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
 #' 
-#' @return API response containing quarterly summary data for a state.
+#' @return API response containing annual summary data for a state.
 #' 
 #' @examples 
 #' \dontrun{
@@ -120,19 +119,19 @@ get_quarterly_summary_in_county <- function(bdate,
 #' edate <- "20200102"
 #' state.fips <- "37"
 #' param <- "42401"
-#' result <- get_quarterly_summary_in_state(bdate,
-#'                                          edate,
-#'                                          state.fips,
-#'                                          param)
+#' result <- get_annual_summary_in_state(bdate,
+#'                                       edate,
+#'                                       state.fips,
+#'                                       param)
 #' result$Data
 #' }
-get_quarterly_summary_in_state <- function(bdate,
-                                           edate,
-                                           state.fips,
-                                           param,
-                                           cbdate = NULL,
-                                           cedate = NULL){
-  result <- lookup_by_state(endpoint = QUARTERLY,
+get_annual_summary_in_state <- function(bdate,
+                                        edate,
+                                        state.fips,
+                                        param,
+                                        cbdate = NULL,
+                                        cedate = NULL){
+  result <- lookup_by_state(endpoint = ANNUAL,
                             bdate = bdate,
                             edate = edate,
                             state.fips = state.fips,
@@ -142,7 +141,7 @@ get_quarterly_summary_in_state <- function(bdate,
   return(result)
 }
 
-#' Get quarterly summary data in a bounding box (lat, long).
+#' Get annual summary data in a bounding box (lat, long).
 #' 
 #' @param bdate Beginning date to check.
 #' Year, month, day format.
@@ -156,7 +155,7 @@ get_quarterly_summary_in_state <- function(bdate,
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
 #' 
-#' @return API response containing quarterly summary data in a bounding box.
+#' @return API response containing annual summary data in a bounding box.
 #' 
 #' @examples 
 #' \dontrun{
@@ -167,25 +166,25 @@ get_quarterly_summary_in_state <- function(bdate,
 #' maxlat <- 33.6
 #' minlong <- -87
 #' maxlong <- -86.7
-#' result <- get_quarterly_summary_in_bbox(bdate,
-#'                                         edate,
-#'                                         param,
-#'                                         minlat,
-#'                                         maxlat,
-#'                                         minlong,
-#'                                         maxlong)
+#' result <- get_annual_summary_in_bbox(bdate,
+#'                                      edate,
+#'                                      param,
+#'                                      minlat,
+#'                                      maxlat,
+#'                                      minlong,
+#'                                      maxlong)
 #' result$Data
 #' }
-get_quarterly_summary_in_bbox <- function(bdate,
-                                          edate,
-                                          param,
-                                          minlat,
-                                          maxlat,
-                                          minlong,
-                                          maxlong,
-                                          cbdate = NULL,
-                                          cedate = NULL){
-  result <- lookup_by_bbox(endpoint = QUARTERLY,
+get_annual_summary_in_bbox <- function(bdate,
+                                       edate,
+                                       param,
+                                       minlat,
+                                       maxlat,
+                                       minlong,
+                                       maxlong,
+                                       cbdate = NULL,
+                                       cedate = NULL){
+  result <- lookup_by_bbox(endpoint = ANNUAL,
                            bdate = bdate,
                            edate = edate,
                            param = param,
@@ -198,7 +197,7 @@ get_quarterly_summary_in_bbox <- function(bdate,
   return(result)
 }
 
-#' Get quarterly summary data in a Core Based Statistical Area.
+#' Get annual summary data in a Core Based Statistical Area.
 #' 
 #' @param bdate Beginning date to check.
 #' Year, month, day format.
@@ -216,19 +215,19 @@ get_quarterly_summary_in_bbox <- function(bdate,
 #' edate <- "20190601"
 #' cbsa <- "16740"
 #' param <- "42401"
-#' result <- get_quarterly_summary_in_cbsa(bdate, 
-#'                                         edate, 
-#'                                         param, 
-#'                                         cbsa)
+#' result <- get_annual_summary_in_cbsa(bdate, 
+#'                                      edate, 
+#'                                      param, 
+#'                                      cbsa)
 #' result$Data
 #' }
-get_quarterly_summary_in_cbsa <- function(bdate,
-                                          edate,
-                                          param,
-                                          cbsa,
-                                          cbdate = NULL,
-                                          cedate = NULL){
-  result <- lookup_by_cbsa(endpoint = QUARTERLY,
+get_annual_summary_in_cbsa <- function(bdate,
+                                       edate,
+                                       param,
+                                       cbsa,
+                                       cbdate = NULL,
+                                       cedate = NULL){
+  result <- lookup_by_cbsa(endpoint = ANNUAL,
                            bdate = bdate,
                            edate = edate,
                            param = param,
