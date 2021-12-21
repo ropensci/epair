@@ -20,6 +20,8 @@ MONITORS <- "monitors"
 
 SAMPLE <- "sampleData"
 
+DAILY <- "dailyData"
+
 QA_APE <- "qaAnnualPerformanceEvaluations"
 
 QA_BLANKS <- "qaBlanks"

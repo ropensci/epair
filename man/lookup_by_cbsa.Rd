@@ -37,8 +37,7 @@ If unsure, use get_cbsas().}
 \item{cedate}{Ending date of last change to DB. (Optional)}
 }
 \value{
-API response containing operational information
-about the monitor.
+API response containing data at the cbsa level.
 }
 \description{
 Internal function to perform geospatial 
