@@ -1,11 +1,14 @@
+# Base URL for API
 BASE <- "https://aqs.epa.gov/data/api/"
 
+# Meta data service endpoint and parameters
 META_DATA <- "metaData"
 IS_AVAILABLE <- "isAvailable"
 REVISION_HISTORY <- "revisionHistory"
 FIELDS_BY_SERVICE <- "fieldsByService"
 ISSUES <- "issues"
 
+# Lookup code parameters
 LIST <- "list"
 STATES <- "states"
 COUNTIES_BY_STATE <- "countiesByState"
@@ -16,24 +19,21 @@ PARAMETERS_WITHIN_CLASS <- "parametersByClass"
 PQAOS <- "pqaos"
 MAS <- "mas"
 
+# Data aqcuisition parameters
 MONITORS <- "monitors"
-
 SAMPLE <- "sampleData"
-
+DAILY <- "dailyData"
+QUARTERLY <- "quarterlyData"
+ANNUAL <- "annualData"
 QA_APE <- "qaAnnualPerformanceEvaluations"
-
 QA_BLANKS <- "qaBlanks"
-
 QA_CA <- "qaCollocatedAssessments"
-
 QA_FRV <- "qaFlowRateVerifications"
-    
 QA_FRA <- "qaFlowRateAudits"
-
 QA_QC <- "qaOnePointQcRawData"
-
 QA_PEP <- "qaPepAudits"
 
+# Geospatial look up parameters
 BY_SITE <- "bySite"
 BY_COUNTY <- "byCounty"
 BY_STATE <- "byState"

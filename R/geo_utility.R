@@ -12,8 +12,7 @@
 #' @param duration The 1-character AQS sample duration code. (Optional)
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
-#' @return API response containing operational information
-#' about the monitor.
+#' @return API response containing data at the cbsa level.
 #' @examples 
 #' \dontrun{
 #' bdate <- "20200101"
@@ -63,8 +62,7 @@ lookup_by_cbsa <- function(endpoint,
 #' @param duration The 1-character AQS sample duration code. (Optional)
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
-#' @return API response containing operational information
-#' about the monitor.
+#' @return API response containing bbox bounded data.
 #' @examples 
 #' \dontrun{
 #' bdate <- "20200101"
