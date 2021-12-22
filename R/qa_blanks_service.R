@@ -23,8 +23,12 @@
 #' county <- "033"
 #' param <- "88101"
 #' site <- "1002"
-#' result <- get_qa_blanks_in_site(bdate, edate, state.fips, 
-#' county, param, site)
+#' result <- get_qa_blanks_in_site(bdate, 
+#'                                 edate, 
+#'                                 state.fips, 
+#'                                 county, 
+#'                                 param, 
+#'                                 site)
 #' result$Data
 #' } 
 get_qa_blanks_in_site <- function(bdate, 
