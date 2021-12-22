@@ -32,6 +32,8 @@ QA_FRV <- "qaFlowRateVerifications"
 QA_FRA <- "qaFlowRateAudits"
 QA_QC <- "qaOnePointQcRawData"
 QA_PEP <- "qaPepAudits"
+TF_SAMPLE <- "transactionsSample"
+TF_QA_APE <- "transactionsQaAnnualPerformanceEvaluations"
 
 # Geospatial look up parameters
 BY_SITE <- "bySite"
