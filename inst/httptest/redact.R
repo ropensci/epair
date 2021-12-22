@@ -3,8 +3,10 @@ credential.redactor <- function (response) {
     response %>%
       gsub_response("https://aqs.epa.gov/data/api/", "") %>%
       gsub_response("qaAnnualPerformanceEvaluations", "qaAPE") %>%
+      gsub_response("transactionsQaAnnualPerformanceEvaluations", "tfqaAPE") %>%
       gsub_response(Sys.getenv("aqs_email"), "fake_aqs_email@domain.com") %>%
       gsub_response(Sys.getenv("aqs_api_key"), "fake_aqs_api_key")
+        
 }
 
 
