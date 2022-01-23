@@ -155,7 +155,7 @@ httptest::with_mock_dir("Clear all cached data error",{
     })
 })
 
-httptest::with_mock_dir("Retrieve cached call ",{
+httptest::with_mock_dir("Retrieve cached call",{
     test_that("Retrieve a previously saved cached call", {
         endpoint <- 'dailyData/byState'
         variable.list <- list("state" = '37',
