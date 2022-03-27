@@ -11,6 +11,10 @@
 #' @param site Measurement site code.
 #' Use get_sites_by_county() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @param cbdate Change begin date. (Optional) 
 #' @param cedate Change end date. (Optional)
 #'
@@ -38,6 +42,8 @@ get_daily_summary_in_site <- function(bdate,
                                       county,
                                       site,
                                       param,
+                                      cached = TRUE,
+                                      cache_directory = "/cache",
                                       cbdate = NULL,
                                       cedate = NULL){
   result <- lookup_by_site(endpoint = DAILY,
@@ -46,6 +52,8 @@ get_daily_summary_in_site <- function(bdate,
                            state.fips = state.fips,
                            county = county,
                            param = param,
+                           cached = cached,
+                           cache_directory = cache_directory,
                            cbdate = cbdate,
                            cedate = cedate,
                            site = site)
@@ -63,6 +71,10 @@ get_daily_summary_in_site <- function(bdate,
 #' @param county County code. 
 #' Use get_counties_in_state() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @param cbdate Change begin date. (Optional) 
 #' @param cedate Change end date. (Optional)
 #'
@@ -87,6 +99,8 @@ get_daily_summary_in_county <- function(bdate,
                                         state.fips,
                                         county,
                                         param,
+                                        cached = TRUE,
+                                        cache_directory = "/cache",
                                         cbdate = NULL,
                                         cedate = NULL){
   result <- lookup_by_county(endpoint = DAILY,
@@ -95,6 +109,8 @@ get_daily_summary_in_county <- function(bdate,
                              state.fips = state.fips,
                              county = county,
                              param = param,
+                             cached = cached,
+                             cache_directory = cache_directory,
                              cbdate = cbdate,
                              cedate = cedate)
   return(result)
@@ -109,6 +125,10 @@ get_daily_summary_in_county <- function(bdate,
 #' @param state.fips State FIPS code.
 #' Use get_state_fips() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @param cbdate Change begin date. (Optional) 
 #' @param cedate Change end date. (Optional)
 #'
@@ -129,6 +149,8 @@ get_daily_summary_in_state <- function(bdate,
                                        edate,
                                        state.fips,
                                        param,
+                                       cached = TRUE,
+                                       cache_directory = "/cache",
                                        cbdate = NULL,
                                        cedate = NULL){
   result <- lookup_by_state(endpoint = DAILY,
@@ -136,6 +158,8 @@ get_daily_summary_in_state <- function(bdate,
                             edate = edate,
                             state.fips = state.fips,
                             param = param,
+                            cached = cached,
+                            cache_directory = cache_directory,
                             cbdate = cbdate,
                             cedate = cedate)
   return(result)
@@ -152,6 +176,10 @@ get_daily_summary_in_state <- function(bdate,
 #' @param minlong Minimum longitude coordinate.
 #' @param maxlong Maximum longitude coordinate.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
 #' 
@@ -183,6 +211,8 @@ get_daily_summary_in_bbox <- function(bdate,
                                       maxlat,
                                       minlong,
                                       maxlong,
+                                      cached = TRUE,
+                                      cache_directory = "/cache",
                                       cbdate = NULL,
                                       cedate= NULL){
   result <- lookup_by_bbox(endpoint = DAILY,
@@ -193,6 +223,8 @@ get_daily_summary_in_bbox <- function(bdate,
                            maxlat = maxlat,
                            minlong = minlong,
                            maxlong = maxlong,
+                           cached = cached,
+                           cache_directory = cache_directory,
                            cbdate = cbdate,
                            cedate = cedate)
   return(result)
@@ -207,6 +239,10 @@ get_daily_summary_in_bbox <- function(bdate,
 #' @param cbsa An encoding for a Core Base Statiscal Area.
 #' If unsure, use get_cbsas().
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
 #' 
@@ -228,6 +264,8 @@ get_daily_summary_in_cbsa <- function(bdate,
                                       edate,
                                       param,
                                       cbsa,
+                                      cached = TRUE,
+                                      cache_directory = "/cache",
                                       cbdate = NULL,
                                       cedate = NULL){
   result <- lookup_by_cbsa(endpoint = DAILY,
@@ -235,6 +273,8 @@ get_daily_summary_in_cbsa <- function(bdate,
                            edate = edate,
                            param = param,
                            cbsa = cbsa,
+                           cached = cached,
+                           cache_directory = cache_directory,
                            cbdate = cbdate,
                            cedate = cedate)
   return(result)

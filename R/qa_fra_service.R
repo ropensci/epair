@@ -13,6 +13,10 @@
 #' @param site Measurement site code.
 #' Use get_sites_by_county() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the quality assurance flow rate audit data.
 #' @examples 
@@ -26,14 +30,23 @@
 #' result <- get_qa_fra_in_site(bdate, edate, state.fips, county, param, site)
 #' result$Data
 #' } 
-get_qa_fra_in_site <- function(bdate, edate, state.fips, county, param, site){
+get_qa_fra_in_site <- function(bdate, 
+                               edate, 
+                               state.fips, 
+                               county, 
+                               param, 
+                               site,
+                               cached = TRUE,
+                               cache_directory = "/cache"){
     result <- lookup_by_site(endpoint = QA_FRA,
                              bdate = bdate,
                              edate = edate,
                              state.fips = state.fips,
                              county = county,
                              param = param,
-                             site = site)
+                             site = site,
+                             cached = cached,
+                             cache_directory = cache_directory)
     return(result)
 }
 
@@ -49,6 +62,10 @@ get_qa_fra_in_site <- function(bdate, edate, state.fips, county, param, site){
 #' @param county County code. 
 #' Use get_counties_in_state() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the quality assurance flow rate audit data.
 #' @examples 
@@ -61,13 +78,21 @@ get_qa_fra_in_site <- function(bdate, edate, state.fips, county, param, site){
 #' result <- get_qa_fra_in_county(bdate, edate, state.fips, county, param)
 #' result$Data
 #' }
-get_qa_fra_in_county <- function(bdate, edate, state.fips, county, param){
+get_qa_fra_in_county <- function(bdate, 
+                                 edate, 
+                                 state.fips, 
+                                 county, 
+                                 param,
+                                 cached = TRUE,
+                                 cache_directory = "/cache"){
     result <- lookup_by_county(endpoint = QA_FRA, 
                                bdate = bdate, 
                                edate = edate, 
                                state.fips = state.fips, 
                                county = county, 
-                               param = param)
+                               param = param,
+                               cached = cached,
+                               cache_directory = cache_directory)
     return(result)
 }
 
@@ -81,6 +106,10 @@ get_qa_fra_in_county <- function(bdate, edate, state.fips, county, param){
 #' @param state.fips State FIPS code.
 #' Use get_state_fips() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the quality assurance flow rate audit data.
 #' @examples 
@@ -92,12 +121,19 @@ get_qa_fra_in_county <- function(bdate, edate, state.fips, county, param){
 #' result <- get_qa_fra_in_state(bdate, edate, state.fips, param)
 #' result$Data
 #' }
-get_qa_fra_in_state <- function(bdate, edate, state.fips, param){
+get_qa_fra_in_state <- function(bdate, 
+                                edate, 
+                                state.fips, 
+                                param,
+                                cached = TRUE,
+                                cache_directory = "/cache"){
     result <- lookup_by_state(endpoint = QA_FRA,
                               bdate = bdate,
                               edate = edate,
                               state.fips = state.fips,
-                              param = param)
+                              param = param,
+                              cached = cached,
+                              cache_directory = cache_directory)
     return(result)
 }
 
@@ -111,6 +147,10 @@ get_qa_fra_in_state <- function(bdate, edate, state.fips, param){
 #' @param pqao An encoding for a primary quality assurance organization.
 #' If unsure, use get_all_pqaos().
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the quality assurance flow rate audit data.
 #' @examples 
@@ -122,12 +162,19 @@ get_qa_fra_in_state <- function(bdate, edate, state.fips, param){
 #' result <- get_qa_fra_in_pqao(bdate, edate, param, pqao)
 #' result$Data
 #' }
-get_qa_fra_in_pqao <- function(bdate, edate, param, pqao){
+get_qa_fra_in_pqao <- function(bdate, 
+                               edate, 
+                               param, 
+                               pqao,
+                               cached = TRUE,
+                               cache_directory = "/cache"){
     result <- lookup_by_pqao(endpoint = QA_FRA,
                              bdate = bdate,
                              edate = edate,
                              param = param,
-                             pqao = pqao)
+                             pqao = pqao,
+                             cached = cached,
+                             cache_directory = cache_directory)
     return(result)
 }
 
@@ -140,6 +187,10 @@ get_qa_fra_in_pqao <- function(bdate, edate, param, pqao){
 #' Year, month, day format.
 #' @param param Pollutant parameter that site is measuring.
 #' @param agency The monitoring agency.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the quality assurance flow rate audit data.
 #' @examples 
@@ -157,12 +208,16 @@ get_qa_fra_in_pqao <- function(bdate, edate, param, pqao){
 get_qa_fra_in_agency <-  function(bdate, 
                                   edate, 
                                   param, 
-                                  agency){
+                                  agency,
+                                  cached = TRUE,
+                                  cache_directory = "/cache"){
     result <- lookup_by_ma(endpoint = QA_FRA,
                            bdate = bdate,
                            edate = edate,
                            param = param,
-                           agency = agency)
+                           agency = agency,
+                           cached = cached,
+                           cache_directory = cache_directory)
     return(result)
 }
 
