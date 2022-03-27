@@ -1,5 +1,5 @@
 pandoc: 2.14.0.3
-pkgdown: 2.0.2
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   a01_ananomyEPARequest: a01_ananomyEPARequest.html
@@ -12,5 +12,5 @@ articles:
   a08_Endpoints: a08_Endpoints.html
   a09_Services: a09_Services.html
   epair: epair.html
-last_built: 2022-01-14T00:31Z
+last_built: 2022-03-27T23:26Z
 
