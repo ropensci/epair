@@ -227,7 +227,7 @@ get_tf_qa_ape_in_agency <-  function(bdate,
                                   param, 
                                   agency,
                                   cached = TRUE,
-                                  cache_directory = "/cache",){
+                                  cache_directory = "/cache"){
     result <- lookup_by_ma(endpoint = TF_QA_APE,
                            bdate = bdate,
                            edate = edate,
