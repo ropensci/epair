@@ -11,6 +11,35 @@ vignette: >
 
 Now you know how to make calls! The general template for making a call (after making sure authentication is set up) is as follows.
 
+# Option 1: User friendly functions
+1. Make the call with the appropriate `get` function for the service.
+
+```{r eval = FALSE}
+result <- get_state_fips()
+```
+
+2. If the call requires a single variable, declare the variable with the variable name and pass it as an argument, or directly pass it as an argument.
+
+```{r eval = FALSE}
+
+result <- get_counties_in_state(state.fips = 'value')
+
+```
+
+
+3. If the call requires multiple variables, pass each variable as it's corresponding argument.
+
+```{r eval = FALSE}
+
+
+result <- get_annual_summary_in_state(bdate = "value.one",
+                                      edate = "value.two",
+                                      state.fips = "value.three",
+                                      param = "value.four")
+```
+
+
+# Option 2: Manually placing the call
 1. Determine an endpoint for your service (possibly with the `services` object).
 
 ```{r eval = FALSE}
@@ -56,3 +85,4 @@ result <- perform.call(endpoint,
                        variables,
                        name = list("variable.one", "variable.two", "variable.three"))
 ```
+

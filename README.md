@@ -13,13 +13,23 @@ https://aqs.epa.gov/aqsweb/documents/data_api.html.
 The `epair` package helps you determine what data you want and how to get that data from the EPA API.
 It provides loaded in variables that help you navigate services in the API, and a simple way to query the data. A comprehensive tutorial for using `epair` can be found at https://glorozcom.github.io/epair/. 
 
-Easily find the endpoint you need. 
+Place the call using built-in service functions.
+
+```
+> result <- get_daily_summary_in_state(bdate = "20190101",
+                                       edate = "20190131",
+                                       param = "44201",         # Ozone
+                                       state.fips = "02")       # Alaska
+> alaska <- result$Data
+```
+
+Another approach giving the same results is manually placing the call by first finding the endpoint you need.
 ```
 > services$`Daily Summary Data`$Filters$`By State`$Endpoint
 [1] "dailyData/byState"
 ```
 
-Place the call.
+Then place the call by specifying the appropriate endpoint.
 
 ```
 > endpoint <- "dailyData/byState"
@@ -107,6 +117,7 @@ for the API.
 
 Place your call without having to worry about string manipulations or JSON files.
 
+* corresponding `get` functions will take the required variables and will automatically use the correct endpoint, providing the user with the result as a dataframe.
 * `perform.call()` will take an endpoint and variables and provided the user with metadata and desired data as a dataframe. 
 * `perform.call.raw()` will give the same results as `perform.call()` except for in JSON format.
 

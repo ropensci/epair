@@ -12,6 +12,10 @@
 #' @param site Measurement site code.
 #' Use get_sites_by_county() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' @examples 
@@ -25,14 +29,23 @@
 #' result <- get_monitors_in_site(bdate, edate, state.fips, county, param, site)
 #' result$Data
 #' } 
-get_monitors_in_site <- function(bdate, edate, state.fips, county, param, site){
+get_monitors_in_site <- function(bdate, 
+                                 edate, 
+                                 state.fips, 
+                                 county, 
+                                 param, 
+                                 site,
+                                 cached = TRUE,
+                                 cache_directory = "/cache"){
   result <- lookup_by_site(endpoint = MONITORS,
                            bdate = bdate,
                            edate = edate,
                            state.fips = state.fips,
                            county = county,
                            param = param,
-                           site = site)
+                           site = site,
+                           cached = cached,
+                           cache_directory = cache_directory)
   return(result)
 }
 
@@ -48,6 +61,10 @@ get_monitors_in_site <- function(bdate, edate, state.fips, county, param, site){
 #' @param county County code. 
 #' Use get_counties_in_state() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' @examples 
@@ -60,13 +77,21 @@ get_monitors_in_site <- function(bdate, edate, state.fips, county, param, site){
 #' result <- get_monitors_in_county(bdate, edate, state.fips, county, param)
 #' result$Data
 #' }
-get_monitors_in_county <- function(bdate, edate, state.fips, county, param){
+get_monitors_in_county <- function(bdate, 
+                                   edate, 
+                                   state.fips, 
+                                   county, 
+                                   param,
+                                   cached = TRUE,
+                                   cache_directory = "/cache"){
   result <- lookup_by_county(endpoint = MONITORS, 
                              bdate = bdate, 
                              edate = edate, 
                              state.fips = state.fips, 
                              county = county, 
-                             param = param)
+                             param = param,
+                             cached = cached,
+                             cache_directory = cache_directory)
   return(result)
 }
 
@@ -80,6 +105,10 @@ get_monitors_in_county <- function(bdate, edate, state.fips, county, param){
 #' @param state.fips State FIPS code.
 #' Use get_state_fips() if unsure.
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' @examples 
@@ -91,12 +120,19 @@ get_monitors_in_county <- function(bdate, edate, state.fips, county, param){
 #' result <- get_monitors_in_state(bdate, edate, state.fips, param)
 #' result$Data
 #' }
-get_monitors_in_state <- function(bdate, edate, state.fips, param){
+get_monitors_in_state <- function(bdate, 
+                                  edate, 
+                                  state.fips, 
+                                  param,
+                                  cached = TRUE,
+                                  cache_directory = "/cache"){
   result <- lookup_by_state(endpoint = MONITORS,
                             bdate = bdate,
                             edate = edate,
                             state.fips = state.fips,
-                            param = param)
+                            param = param,
+                            cached = cached,
+                            cache_directory = cache_directory)
   return(result)
 }
 
@@ -109,6 +145,10 @@ get_monitors_in_state <- function(bdate, edate, state.fips, param){
 #' @param cbsa An encoding for a Core Base Statiscal Area.
 #' If unsure, use get_cbsas().
 #' @param param Pollutant parameter that site is measuring.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' @examples 
@@ -120,12 +160,19 @@ get_monitors_in_state <- function(bdate, edate, state.fips, param){
 #' result <- get_monitors_in_cbsa(bdate, edate, param, cbsa)
 #' result$Data
 #' }
-get_monitors_in_cbsa <- function(bdate, edate, param, cbsa){
+get_monitors_in_cbsa <- function(bdate, 
+                                 edate, 
+                                 param, 
+                                 cbsa,
+                                 cached = TRUE,
+                                 cache_directory = "/cache"){
   result <- lookup_by_cbsa(endpoint = MONITORS,
                            bdate = bdate,
                            edate = edate,
                            param = param,
-                           cbsa = cbsa)
+                           cbsa = cbsa,
+                           cached = cached,
+                           cache_directory = cache_directory)
   return(result)
 }
 
@@ -141,6 +188,10 @@ get_monitors_in_cbsa <- function(bdate, edate, param, cbsa){
 #' @param maxlat Maximum latitude coordinate.
 #' @param minlong Minimum longitude coordinate.
 #' @param maxlong Maximum longitude coordinate.
+#' @param cached TRUE or FALSE specifying if the data from the call is to 
+#' be cached. Default: TRUE. (Optional)
+#' @param cache_directory Place inside user-level cache directory to store 
+#' the cached data. Default: "/cache". (Optional)
 #' @return API response containing operational information
 #' about the monitor.
 #' @examples 
@@ -167,7 +218,9 @@ get_monitors_in_bbox <-  function(bdate,
                                   minlat, 
                                   maxlat, 
                                   minlong, 
-                                  maxlong){
+                                  maxlong,
+                                  cached = TRUE,
+                                  cache_directory = "/cache"){
   result <- lookup_by_bbox(endpoint = MONITORS,
                            bdate = bdate,
                            edate = edate,
@@ -175,6 +228,8 @@ get_monitors_in_bbox <-  function(bdate,
                            minlat = minlat,
                            maxlat = maxlat,
                            minlong = minlong,
-                           maxlong = maxlong)
+                           maxlong = maxlong,
+                           cached = cached,
+                           cache_directory = cache_directory)
   return(result)
 }

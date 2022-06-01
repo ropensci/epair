@@ -58,11 +58,35 @@ If you haven't already read the Anatomy of an API request, we recommend you do. 
 
 Remember to set up your authentication first!
 
-The package automatically includes the base of the call (the base API site and authentication). To query, we need only provide an endpoint (to see how you can determine an endpoint see the [Finding endpoints](../../Useful-Features/Endpoints) page). 
+The package automatically includes the base of the call (the base API site and authentication). To query, we need to find the appropriate `get` function for our service, or manually provide an endpoint to `perform.call()` (to see how you can determine an endpoint see the [Finding endpoints](../../Useful-Features/Endpoints) page). 
 
-### The endpoint
+### Option 1: User friendly functions
 
-As mentioned above, we need to determine the appropriate endpoint for the type of query we wish to make.
+To reduce the difficulty of finding the specific endpoint for your API call, there are a collection of specific `get` functions for each service and filter combination.
+
+If we were trying to find state parameter codes, this will return all states and their respective FIPS codes.
+
+```{r, eval=FALSE}
+result <- get_state_fips()
+```
+
+The `get` function for each service will provide an R list with a `Header` and `Data` component. The `Header` contains information about the call and is useful for determining how the call went through. 
+
+```{r, eval=FALSE}
+result$Header$status
+result$Header$request_time
+```
+
+To get the actual data we called for (states and their parameter codes), we use the `Data` component of the result.
+
+```{r, eval=FALSE}
+result$Data
+```
+
+### Option 2: Manually placing the call
+
+If we want to make the call manually, we need to determine the appropriate endpoint for the type of query we wish to make.
+
 Recall that we're looking for all parameter codes associated with each state in the US.
 
 We first look at `services`, and select `List`'s description to see if this is the appropriate service to use. 
@@ -75,8 +99,6 @@ services$List$Description
 This seems like the perfect service to use to find state parameter codes. We select `List`, and then see that there are multiple `Filters` available for listing. 
 
 ![](img/making_first_call/list_filters.png)
-
-
 
 It looks like `States` would be the most appropriate option here.
 
@@ -94,18 +116,7 @@ After determining the endpoint, we can make the call using `perform.call()`.
 ```{r, eval=FALSE}
 result <- perform.call(endpoint = endpoint)
 ```
-The `perform.call()` function will provide an R list with a `Header` and `Data` component. The `Header` contains information about the call and is useful for determining how the call went through. 
-
-```{r, eval=FALSE}
-result$Header$status
-result$Header$request_time
-```
-
-To get the actual data we called for (states and their parameter codes), we use the `Data` component of the result.
-
-```{r, eval=FALSE}
-result$Data
-```
+The `perform.call()` function will provide the same R list structure for output as each of the `get` functions.
 
 Alternatively, if you want the original output from the API, `perform.call.raw()` will make a request, and provide the request results raw in JSON format. 
 
