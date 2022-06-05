@@ -5,7 +5,16 @@
 \title{Get quality assurance one point quality control data at
 a site.}
 \usage{
-get_qa_qc_in_site(bdate, edate, state.fips, county, param, site)
+get_qa_qc_in_site(
+  bdate,
+  edate,
+  state.fips,
+  county,
+  param,
+  site,
+  cached = TRUE,
+  cache_directory = "/cache"
+)
 }
 \arguments{
 \item{bdate}{Beginning date to check.
@@ -24,6 +33,12 @@ Use get_counties_in_state() if unsure.}
 
 \item{site}{Measurement site code.
 Use get_sites_by_county() if unsure.}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 }
 \value{
 API response containing operational information

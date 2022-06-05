@@ -11,6 +11,8 @@ get_annual_summary_in_site(
   state.fips,
   county,
   site,
+  cached = TRUE,
+  cache_directory = "/cache",
   cbdate = NULL,
   cedate = NULL
 )
@@ -32,6 +34,12 @@ Use get_counties_in_state() if unsure.}
 
 \item{site}{Measurement site code.
 Use get_sites_by_county() if unsure.}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 
 \item{cbdate}{Beginning date of last change to DB. (Optional)}
 

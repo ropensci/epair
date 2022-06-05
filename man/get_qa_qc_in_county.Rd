@@ -5,7 +5,15 @@
 \title{Get quality assurance annual one point quality control data
 in a county.}
 \usage{
-get_qa_qc_in_county(bdate, edate, state.fips, county, param)
+get_qa_qc_in_county(
+  bdate,
+  edate,
+  state.fips,
+  county,
+  param,
+  cached = TRUE,
+  cache_directory = "/cache"
+)
 }
 \arguments{
 \item{bdate}{Beginning date to check.
@@ -21,6 +29,12 @@ Use get_state_fips() if unsure.}
 Use get_counties_in_state() if unsure.}
 
 \item{param}{Pollutant parameter that site is measuring.}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 }
 \value{
 API response containing operational information
