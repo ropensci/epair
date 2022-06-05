@@ -94,24 +94,6 @@ httptest::with_mock_dir("List cached data error",{
     })
 })
 
-httptest::with_mock_dir("Multi-variate cached call, time",{
-    test_that("A cached call is faster the second time called", {
-        endpoint <- 'dailyData/byState'
-        variable.list <- list("state" = '39',
-                              "bdate" = '20200101',
-                              "edate" = '20200110',
-                              "param" = '44201')
-        first.time <- system.time(
-            epair:::perform.call(endpoint = endpoint,
-                                 variables = variable.list))
-        second.time <- system.time(
-            epair:::perform.call(endpoint = endpoint,
-                                 variables = variable.list))
-        expect_lt(second.time[[3]][1], first.time[[3]][1])
-
-    })
-})
-
 httptest::with_mock_dir("List cached data response",{
     test_that("List cached data produces a character vector reponse", {
         endpoint <- 'dailyData/byState'
