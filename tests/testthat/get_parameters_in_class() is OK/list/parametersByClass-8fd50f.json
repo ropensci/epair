@@ -2,9 +2,39 @@
     "Header": [
         {
             "status": "Success",
-            "request_time": "2021-12-11T16:35:03-05:00",
+            "request_time": "2022-07-17T12:37:40-04:00",
             "url": "list/parametersByClass?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&pc=AQI%20POLLUTANTS",
             "rows": 7
+        }
+    ],
+    "Data": [
+        {
+            "code": "42101",
+            "value_represented": "Carbon monoxide"
+        },
+        {
+            "code": "42401",
+            "value_represented": "Sulfur dioxide"
+        },
+        {
+            "code": "42602",
+            "value_represented": "Nitrogen dioxide (NO2)"
+        },
+        {
+            "code": "44201",
+            "value_represented": "Ozone"
+        },
+        {
+            "code": "81102",
+            "value_represented": "PM10 Total 0-10um STP"
+        },
+        {
+            "code": "88101",
+            "value_represented": "PM2.5 - Local Conditions"
+        },
+        {
+            "code": "88502",
+            "value_represented": "Acceptable PM2.5 AQI & Speciation Mass"
         }
     ]
 }
