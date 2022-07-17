@@ -1,4 +1,4 @@
-httptest::with_mock_dir("get_revision_history() is OK", {
+httptest::with_mock_dir("meta_revision_history_ok", {
   test_that("Successful status returned", {
     result <- get_revision_history()
     found.status <- result$Header$status
@@ -7,7 +7,7 @@ httptest::with_mock_dir("get_revision_history() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_issues() is OK", {
+httptest::with_mock_dir("meta_issues_ok", {
   test_that("Successful status returned", {
     result <- get_known_issues()
     found.status <- result$Header$status
@@ -16,7 +16,7 @@ httptest::with_mock_dir("get_issues() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_fields_by_service() is OK", {
+httptest::with_mock_dir("meta_fields_by_service_ok", {
   test_that("Successful status returned for present service", {
     service <- "list"
     result <- get_fields_by_service(service)

@@ -1,4 +1,4 @@
-httptest::with_mock_dir("Raw return is correct", {
+httptest::with_mock_dir("raw_return_ok", {
     test_that("place.call.raw returns a response object", {
         endpoint <- "list/states"
         full.url <- create.base.call(endpoint)
@@ -7,7 +7,7 @@ httptest::with_mock_dir("Raw return is correct", {
     })
 })
 
-httptest::with_mock_dir("Mod call return is correct", {
+httptest::with_mock_dir("mod_call_return_ok", {
     test_that("place.call returns a json type (list)", {
         endpoint <- "list/states"
         full.url <- create.base.call(endpoint)
@@ -16,7 +16,7 @@ httptest::with_mock_dir("Mod call return is correct", {
     })
 })
 
-httptest::with_mock_dir("Simple call does return", {
+httptest::with_mock_dir("simple_call_ok", {
     test_that("Simple call without variables goes through", {
         endpoint <- "list/states"
         response <- perform.call(endpoint)
@@ -25,7 +25,7 @@ httptest::with_mock_dir("Simple call does return", {
     })
 })
 
-httptest::with_mock_dir("Raw multi-variate call returns",{
+httptest::with_mock_dir("raw_multivariate_ok",{
     test_that("Raw call returns a response object", {
         endpoint <- 'dailyData/byState'
         variable.list <- list("state" = '37',
@@ -40,7 +40,7 @@ httptest::with_mock_dir("Raw multi-variate call returns",{
     })
 })
 
-httptest::with_mock_dir("Single variable call returns", {
+httptest::with_mock_dir("single_variable_ok", {
     test_that("A call with a single additional variable gets made correctly", {
         endpoint <- services$List$Filters$`Counties by State`$Endpoint
         variables <- list("state" = '37')
@@ -51,7 +51,7 @@ httptest::with_mock_dir("Single variable call returns", {
     })
 })
 
-httptest::with_mock_dir("Multi-variate call returns", {
+httptest::with_mock_dir("multivariate_ok", {
     test_that("A call with multiple variables gets made correctly", {
         endpoint <- 'dailyData/byState'
         variable.list <- list("state" = '37',
@@ -65,7 +65,7 @@ httptest::with_mock_dir("Multi-variate call returns", {
     })
 })
 
-httptest::with_mock_dir("Cached file is deleted",{
+httptest::with_mock_dir("cached_file_deleted_ok",{
     test_that("A cached file that is chosen is deleted", {
         endpoint <- 'dailyData/byState'
         variable.list <- list("state" = '37',
@@ -79,7 +79,7 @@ httptest::with_mock_dir("Cached file is deleted",{
     })
 })
 
-httptest::with_mock_dir("List cached data error",{
+httptest::with_mock_dir("list_cached_error_ok",{
     test_that(paste("List cached data produces an error when there are",
                     "no cached files found in the directory or no",
                     "directory found"), {
@@ -94,7 +94,7 @@ httptest::with_mock_dir("List cached data error",{
     })
 })
 
-httptest::with_mock_dir("List cached data response",{
+httptest::with_mock_dir("list_cached_response_ok",{
     test_that("List cached data produces a character vector reponse", {
         endpoint <- 'dailyData/byState'
         variable.list <- list("state" = '37',
@@ -108,7 +108,7 @@ httptest::with_mock_dir("List cached data response",{
     })
 })
 
-httptest::with_mock_dir("Clear cached data error",{
+httptest::with_mock_dir("clear_cached_error_ok",{
     test_that(paste("Clear cached produces an error when the file",
                     "or directory is not found"), {
         endpoint <- 'dailyData/byState'
@@ -123,7 +123,7 @@ httptest::with_mock_dir("Clear cached data error",{
     })
 })
 
-httptest::with_mock_dir("Clear all cached data error",{
+httptest::with_mock_dir("clear_all_error_ok",{
     test_that(paste("Clear all cached produces an error when there",
                     "are no cached files or the directory is not found"), {
         endpoint <- 'dailyData/byState'
@@ -137,7 +137,7 @@ httptest::with_mock_dir("Clear all cached data error",{
     })
 })
 
-httptest::with_mock_dir("Retrieve cached call",{
+httptest::with_mock_dir("retrieve_cache_ok",{
     test_that("Retrieve a previously saved cached call", {
         endpoint <- 'dailyData/byState'
         variable.list <- list("state" = '37',
@@ -150,7 +150,7 @@ httptest::with_mock_dir("Retrieve cached call",{
     })
 })
 
-httptest::with_mock_dir("Save new cached call saves new call",{
+httptest::with_mock_dir("save_new_cache_ok",{
     test_that("Save new cached call will save the file in the correct folder", {
         endpoint <- 'dailyData/byState'
         variable.list <- list("state" = '38',
@@ -163,7 +163,7 @@ httptest::with_mock_dir("Save new cached call saves new call",{
     })
 })
 
-httptest::with_mock_dir("All cached files are deleted",{
+httptest::with_mock_dir("all_cache_deleted_ok",{
     test_that("All cached files are deleted from memory", {
         endpoint <- 'dailyData/byState'
         variable.list <- list("state" = '37',

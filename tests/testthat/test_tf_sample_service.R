@@ -1,4 +1,4 @@
-httptest::with_mock_dir("get_tf_sample_in_site() is OK", {
+httptest::with_mock_dir("tf_sample_in_site_ok", {
     test_that("Status returns successful", {
         bdate <- "20200101"
         edate <- "20200331"
@@ -18,7 +18,7 @@ httptest::with_mock_dir("get_tf_sample_in_site() is OK", {
     })
 })
 
-httptest::with_mock_dir("get_tf_sample_in_county() is OK", {
+httptest::with_mock_dir("tf_sample_in_county_ok", {
     test_that("Status returns successful", {
         bdate <- "20200101"
         edate <- "20200331"
@@ -36,7 +36,7 @@ httptest::with_mock_dir("get_tf_sample_in_county() is OK", {
     })
 })
 
-httptest::with_mock_dir("get_tf_sample_in_state() is OK", {
+httptest::with_mock_dir("tf_sample_in_state_ok", {
     test_that("Status returns successful", {
         bdate <- "20200101"
         edate <- "20200331"
@@ -52,7 +52,7 @@ httptest::with_mock_dir("get_tf_sample_in_state() is OK", {
     })
 })
 
-httptest::with_mock_dir("get_tf_sample_in_agency() is OK", {
+httptest::with_mock_dir("tf_sample_in_agency_ok", {
     test_that("Status returns successful", {
         bdate <- "20200101"
         edate <- "20200331"

@@ -1,4 +1,4 @@
-httptest::with_mock_dir("get_samples_in_bbox() is OK", {
+httptest::with_mock_dir("samples_in_bbox_ok", {
   test_that("status returns successful in regular call", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -20,7 +20,7 @@ httptest::with_mock_dir("get_samples_in_bbox() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_samples_in_cbsa() is OK", {
+httptest::with_mock_dir("samples_in_cbsa_ok", {
   test_that("Status returns successful in regular call", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -36,7 +36,7 @@ httptest::with_mock_dir("get_samples_in_cbsa() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_samples_in_county() is OK", {
+httptest::with_mock_dir("samples_in_county_ok", {
   test_that("Status returns successful in regular call", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -54,7 +54,7 @@ httptest::with_mock_dir("get_samples_in_county() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_samples_in_state() is OK", {
+httptest::with_mock_dir("samples_in_state_ok", {
   test_that("Status returns successful in regular call", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -70,7 +70,7 @@ httptest::with_mock_dir("get_samples_in_state() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_samples_in_site() is OK", {
+httptest::with_mock_dir("samples_in_site_ok", {
   test_that("Status returns successful in regular call", {
     bdate <- "20160101"
     edate <- "20160102"

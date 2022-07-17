@@ -1,4 +1,4 @@
-httptest::with_mock_dir("get_annual_summary_in_site() is OK", {
+httptest::with_mock_dir("annual_summary_in_site_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160601"
@@ -18,7 +18,7 @@ httptest::with_mock_dir("get_annual_summary_in_site() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_annual_summary_in_county() is OK", {
+httptest::with_mock_dir("annual_summary_in_county_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160601"
@@ -36,7 +36,7 @@ httptest::with_mock_dir("get_annual_summary_in_county() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_annual_summary_in_state() is OK", {
+httptest::with_mock_dir("annual_summary_in_state_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160601"
@@ -52,7 +52,7 @@ httptest::with_mock_dir("get_annual_summary_in_state() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_annual_summary_in_bbox() is OK", {
+httptest::with_mock_dir("annual_summary_in_bbox_ok", {
   test_that("Status returns successful", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -74,7 +74,7 @@ httptest::with_mock_dir("get_annual_summary_in_bbox() is OK", {
   })
 })
 
-httptest::with_mock_dir("get_annual_summary_in_cbsa() is OK", {
+httptest::with_mock_dir("annual_summary_in_cbsa_ok", {
   test_that("Status returns successful", {
     bdate <- "20190101"
     edate <- "20190601"

@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T13:38:15-04:00",
+            "url": "quarterlyData/byCBSA?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&bdate=20190101&edate=20190601&param=42401&cbsa=16740",
+            "rows": 40
+        }
+    ]
+}
