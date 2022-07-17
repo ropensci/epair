@@ -12,3 +12,9 @@ get_fields_by_service(service)
 \description{
 Get fields required per service.
 }
+\examples{
+\dontrun{
+result <- get_fields_by_service()
+result$Data
+}
+}

@@ -9,3 +9,9 @@ get_known_issues()
 \description{
 Get any known issues within the API.
 }
+\examples{
+\dontrun{
+result <- get_known_issues()
+result$Data
+}
+}
