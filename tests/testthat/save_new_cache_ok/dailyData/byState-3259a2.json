@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T13:28:07-04:00",
+            "url": "dailyData/byState?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&state=38&bdate=20200101&edate=20200102&param=44201",
+            "rows": 72
+        }
+    ]
+}

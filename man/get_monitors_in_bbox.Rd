@@ -4,7 +4,17 @@
 \alias{get_monitors_in_bbox}
 \title{Get all monitoring sites within a bounding box (lat, long).}
 \usage{
-get_monitors_in_bbox(bdate, edate, param, minlat, maxlat, minlong, maxlong)
+get_monitors_in_bbox(
+  bdate,
+  edate,
+  param,
+  minlat,
+  maxlat,
+  minlong,
+  maxlong,
+  cached = TRUE,
+  cache_directory = "/cache"
+)
 }
 \arguments{
 \item{bdate}{Beginning date to check.
@@ -22,6 +32,12 @@ Year, month, day format.}
 \item{minlong}{Minimum longitude coordinate.}
 
 \item{maxlong}{Maximum longitude coordinate.}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 }
 \value{
 API response containing operational information

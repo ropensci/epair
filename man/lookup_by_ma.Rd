@@ -5,7 +5,15 @@
 \title{Internal function to perform geospatial 
 lookup by monitoring agency.}
 \usage{
-lookup_by_ma(endpoint, bdate, edate, param, agency)
+lookup_by_ma(
+  endpoint,
+  bdate,
+  edate,
+  param,
+  agency,
+  cached = TRUE,
+  cache_directory = "/cache"
+)
 }
 \arguments{
 \item{endpoint}{Base url to make call.}
@@ -19,6 +27,12 @@ Year, month, day format.}
 \item{param}{Pollutant parameter that site is measuring.}
 
 \item{agency}{The monitoring agency.}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 }
 \description{
 Internal function to perform geospatial 

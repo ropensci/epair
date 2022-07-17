@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T14:12:12-04:00",
+            "url": "monitors/byBox?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&bdate=20200101&edate=20200102&param=42401&minlat=33.3&maxlat=33.6&minlon=-87&maxlon=-86.7&cbdate=20200101&cedate=20201231",
+            "rows": 2
+        }
+    ]
+}

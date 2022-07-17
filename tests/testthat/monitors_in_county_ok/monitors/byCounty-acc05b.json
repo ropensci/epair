@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T13:53:11-04:00",
+            "url": "monitors/byCounty?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&bdate=20160101&edate=20160102&param=42401&state=15&county=001",
+            "rows": 16
+        }
+    ]
+}

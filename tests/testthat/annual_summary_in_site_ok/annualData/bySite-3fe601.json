@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T13:21:22-04:00",
+            "url": "annualData/bySite?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&bdate=20160101&edate=20160601&param=42401&state=37&county=183&site=0014",
+            "rows": 6
+        }
+    ]
+}

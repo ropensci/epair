@@ -5,7 +5,15 @@
 \title{Internal function to perform geospatial 
 lookup by primary quality assurance organization.}
 \usage{
-lookup_by_pqao(endpoint, bdate, edate, param, pqao)
+lookup_by_pqao(
+  endpoint,
+  bdate,
+  edate,
+  param,
+  pqao,
+  cached = TRUE,
+  cache_directory = "/cache"
+)
 }
 \arguments{
 \item{endpoint}{Base url to make call.}
@@ -20,6 +28,12 @@ Year, month, day format.}
 
 \item{pqao}{An encoding for a Primary Quality Assurance Organization.
 If unsure, use get_all_pqaos().}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 }
 \description{
 Internal function to perform geospatial 

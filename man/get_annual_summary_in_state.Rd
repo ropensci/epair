@@ -9,6 +9,8 @@ get_annual_summary_in_state(
   edate,
   state.fips,
   param,
+  cached = TRUE,
+  cache_directory = "/cache",
   cbdate = NULL,
   cedate = NULL
 )
@@ -24,6 +26,12 @@ Year, month, day format.}
 Use get_state_fips() if unsure.}
 
 \item{param}{Pollutant parameter that site is measuring.}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 
 \item{cbdate}{Beginning date of last change to DB. (Optional)}
 

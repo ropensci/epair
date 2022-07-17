@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T12:37:37-04:00",
+            "url": "list/countiesByState?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&state=37",
+            "rows": 100
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T14:01:56-04:00",
+            "url": "qaBlanks/bySite?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&bdate=20180101&edate=20180131&param=88101&state=01&county=033&site=1002",
+            "rows": 1
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T12:55:00-04:00",
+            "url": "qaOnePointQcRawData/bySite?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key&bdate=20200101&edate=20200520&param=44201&state=01&county=003&site=0010",
+            "rows": 81
+        }
+    ]
+}

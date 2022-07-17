@@ -1,0 +1,10 @@
+{
+    "Header": [
+        {
+            "status": "Success",
+            "request_time": "2022-07-17T12:37:38-04:00",
+            "url": "list/cbsas?&email=fake_aqs_email@domain.com&key=fake_aqs_api_key",
+            "rows": 1006
+        }
+    ]
+}

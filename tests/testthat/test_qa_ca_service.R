@@ -1,4 +1,4 @@
-httptest::with_mock_dir("get_qq_ca_in_site() is OK", {
+httptest::with_mock_dir("qa_ca_in_site_ok", {
     test_that("Status returns successful", {
         bdate <- "20190101"
         edate <- "20190131"
@@ -18,7 +18,7 @@ httptest::with_mock_dir("get_qq_ca_in_site() is OK", {
     })
 })
 
-httptest::with_mock_dir("get_qa_ca_in_county() is OK", {
+httptest::with_mock_dir("qa_ca_in_county_ok", {
     test_that("Status returns successful", {
         bdate <- "20190101"
         edate <- "20190131"
@@ -36,7 +36,7 @@ httptest::with_mock_dir("get_qa_ca_in_county() is OK", {
     })
 })
 
-httptest::with_mock_dir("get_qa_ca_in_state() is OK", {
+httptest::with_mock_dir("qa_ca_in_state_ok", {
     test_that("Status returns successful", {
         bdate <- "20190101"
         edate <- "20190131"
@@ -52,7 +52,7 @@ httptest::with_mock_dir("get_qa_ca_in_state() is OK", {
     })
 })
 
-httptest::with_mock_dir("get_qa_ca_in_pqao() is OK", {
+httptest::with_mock_dir("qa_ca_in_pqao_ok", {
     test_that("Status returns successful", {
         bdate <- "20190101"
         edate <- "20190131"
@@ -68,7 +68,7 @@ httptest::with_mock_dir("get_qa_ca_in_pqao() is OK", {
     })
 })
 
-httptest::with_mock_dir("get_qa_ca_in_agency() is OK", {
+httptest::with_mock_dir("qa_ca_in_agency_ok", {
     test_that("Status returns successful", {
         bdate <- "20190101"
         edate <- "20190131"

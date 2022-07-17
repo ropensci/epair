@@ -1,4 +1,4 @@
-httptest::with_mock_dir("change lookup_by_cbsa() is OK", {
+httptest::with_mock_dir("geo_util_change_lookup_by_cbsa_ok", {
   test_that("Status returns successful in regular call", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -19,7 +19,7 @@ httptest::with_mock_dir("change lookup_by_cbsa() is OK", {
   })
 })
 
-httptest::with_mock_dir("regular lookup_by_cbsa() is OK", {
+httptest::with_mock_dir("geo_util_regular_lookup_by_cbsa_ok", {
   test_that("Status returns successful in regular call", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -36,7 +36,7 @@ httptest::with_mock_dir("regular lookup_by_cbsa() is OK", {
   })
 })
 
-httptest::with_mock_dir("duration lookup_by_cbsa() is OK", {
+httptest::with_mock_dir("geo_util_duration_lookup_by_cbsa_ok", {
   test_that("Status returns successful in duration call", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -56,7 +56,7 @@ httptest::with_mock_dir("duration lookup_by_cbsa() is OK", {
 })
 
 
-httptest::with_mock_dir("duration lookup_by_bbox() is OK", {
+httptest::with_mock_dir("geo_util_duration_lookup_by_bbox_ok", {
   test_that("Status returns successful", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -81,7 +81,7 @@ httptest::with_mock_dir("duration lookup_by_bbox() is OK", {
   })
 })
 
-httptest::with_mock_dir("change lookup_by_bbox() is OK", {
+httptest::with_mock_dir("geo_util_change_lookup_by_bbox_ok", {
   test_that("Status returns successful", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -108,7 +108,7 @@ httptest::with_mock_dir("change lookup_by_bbox() is OK", {
   })
 })
 
-httptest::with_mock_dir("regular lookup_by_bbox() is OK", {
+httptest::with_mock_dir("geo_util_regular_lookup_by_bbox_ok", {
   test_that("Status returns successful", {
     bdate <- "20200101"
     edate <- "20200102"
@@ -131,7 +131,7 @@ httptest::with_mock_dir("regular lookup_by_bbox() is OK", {
   })
 })
 
-httptest::with_mock_dir("change lookup_by_state() is OK", {
+httptest::with_mock_dir("geo_util_change_lookup_by_state_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -150,7 +150,7 @@ httptest::with_mock_dir("change lookup_by_state() is OK", {
   })
 })
 
-httptest::with_mock_dir("duration lookup_by_state() is OK", {
+httptest::with_mock_dir("geo_util_duration_lookup_by_state_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -169,7 +169,7 @@ httptest::with_mock_dir("duration lookup_by_state() is OK", {
   })
 })
 
-httptest::with_mock_dir("regular lookup_by_state() is OK", {
+httptest::with_mock_dir("geo_util_regular_lookup_by_state_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -185,7 +185,7 @@ httptest::with_mock_dir("regular lookup_by_state() is OK", {
   })
 })
 
-httptest::with_mock_dir("change lookup_by_county() is OK", {
+httptest::with_mock_dir("geo_util_change_lookup_by_county_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -208,7 +208,7 @@ httptest::with_mock_dir("change lookup_by_county() is OK", {
   })
 })
 
-httptest::with_mock_dir("regular lookup_by_county() is OK", {
+httptest::with_mock_dir("geo_util_regular_lookup_by_county_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -227,7 +227,7 @@ httptest::with_mock_dir("regular lookup_by_county() is OK", {
   })
 })
 
-httptest::with_mock_dir("duration lookup_by_county() is OK", {
+httptest::with_mock_dir("geo_util_duration_lookup_by_county_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -248,7 +248,7 @@ httptest::with_mock_dir("duration lookup_by_county() is OK", {
   })
 })
 
-httptest::with_mock_dir("change lookup_by_site() is OK", {
+httptest::with_mock_dir("geo_util_change_lookup_by_site_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -273,7 +273,7 @@ httptest::with_mock_dir("change lookup_by_site() is OK", {
   })
 })
 
-httptest::with_mock_dir("duration lookup_by_site() is OK", {
+httptest::with_mock_dir("geo_util_duration_lookup_by_site_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -296,7 +296,7 @@ httptest::with_mock_dir("duration lookup_by_site() is OK", {
   })
 })
 
-httptest::with_mock_dir("regular lookup_by_site() is OK", {
+httptest::with_mock_dir("geo_util_regular_lookup_by_site_ok", {
   test_that("Status returns successful", {
     bdate <- "20160101"
     edate <- "20160102"
@@ -317,7 +317,7 @@ httptest::with_mock_dir("regular lookup_by_site() is OK", {
   })
 })
 
-httptest::with_mock_dir("regular lookup_by_pqao() is OK", {
+httptest::with_mock_dir("geo_util_regular_lookup_by_pqao_ok", {
     test_that("Status returns successful", {
         bdate <- "20200101"
         edate <- "20201231"
@@ -334,7 +334,7 @@ httptest::with_mock_dir("regular lookup_by_pqao() is OK", {
     })
 })
 
-httptest::with_mock_dir("regular lookup_by_ma() is OK", {
+httptest::with_mock_dir("geo_util_regular_lookup_by_ma_ok", {
     test_that("Status returns successful", {
         bdate <- "20200101"
         edate <- "20201231"

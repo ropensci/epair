@@ -17,6 +17,7 @@ get_revision_history <- function(){
 #' Get any known issues within the API.
 #'
 #' @export
+#' @examples
 #' \dontrun{
 #' result <- get_known_issues()
 #' result$Data
@@ -32,6 +33,7 @@ get_known_issues <- function(){
 #' @param service A service provided by EPA's AQS system.
 #' 
 #' @export
+#' @examples
 #' \dontrun{
 #' result <- get_fields_by_service()
 #' result$Data

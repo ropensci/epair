@@ -11,84 +11,10 @@ https://aqs.epa.gov/aqsweb/documents/data_api.html.
 ### Overview
 
 The `epair` package helps you determine what data you want and how to get that data from the EPA API.
-It provides loaded in variables that help you navigate services in the API, and a simple way to query the data. A comprehensive tutorial for using `epair` can be found at https://glorozcom.github.io/epair/. 
+It provides loaded in variables that help you navigate services in the API, and a simple way to query the data. A comprehensive site for using `epair` can be found at https://glorozcom.github.io/epair/. 
 
-Place the call using built-in service functions.
-
-```
-> result <- get_daily_summary_in_state(bdate = "20190101",
-                                       edate = "20190131",
-                                       param = "44201",         # Ozone
-                                       state.fips = "02")       # Alaska
-> alaska <- result$Data
-```
-
-Another approach giving the same results is manually placing the call by first finding the endpoint you need.
-```
-> services$`Daily Summary Data`$Filters$`By State`$Endpoint
-[1] "dailyData/byState"
-```
-
-Then place the call by specifying the appropriate endpoint.
-
-```
-> endpoint <- "dailyData/byState"
-> vars <-  list(bdate = "20190101",
-                edate = "20190131",
-                param = "44201",    # Ozone
-                state = "02")       # Alaska
-> result <- perform.call(endpoint, vars)
-> alaska <- result$Data
-##   state_code county_code site_number parameter_code poc latitude longitude
-## 1         02         068        0003          44201   1  63.7232 -148.9676
-## 2         02         068        0003          44201   1  63.7232 -148.9676
-## 3         02         068        0003          44201   1  63.7232 -148.9676
-## 4         02         068        0003          44201   1  63.7232 -148.9676
-## 5         02         068        0003          44201   1  63.7232 -148.9676
-## 6         02         068        0003          44201   1  63.7232 -148.9676
-##   datum parameter         sample_duration pollutant_standard date_local
-## 1 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979 2019-01-01
-## 2 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997 2019-01-01
-## 3 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 2008 2019-01-01
-## 4 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-hour 2015 2019-01-01
-## 5 WGS84     Ozone                  1 HOUR  Ozone 1-hour 1979 2019-01-02
-## 6 WGS84     Ozone 8-HR RUN AVG BEGIN HOUR  Ozone 8-Hour 1997 2019-01-02
-##    units_of_measure event_type observation_count observation_percent
-## 1 Parts per million       None                24                 100
-## 2 Parts per million       None                24                 100
-## 3 Parts per million       None                24                 100
-## 4 Parts per million       None                17                 100
-## 5 Parts per million       None                24                 100
-## 6 Parts per million       None                24                 100
-##   validity_indicator arithmetic_mean first_max_value first_max_hour aqi
-## 1                  Y        0.042667           0.045              9  NA
-## 2                  Y        0.041917           0.044              5  41
-## 3                  Y        0.041917           0.044              5  41
-## 4                  Y        0.041588           0.044              7  41
-## 5                  Y        0.036708           0.040              1  NA
-## 6                  Y        0.035708           0.039              0  36
-##   method_code                      method                 local_site_name
-## 1         047 INSTRUMENTAL - ULTRA VIOLET Denali NP & PRES - Headquarters
-## 2         047 INSTRUMENTAL - ULTRA VIOLET Denali NP & PRES - Headquarters
-## 3         047 INSTRUMENTAL - ULTRA VIOLET Denali NP & PRES - Headquarters
-## 4         047 INSTRUMENTAL - ULTRA VIOLET Denali NP & PRES - Headquarters
-## 5         047 INSTRUMENTAL - ULTRA VIOLET Denali NP & PRES - Headquarters
-## 6         047 INSTRUMENTAL - ULTRA VIOLET Denali NP & PRES - Headquarters
-##           site_address  state  county          city cbsa_code cbsa
-## 1 DENALI NATIONAL PARK Alaska Denali  Not in a city      <NA> <NA>
-## 2 DENALI NATIONAL PARK Alaska Denali  Not in a city      <NA> <NA>
-## 3 DENALI NATIONAL PARK Alaska Denali  Not in a city      <NA> <NA>
-## 4 DENALI NATIONAL PARK Alaska Denali  Not in a city      <NA> <NA>
-## 5 DENALI NATIONAL PARK Alaska Denali  Not in a city      <NA> <NA>
-## 6 DENALI NATIONAL PARK Alaska Denali  Not in a city      <NA> <NA>
-##   date_of_last_change
-## 1          2020-02-26
-## 2          2020-02-26
-## 3          2020-02-26
-## 4          2020-02-26
-## 5          2020-02-26
-## 6          2020-02-26
-```
+Broadly, you can explore possible calls by typing `epair::get_` and seeing what autocomplete offers in R. 
+Most of these functions require a start and end date along with a geographical boundary type (like CBSA code or bounding box). For more details, we recommend looking at the help docs `?epair::get_[type]()` for the function you're interested in using to see the exact required params.
 
 ### Installation
 
@@ -105,23 +31,6 @@ devtools::install("GLOrozcoM/epair")
 ```
 
 `epair` depends on `httr` for making its data calls and `rvest` for creating the variables loaded in with the package. We recommend having `httr` installed (automatically taken care of through package dependencies), and only installing `rvest` if you're curious about how package variables were made.
-
-### Key features
-
-Look at variables to glean more information on the kind of data call you want to make. 
-
-* `services` provides an easy to use container for all services and required calling variables
-for the API. 
-* `variables` gives you information on all required calling variables. 
-* `endpoints` offers a comprehensive list of every endpoint used in the API.
-
-Place your call without having to worry about string manipulations or JSON files.
-
-* corresponding `get` functions will take the required variables and will automatically use the correct endpoint, providing the user with the result as a dataframe.
-* `perform.call()` will take an endpoint and variables and provided the user with metadata and desired data as a dataframe. 
-* `perform.call.raw()` will give the same results as `perform.call()` except for in JSON format.
-
-Caching is automatically supported through internal use of `R.cache`. 
 
 ## Usage notes
 

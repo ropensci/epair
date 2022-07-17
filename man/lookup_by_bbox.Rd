@@ -13,6 +13,8 @@ lookup_by_bbox(
   maxlat,
   minlong,
   maxlong,
+  cached = TRUE,
+  cache_directory = "/cache",
   duration = NULL,
   cbdate = NULL,
   cedate = NULL
@@ -36,6 +38,12 @@ Year, month, day format.}
 \item{minlong}{Minimum longitude coordinate.}
 
 \item{maxlong}{Maximum longitude coordinate.}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 
 \item{duration}{The 1-character AQS sample duration code. (Optional)}
 

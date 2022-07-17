@@ -12,6 +12,8 @@ get_daily_summary_in_bbox(
   maxlat,
   minlong,
   maxlong,
+  cached = TRUE,
+  cache_directory = "/cache",
   cbdate = NULL,
   cedate = NULL
 )
@@ -32,6 +34,12 @@ Year, month, day format.}
 \item{minlong}{Minimum longitude coordinate.}
 
 \item{maxlong}{Maximum longitude coordinate.}
+
+\item{cached}{TRUE or FALSE specifying if the data from the call is to 
+be cached. Default: TRUE. (Optional)}
+
+\item{cache_directory}{Place inside user-level cache directory to store 
+the cached data. Default: "/cache". (Optional)}
 
 \item{cbdate}{Beginning date of last change to DB. (Optional)}
 
