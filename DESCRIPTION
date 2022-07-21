@@ -1,6 +1,6 @@
 Package: epair
 Title: EPA Data Helper for R
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: 
     c(person(given = "G.L.",
              family = "Orozco-Mulfinger",
@@ -32,8 +32,8 @@ Suggests:
     knitr (>= 1.33),
     rmarkdown (>= 2.8),
     testthat (>= 3.0.2)
-BugReports: https://github.com/GLOrozcoM/epair/issues
-URL: https://github.com/GLOrozcoM/epair
+BugReports: https://github.com/ropensci/epair/issues
+URL: https://github.com/ropensci/epair
 VignetteBuilder: 
     knitr
 SystemRequirements: pandoc
