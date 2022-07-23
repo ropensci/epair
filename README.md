@@ -27,7 +27,7 @@ install.packages("epair", repos = "https://ropensci.r-universe.dev")
 Alternativately, you can download the latest release from this repo using `devtools`. 
 
 ```
-devtools::install.github("ropensci/epair")
+devtools::install_github("ropensci/epair")
 ```
 
 Or, download these files, and in your working directory run the following.
