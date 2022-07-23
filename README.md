@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4309792.svg)](https://doi.org/10.5281/zenodo.4309792)
-[![R-CMD-check](https://github.com/GLOrozcoM/epair/workflows/R-CMD-check/badge.svg)](https://github.com/GLOrozcoM/epair/actions)
+[![R-CMD-check](https://github.com/ropensci/epair/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/epair/actions)
 <!-- badges: end -->
 
 A package designed to aid in getting data from the Environmental Protection Agency (EPA) API at
@@ -11,23 +11,29 @@ https://aqs.epa.gov/aqsweb/documents/data_api.html.
 ### Overview
 
 The `epair` package helps you determine what data you want and how to get that data from the EPA API.
-It provides loaded in variables that help you navigate services in the API, and a simple way to query the data. A comprehensive site for using `epair` can be found at https://glorozcom.github.io/epair/. 
+It provides loaded in variables that help you navigate services in the API, and a simple way to query the data.
 
 Broadly, you can explore possible calls by typing `epair::get_` and seeing what autocomplete offers in R. 
 Most of these functions require a start and end date along with a geographical boundary type (like CBSA code or bounding box). For more details, we recommend looking at the help docs `?epair::get_[type]()` for the function you're interested in using to see the exact required params.
 
 ### Installation
 
-You can download the latest release from this repo using `devtools`. 
+You can download the package simply by using `r-universe`. 
 
 ```
-devtools::install.github("GLOrozcoM/epair")
+install.packages("epair", repos = "https://ropensci.r-universe.dev")
+````
+
+Alternativately, you can download the latest release from this repo using `devtools`. 
+
+```
+devtools::install.github("ropensci/epair")
 ```
 
-Or, download these files and in your working directory run
+Or, download these files, and in your working directory run the following.
 
 ```
-devtools::install("GLOrozcoM/epair")
+devtools::install("ropensci/epair")
 ```
 
 `epair` depends on `httr` for making its data calls and `rvest` for creating the variables loaded in with the package. We recommend having `httr` installed (automatically taken care of through package dependencies), and only installing `rvest` if you're curious about how package variables were made.
