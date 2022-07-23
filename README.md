@@ -1,7 +1,7 @@
 # epair
 
 <!-- badges: start -->
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4309792.svg)](https://doi.org/10.5281/zenodo.4309792)
+[![DOI](https://zenodo.org/badge/263992685.svg)](https://zenodo.org/badge/latestdoi/263992685)
 [![R-CMD-check](https://github.com/ropensci/epair/workflows/R-CMD-check/badge.svg)](https://github.com/ropensci/epair/actions)
 <!-- badges: end -->
 
