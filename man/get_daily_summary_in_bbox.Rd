@@ -46,7 +46,7 @@ the cached data. Default: "/cache". (Optional)}
 \item{cedate}{Ending date of last change to DB. (Optional)}
 }
 \value{
-API response containing daily summary data 
+API response containing daily summary data
 bounded by lat long coords.
 }
 \description{
