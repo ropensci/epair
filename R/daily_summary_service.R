@@ -19,8 +19,9 @@
 #' @param cedate Change end date. (Optional)
 #'
 #' @return API response containing daily data.
-#' 
-#' @examples 
+#' @export
+#'
+#' @examples
 #' \dontrun{
 #' param <- 44201
 #' bdate <- 20170618
@@ -79,8 +80,9 @@ get_daily_summary_in_site <- function(bdate,
 #' @param cedate Change end date. (Optional)
 #'
 #' @return API response containing daily data.
-#' 
-#' @examples 
+#' @export
+#'
+#' @examples
 #' \dontrun{
 #' param <- 44201
 #' bdate <- 20170618
@@ -133,7 +135,9 @@ get_daily_summary_in_county <- function(bdate,
 #' @param cedate Change end date. (Optional)
 #'
 #' @return API response containing daily data.
-#' @examples 
+#' @export
+#'
+#' @examples
 #' \dontrun{
 #' param <- 44201
 #' bdate <- 20170618
@@ -182,11 +186,12 @@ get_daily_summary_in_state <- function(bdate,
 #' the cached data. Default: "/cache". (Optional)
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
-#' 
-#' @return API response containing daily summary data 
+#'
+#' @return API response containing daily summary data
 #' bounded by lat long coords.
-#' 
-#' @examples 
+#' @export
+#'
+#' @examples
 #' \dontrun{
 #' bdate <- "20200101"
 #' edate <- "20200102"
@@ -245,10 +250,11 @@ get_daily_summary_in_bbox <- function(bdate,
 #' the cached data. Default: "/cache". (Optional)
 #' @param cbdate Beginning date of last change to DB. (Optional)
 #' @param cedate Ending date of last change to DB. (Optional)
-#' 
+#'
 #' @return API response containing daily summary data at the CBSA level.
-#' 
-#' @examples 
+#' @export
+#'
+#' @examples
 #' \dontrun{
 #' bdate <- 20170101
 #' edate <- 20170101
